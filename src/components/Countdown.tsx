@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 import { Globe } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
 import { Button } from '@/components/ui/button';
-import { FireworksBackground } from '@/components/FireworksBackground';
+import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
 import { PhotoCarousel } from '@/components/PhotoCarousel';
 import { PhotoUpload } from '@/components/PhotoUpload';
 import { TimezoneSelector } from '@/components/TimezoneSelector';
@@ -32,12 +32,13 @@ export const Countdown = memo(function Countdown({
 }: CountdownProps) {
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
   const [showTimezone, setShowTimezone] = useState(false);
-  const { days, hours, minutes, seconds, isComplete } = useCountdown(targetDate);
+  const { days, hours, minutes, seconds, isComplete } =
+    useCountdown(targetDate);
 
   return (
     <>
-      {/* Fireworks Background */}
-      <FireworksBackground />
+      {/* Animated Starry Fireworks Background */}
+      <StarryFireworksBackground />
 
       {/* Photo Upload Modal */}
       {showPhotoUpload && (
@@ -70,85 +71,81 @@ export const Countdown = memo(function Countdown({
               variant="ghost"
               size="sm"
               onClick={() => setShowTimezone(true)}
-              className="text-white/70 hover:text-white hover:bg-white/10"
+              className="text-white/50 hover:text-white/80 hover:bg-white/5"
             >
               <Globe className="h-4 w-4 mr-2" />
-              <span className="text-xs">{timezone.split('/').pop()?.replace(/_/g, ' ')}</span>
+              <span className="text-xs">
+                {timezone.split('/').pop()?.replace(/_/g, ' ')}
+              </span>
             </Button>
           )}
         </div>
 
-        {/* Content Container */}
-        <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
+        {/* Content Container - Centered vertically with space for photos */}
+        <div className="flex-1 flex flex-col items-center justify-center px-4 pb-48 md:pb-56 lg:pb-64">
           {/* Title */}
-          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white tracking-wider text-glow mb-8 md:mb-12 text-center">
-            {isComplete ? '🎉 HAPPY NEW YEAR! 🎉' : "NEW YEAR'S EVE COUNTDOWN"}
+          <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold text-white tracking-widest text-glow mb-6 md:mb-10 text-center uppercase">
+            {isComplete ? 'HAPPY NEW YEAR!' : "NEW YEAR'S EVE COUNTDOWN"}
           </h1>
 
           {/* Countdown Timer Bar */}
           {!isComplete ? (
-            <div className="w-full max-w-4xl mx-auto mb-8 md:mb-12">
-              <div 
-                className="gold-gradient rounded-lg md:rounded-xl p-4 md:p-6 animate-glow"
+            <div className="w-full max-w-3xl mx-auto">
+              <div
+                className="champagne-gradient rounded-lg md:rounded-xl px-6 py-4 md:px-10 md:py-6 animate-glow"
                 role="timer"
                 aria-label="Time remaining until New Year"
+                style={{
+                  boxShadow:
+                    '0 4px 30px rgba(255, 220, 150, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                }}
               >
-                <div className="flex items-center justify-center gap-2 md:gap-4">
+                <div className="flex items-center justify-center">
                   {/* Days */}
-                  <div className="text-center">
-                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
-                      {formatNumber(days)}
-                    </span>
-                  </div>
-                  <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white/80">:</span>
-                  
-                  {/* Hours */}
-                  <div className="text-center">
-                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
-                      {formatNumber(hours)}
-                    </span>
-                  </div>
-                  <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white/80">:</span>
-                  
-                  {/* Minutes */}
-                  <div className="text-center">
-                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
-                      {formatNumber(minutes)}
-                    </span>
-                  </div>
-                  <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white/80">:</span>
-                  
-                  {/* Seconds */}
-                  <div className="text-center">
-                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
-                      {formatNumber(seconds)}
-                    </span>
-                  </div>
-                </div>
+                  <span className="text-3xl md:text-5xl lg:text-7xl font-bold text-white tabular-nums text-glow tracking-tight">
+                    {formatNumber(days)}
+                  </span>
+                  <span className="text-3xl md:text-5xl lg:text-7xl font-light text-white/70 mx-1 md:mx-2">
+                    :
+                  </span>
 
-                {/* Labels */}
-                <div className="flex items-center justify-center gap-8 md:gap-16 mt-2 md:mt-4">
-                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Days</span>
-                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Hours</span>
-                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Min</span>
-                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Sec</span>
+                  {/* Hours */}
+                  <span className="text-3xl md:text-5xl lg:text-7xl font-bold text-white tabular-nums text-glow tracking-tight">
+                    {formatNumber(hours)}
+                  </span>
+                  <span className="text-3xl md:text-5xl lg:text-7xl font-light text-white/70 mx-1 md:mx-2">
+                    :
+                  </span>
+
+                  {/* Minutes */}
+                  <span className="text-3xl md:text-5xl lg:text-7xl font-bold text-white tabular-nums text-glow tracking-tight">
+                    {formatNumber(minutes)}
+                  </span>
+                  <span className="text-3xl md:text-5xl lg:text-7xl font-light text-white/70 mx-1 md:mx-2">
+                    :
+                  </span>
+
+                  {/* Seconds */}
+                  <span className="text-3xl md:text-5xl lg:text-7xl font-bold text-white tabular-nums text-glow tracking-tight">
+                    {formatNumber(seconds)}
+                  </span>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="text-center mb-12">
-              <p className="text-3xl md:text-5xl text-white animate-float">
-                Welcome to the New Year! 🎊
+            <div className="text-center">
+              <p className="text-4xl md:text-6xl text-white animate-float">
+                🎉 🎊 🥂
               </p>
             </div>
           )}
-
-          {/* Photo Carousel */}
-          <PhotoCarousel 
-            photos={photos} 
-            onAddClick={() => setShowPhotoUpload(true)} 
-          />
         </div>
+
+        {/* Photo Carousel - Fixed at bottom */}
+        <PhotoCarousel
+          photos={photos}
+          onAddClick={() => setShowPhotoUpload(true)}
+        />
       </main>
     </>
   );
