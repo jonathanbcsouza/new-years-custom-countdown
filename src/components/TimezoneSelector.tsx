@@ -1,13 +1,6 @@
-import { useState, useMemo } from 'react';
-import { Globe } from 'lucide-react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import { getAllTimezones, formatTimezone } from '@/lib/timezones';
+import { useState, useMemo, useCallback } from 'react';
+import { Globe, Search, ChevronDown, ChevronRight, X } from 'lucide-react';
+import { getGroupedTimezones, formatTimezone, type ContinentGroup } from '@/lib/timezones';
 import { cn } from '@/lib/utils';
 
 interface TimezoneSelectorProps {
@@ -17,103 +10,277 @@ interface TimezoneSelectorProps {
 }
 
 /**
- * Timezone selector component with search-friendly dropdown
+ * Enhanced timezone selector with continent → country → city hierarchy
+ * Searchable by city, country, or continent name
  */
 export function TimezoneSelector({
   value,
   onChange,
   className,
 }: TimezoneSelectorProps) {
+  const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [expandedContinents, setExpandedContinents] = useState<Set<string>>(new Set());
+  const [expandedCountries, setExpandedCountries] = useState<Set<string>>(new Set());
 
-  const timezones = useMemo(() => getAllTimezones(), []);
+  const groupedTimezones = useMemo(() => getGroupedTimezones(), []);
 
   // Filter timezones based on search query
-  const filteredTimezones = useMemo(() => {
+  const filteredGroups = useMemo(() => {
     if (!searchQuery.trim()) {
-      return timezones;
+      return groupedTimezones;
     }
 
     const query = searchQuery.toLowerCase();
-    return timezones.filter((tz) => {
-      const formatted = formatTimezone(tz).toLowerCase();
-      const parts = tz.toLowerCase().split('/');
-      return (
-        formatted.includes(query) || parts.some((part) => part.includes(query))
-      );
-    });
-  }, [timezones, searchQuery]);
+    const result: ContinentGroup[] = [];
 
-  // Group timezones by region for better organization
-  const groupedTimezones = useMemo(() => {
-    const groups: Record<string, string[]> = {};
+    groupedTimezones.forEach((continentGroup) => {
+      const matchingCountries = continentGroup.countries
+        .map((countryGroup) => {
+          // Check if country matches
+          const countryMatches = countryGroup.country.toLowerCase().includes(query);
+          
+          // Filter cities
+          const matchingTimezones = countryGroup.timezones.filter((tz) =>
+            tz.searchText.includes(query)
+          );
 
-    filteredTimezones.forEach((tz) => {
-      const [region] = tz.split('/');
-      if (!groups[region]) {
-        groups[region] = [];
+          // Include country if it matches or has matching cities
+          if (countryMatches || matchingTimezones.length > 0) {
+            return {
+              ...countryGroup,
+              timezones: countryMatches ? countryGroup.timezones : matchingTimezones,
+            };
+          }
+          return null;
+        })
+        .filter(Boolean) as typeof continentGroup.countries;
+
+      // Check if continent matches
+      const continentMatches = 
+        continentGroup.continent.toLowerCase().includes(query) ||
+        continentGroup.continentLabel.toLowerCase().includes(query);
+
+      if (continentMatches || matchingCountries.length > 0) {
+        result.push({
+          ...continentGroup,
+          countries: continentMatches ? continentGroup.countries : matchingCountries,
+        });
       }
-      groups[region].push(tz);
     });
 
-    return Object.entries(groups)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([region, tzs]) => ({
-        region,
-        timezones: tzs.sort(),
-      }));
-  }, [filteredTimezones]);
+    return result;
+  }, [groupedTimezones, searchQuery]);
+
+  // Auto-expand when searching
+  const effectiveExpandedContinents = useMemo(() => {
+    if (searchQuery.trim()) {
+      return new Set(filteredGroups.map((g) => g.continent));
+    }
+    return expandedContinents;
+  }, [searchQuery, filteredGroups, expandedContinents]);
+
+  const effectiveExpandedCountries = useMemo(() => {
+    if (searchQuery.trim()) {
+      const countries = new Set<string>();
+      filteredGroups.forEach((g) => {
+        g.countries.forEach((c) => {
+          countries.add(`${g.continent}/${c.country}`);
+        });
+      });
+      return countries;
+    }
+    return expandedCountries;
+  }, [searchQuery, filteredGroups, expandedCountries]);
+
+  const toggleContinent = useCallback((continent: string) => {
+    setExpandedContinents((prev) => {
+      const next = new Set(prev);
+      if (next.has(continent)) {
+        next.delete(continent);
+      } else {
+        next.add(continent);
+      }
+      return next;
+    });
+  }, []);
+
+  const toggleCountry = useCallback((key: string) => {
+    setExpandedCountries((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  }, []);
+
+  const handleSelect = useCallback((timezone: string) => {
+    onChange(timezone);
+    setIsOpen(false);
+    setSearchQuery('');
+  }, [onChange]);
 
   const currentLabel = formatTimezone(value);
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
-      <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="w-[280px] md:w-[320px] h-9 text-sm">
-          <div className="flex items-center gap-2">
-            <Globe className="h-4 w-4 text-muted-foreground shrink-0" />
-            <SelectValue placeholder="Select timezone">
-              <span className="truncate">{currentLabel}</span>
-            </SelectValue>
-          </div>
-        </SelectTrigger>
-        <SelectContent className="max-h-[400px] w-[var(--radix-select-trigger-width)]">
-          <div className="sticky top-0 z-10 bg-popover border-b p-2">
-            <input
-              type="text"
-              placeholder="Search timezone..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-2 py-1.5 text-sm border rounded-md focus:outline-none focus:ring-1 focus:ring-ring bg-background"
-              onClick={(e) => e.stopPropagation()}
-              onKeyDown={(e) => e.stopPropagation()}
-            />
-          </div>
-          <div className="max-h-[320px] overflow-y-auto">
-            {groupedTimezones.length > 0 ? (
-              groupedTimezones.map(({ region, timezones: tzs }) => (
-                <div key={region} className="py-1">
-                  <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider sticky top-0 bg-popover">
-                    {region}
-                  </div>
-                  {tzs.map((tz) => {
-                    const label = formatTimezone(tz);
-                    return (
-                      <SelectItem key={tz} value={tz}>
-                        <span className="truncate">{label}</span>
-                      </SelectItem>
-                    );
-                  })}
-                </div>
-              ))
-            ) : (
-              <div className="px-2 py-4 text-sm text-muted-foreground text-center">
-                No timezones found
+    <div className={cn('relative', className)}>
+      {/* Trigger Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg
+                   bg-white/10 backdrop-blur-sm border border-white/20
+                   text-white hover:bg-white/20 transition-all
+                   min-w-[200px] md:min-w-[280px]"
+      >
+        <Globe className="h-4 w-4 text-white/70 shrink-0" />
+        <span className="truncate text-sm flex-1 text-left">{currentLabel}</span>
+        <ChevronDown className={cn(
+          "h-4 w-4 text-white/70 transition-transform",
+          isOpen && "rotate-180"
+        )} />
+      </button>
+
+      {/* Dropdown */}
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 z-40" 
+            onClick={() => {
+              setIsOpen(false);
+              setSearchQuery('');
+            }} 
+          />
+          
+          {/* Dropdown Content */}
+          <div className="absolute top-full right-0 mt-2 z-50
+                          w-[calc(100vw-2rem)] sm:w-[320px] md:w-[400px] max-h-[70vh]
+                          bg-card/95 backdrop-blur-md border border-border
+                          rounded-xl shadow-2xl overflow-hidden
+                          animate-in fade-in-0 zoom-in-95">
+            {/* Search Input */}
+            <div className="sticky top-0 z-10 bg-card border-b border-border p-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Search city, country, or continent..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-9 pr-8 py-2 text-sm rounded-lg
+                             bg-background border border-input
+                             focus:outline-none focus:ring-2 focus:ring-ring
+                             placeholder:text-muted-foreground"
+                  autoFocus
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 
+                               p-1 rounded-full hover:bg-muted"
+                  >
+                    <X className="h-3 w-3 text-muted-foreground" />
+                  </button>
+                )}
               </div>
-            )}
+            </div>
+
+            {/* Timezone List */}
+            <div className="max-h-[calc(70vh-60px)] overflow-y-auto p-2">
+              {filteredGroups.length > 0 ? (
+                filteredGroups.map((continentGroup) => (
+                  <div key={continentGroup.continent} className="mb-1">
+                    {/* Continent Header */}
+                    <button
+                      onClick={() => toggleContinent(continentGroup.continent)}
+                      className="w-full flex items-center gap-2 px-2 py-2 rounded-lg
+                                 text-sm font-semibold text-foreground
+                                 hover:bg-muted/50 transition-colors"
+                    >
+                      <ChevronRight className={cn(
+                        "h-4 w-4 text-muted-foreground transition-transform",
+                        effectiveExpandedContinents.has(continentGroup.continent) && "rotate-90"
+                      )} />
+                      <span>{continentGroup.continentLabel}</span>
+                      <span className="ml-auto text-xs text-muted-foreground">
+                        {continentGroup.countries.reduce((acc, c) => acc + c.timezones.length, 0)} zones
+                      </span>
+                    </button>
+
+                    {/* Countries */}
+                    {effectiveExpandedContinents.has(continentGroup.continent) && (
+                      <div className="ml-4 border-l border-border/50 pl-2">
+                        {continentGroup.countries.map((countryGroup) => {
+                          const countryKey = `${continentGroup.continent}/${countryGroup.country}`;
+                          const isCountryExpanded = effectiveExpandedCountries.has(countryKey);
+
+                          return (
+                            <div key={countryKey} className="mb-0.5">
+                              {/* Country Header */}
+                              <button
+                                onClick={() => toggleCountry(countryKey)}
+                                className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md
+                                           text-sm text-foreground/90
+                                           hover:bg-muted/50 transition-colors"
+                              >
+                                <ChevronRight className={cn(
+                                  "h-3 w-3 text-muted-foreground transition-transform",
+                                  isCountryExpanded && "rotate-90"
+                                )} />
+                                <span className="font-medium">{countryGroup.country}</span>
+                                <span className="ml-auto text-xs text-muted-foreground">
+                                  {countryGroup.timezones.length}
+                                </span>
+                              </button>
+
+                              {/* Cities */}
+                              {isCountryExpanded && (
+                                <div className="ml-5 py-1">
+                                  {countryGroup.timezones.map((tz) => (
+                                    <button
+                                      key={tz.value}
+                                      onClick={() => handleSelect(tz.value)}
+                                      className={cn(
+                                        "w-full flex items-center justify-between px-3 py-1.5 rounded-md",
+                                        "text-sm transition-colors",
+                                        value === tz.value
+                                          ? "bg-primary text-primary-foreground"
+                                          : "text-foreground/80 hover:bg-muted"
+                                      )}
+                                    >
+                                      <span>{tz.city}</span>
+                                      <span className={cn(
+                                        "text-xs",
+                                        value === tz.value 
+                                          ? "text-primary-foreground/80" 
+                                          : "text-muted-foreground"
+                                      )}>
+                                        {tz.offset}
+                                      </span>
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="px-4 py-8 text-center text-muted-foreground">
+                  <p className="text-sm">No timezones found</p>
+                  <p className="text-xs mt-1">Try searching for a city, country, or continent</p>
+                </div>
+              )}
+            </div>
           </div>
-        </SelectContent>
-      </Select>
+        </>
+      )}
     </div>
   );
 }

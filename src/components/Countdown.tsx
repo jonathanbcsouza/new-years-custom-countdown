@@ -1,7 +1,5 @@
 import { memo, useState } from 'react';
-import { Globe } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
-import { Button } from '@/components/ui/button';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
 import { PhotoCarousel } from '@/components/PhotoCarousel';
 import { PhotoUpload } from '@/components/PhotoUpload';
@@ -31,7 +29,6 @@ export const Countdown = memo(function Countdown({
   onPhotosChange,
 }: CountdownProps) {
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
-  const [showTimezone, setShowTimezone] = useState(false);
   const { days, hours, minutes, seconds, isComplete } =
     useCountdown(targetDate);
 
@@ -56,29 +53,10 @@ export const Countdown = memo(function Countdown({
       <main className="min-h-screen flex flex-col relative z-10">
         {/* Timezone Selector - Top Right */}
         <div className="absolute top-4 right-4 z-20">
-          {showTimezone ? (
-            <div className="animate-in">
-              <TimezoneSelector
-                value={timezone}
-                onChange={(tz) => {
-                  onTimezoneChange(tz);
-                  setShowTimezone(false);
-                }}
-              />
-            </div>
-          ) : (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowTimezone(true)}
-              className="text-white/50 hover:text-white/80 hover:bg-white/5"
-            >
-              <Globe className="h-4 w-4 mr-2" />
-              <span className="text-xs">
-                {timezone.split('/').pop()?.replace(/_/g, ' ')}
-              </span>
-            </Button>
-          )}
+          <TimezoneSelector
+            value={timezone}
+            onChange={onTimezoneChange}
+          />
         </div>
 
         {/* Content Container - Positioned above photos */}
