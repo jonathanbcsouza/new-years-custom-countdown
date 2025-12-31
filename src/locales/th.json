@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "กำลังโหลดนับถอยหลัง...",
+    "error": "ไม่สามารถเริ่มนับถอยหลังได้",
+    "done": "เสร็จ",
+    "edit": "แก้ไข",
+    "add": "เพิ่ม",
+    "remove": "ลบ",
+    "clear": "ล้าง",
+    "close": "ปิด",
+    "cancel": "ยกเลิก",
+    "save": "บันทึก",
+    "search": "ค้นหา",
+    "select": "เลือก"
+  },
+  "countdown": {
+    "title": "นับถอยหลังวันส่งท้ายปีเก่า",
+    "happyNewYear": "สวัสดีปีใหม่!",
+    "timeRemaining": "เวลาที่เหลือจนถึงปีใหม่",
+    "celebrating": "ฉลอง 24 ชั่วโมงแรกของปีใหม่!",
+    "days": "วัน",
+    "hours": "ชั่วโมง",
+    "minutes": "นาที",
+    "seconds": "วินาที"
+  },
+  "timezone": {
+    "select": "เลือกเขตเวลา",
+    "search": "ค้นหาเมือง ประเทศ หรือทวีป...",
+    "noResults": "ไม่พบเขตเวลา",
+    "searchHint": "ลองค้นหาเมือง ประเทศ หรือทวีป",
+    "zones": "เขต"
+  },
+  "photos": {
+    "addPhotos": "เพิ่มรูปครอบครัว",
+    "editPhotos": "แก้ไขรูปภาพ",
+    "uploadPhotos": "อัปโหลดรูปภาพ",
+    "addUpTo": "เพิ่มได้สูงสุด {{max}} รูปสำหรับสไลด์โชว์พื้นหลังนับถอยหลัง",
+    "photosCount": "รูปภาพ: {{current}} / {{max}}",
+    "storage": "พื้นที่เก็บข้อมูล: {{used}} / {{total}}",
+    "dropOrClick": "วางรูปภาพที่นี่หรือคลิกเพื่อเรียกดู",
+    "fileTypes": "JPEG, PNG หรือ WebP • สูงสุด 10MB ต่อรูป",
+    "yourPhotos": "รูปภาพของคุณ",
+    "clearAll": "ล้างทั้งหมด",
+    "removePhoto": "ลบรูปภาพ {{index}}",
+    "compressing": "กำลังบีบอัด {{current}} จาก {{total}}...",
+    "maxPhotosReached": "อนุญาตสูงสุด {{max}} รูป",
+    "onlyAdding": "เพิ่มเพียง {{count}} จาก {{total}} รูป (จำกัด: {{max}})",
+    "invalidFileType": "กรุณาเลือกไฟล์รูปภาพที่ถูกต้อง (JPEG, PNG หรือ WebP)",
+    "compressionError": "ไม่สามารถประมวลผลบางรูปภาพได้ กรุณาลองอีกครั้ง",
+    "swipeHint": "ปัดเพื่อนำทาง",
+    "swipeToSeeMore": "ปัดเพื่อดูเพิ่มเติม",
+    "personalizeHint": "ปรับแต่งนับถอยหลังของคุณด้วยรูปครอบครัว"
+  },
+  "fullscreen": {
+    "enter": "แคสต์ไปยังทีวี",
+    "exit": "ออก",
+    "enterTitle": "เข้าสู่โหมดเต็มหน้าจอสำหรับทีวี",
+    "exitTitle": "ออกจากโหมดเต็มหน้าจอ"
+  },
+  "language": {
+    "select": "เลือกภาษา",
+    "current": "ภาษาปัจจุบัน"
+  },
+  "donate": {
+    "button": "บริจาค",
+    "tooltip": "สนับสนุนโครงการนี้ด้วยการบริจาค"
+  }
+}
+

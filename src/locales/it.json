@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Caricamento conto alla rovescia...",
+    "error": "Impossibile inizializzare il conto alla rovescia",
+    "done": "Fatto",
+    "edit": "Modifica",
+    "add": "Aggiungi",
+    "remove": "Rimuovi",
+    "clear": "Cancella",
+    "close": "Chiudi",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "search": "Cerca",
+    "select": "Seleziona"
+  },
+  "countdown": {
+    "title": "CONTO ALLA ROVESCIA DI CAPODANNO",
+    "happyNewYear": "BUON ANNO NUOVO!",
+    "timeRemaining": "Tempo rimanente fino al nuovo anno",
+    "celebrating": "Festeggiamo le prime 24 ore del nuovo anno!",
+    "days": "Giorni",
+    "hours": "Ore",
+    "minutes": "Minuti",
+    "seconds": "Secondi"
+  },
+  "timezone": {
+    "select": "Seleziona fuso orario",
+    "search": "Cerca città, paese o continente...",
+    "noResults": "Nessun fuso orario trovato",
+    "searchHint": "Prova a cercare una città, un paese o un continente",
+    "zones": "fusi"
+  },
+  "photos": {
+    "addPhotos": "Aggiungi Foto di Famiglia",
+    "editPhotos": "Modifica foto",
+    "uploadPhotos": "Carica Foto",
+    "addUpTo": "Aggiungi fino a {{max}} foto per lo slideshow del conto alla rovescia",
+    "photosCount": "Foto: {{current}} / {{max}}",
+    "storage": "Archiviazione: {{used}} / {{total}}",
+    "dropOrClick": "Trascina le foto qui o clicca per sfogliare",
+    "fileTypes": "JPEG, PNG o WebP • Max 10MB per foto",
+    "yourPhotos": "Le Tue Foto",
+    "clearAll": "Cancella Tutto",
+    "removePhoto": "Rimuovi foto {{index}}",
+    "compressing": "Compressione {{current}} di {{total}}...",
+    "maxPhotosReached": "Massimo {{max}} foto consentite",
+    "onlyAdding": "Aggiunta solo {{count}} di {{total}} foto (limite: {{max}})",
+    "invalidFileType": "Seleziona file immagine validi (JPEG, PNG o WebP)",
+    "compressionError": "Impossibile elaborare alcune immagini. Riprova.",
+    "swipeHint": "Scorri per navigare",
+    "swipeToSeeMore": "Scorri per vedere altro",
+    "personalizeHint": "Personalizza il tuo conto alla rovescia con foto di famiglia"
+  },
+  "fullscreen": {
+    "enter": "Trasmetti su TV",
+    "exit": "Esci",
+    "enterTitle": "Schermo intero per display TV",
+    "exitTitle": "Esci da schermo intero"
+  },
+  "language": {
+    "select": "Seleziona Lingua",
+    "current": "Lingua Attuale"
+  },
+  "donate": {
+    "button": "Dona",
+    "tooltip": "Supporta questo progetto con una donazione"
+  }
+}
+

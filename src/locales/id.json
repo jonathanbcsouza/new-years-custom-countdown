@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Memuat hitungan mundur...",
+    "error": "Gagal menginisialisasi hitungan mundur",
+    "done": "Selesai",
+    "edit": "Edit",
+    "add": "Tambah",
+    "remove": "Hapus",
+    "clear": "Bersihkan",
+    "close": "Tutup",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "search": "Cari",
+    "select": "Pilih"
+  },
+  "countdown": {
+    "title": "HITUNG MUNDUR MALAM TAHUN BARU",
+    "happyNewYear": "SELAMAT TAHUN BARU!",
+    "timeRemaining": "Waktu tersisa hingga Tahun Baru",
+    "celebrating": "Merayakan 24 jam pertama Tahun Baru!",
+    "days": "Hari",
+    "hours": "Jam",
+    "minutes": "Menit",
+    "seconds": "Detik"
+  },
+  "timezone": {
+    "select": "Pilih zona waktu",
+    "search": "Cari kota, negara, atau benua...",
+    "noResults": "Zona waktu tidak ditemukan",
+    "searchHint": "Coba cari kota, negara, atau benua",
+    "zones": "zona"
+  },
+  "photos": {
+    "addPhotos": "Tambah Foto Keluarga",
+    "editPhotos": "Edit foto",
+    "uploadPhotos": "Unggah Foto",
+    "addUpTo": "Tambahkan hingga {{max}} foto untuk slideshow latar belakang hitungan mundur",
+    "photosCount": "Foto: {{current}} / {{max}}",
+    "storage": "Penyimpanan: {{used}} / {{total}}",
+    "dropOrClick": "Letakkan foto di sini atau klik untuk menelusuri",
+    "fileTypes": "JPEG, PNG, atau WebP • Maks 10MB per foto",
+    "yourPhotos": "Foto Anda",
+    "clearAll": "Hapus Semua",
+    "removePhoto": "Hapus foto {{index}}",
+    "compressing": "Mengompresi {{current}} dari {{total}}...",
+    "maxPhotosReached": "Maksimal {{max}} foto diizinkan",
+    "onlyAdding": "Hanya menambahkan {{count}} dari {{total}} foto (batas: {{max}})",
+    "invalidFileType": "Pilih file gambar yang valid (JPEG, PNG, atau WebP)",
+    "compressionError": "Gagal memproses beberapa gambar. Silakan coba lagi.",
+    "swipeHint": "Geser untuk navigasi",
+    "swipeToSeeMore": "Geser untuk melihat lebih banyak",
+    "personalizeHint": "Personalisasi hitungan mundur Anda dengan foto keluarga"
+  },
+  "fullscreen": {
+    "enter": "Kirim ke TV",
+    "exit": "Keluar",
+    "enterTitle": "Masuk layar penuh untuk tampilan TV",
+    "exitTitle": "Keluar dari layar penuh"
+  },
+  "language": {
+    "select": "Pilih Bahasa",
+    "current": "Bahasa Saat Ini"
+  },
+  "donate": {
+    "button": "Donasi",
+    "tooltip": "Dukung proyek ini dengan donasi"
+  }
+}
+

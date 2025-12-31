@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Geri sayım yükleniyor...",
+    "error": "Geri sayım başlatılamadı",
+    "done": "Tamam",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "remove": "Kaldır",
+    "clear": "Temizle",
+    "close": "Kapat",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "search": "Ara",
+    "select": "Seç"
+  },
+  "countdown": {
+    "title": "YENİ YIL AREFESI GERİ SAYIMI",
+    "happyNewYear": "MUTLU YILLAR!",
+    "timeRemaining": "Yeni yıla kalan süre",
+    "celebrating": "Yeni yılın ilk 24 saatini kutluyoruz!",
+    "days": "Gün",
+    "hours": "Saat",
+    "minutes": "Dakika",
+    "seconds": "Saniye"
+  },
+  "timezone": {
+    "select": "Saat dilimi seç",
+    "search": "Şehir, ülke veya kıta ara...",
+    "noResults": "Saat dilimi bulunamadı",
+    "searchHint": "Bir şehir, ülke veya kıta aramayı deneyin",
+    "zones": "dilim"
+  },
+  "photos": {
+    "addPhotos": "Aile Fotoğrafları Ekle",
+    "editPhotos": "Fotoğrafları düzenle",
+    "uploadPhotos": "Fotoğraf Yükle",
+    "addUpTo": "Geri sayım arka plan slayt gösterisi için en fazla {{max}} fotoğraf ekleyin",
+    "photosCount": "Fotoğraflar: {{current}} / {{max}}",
+    "storage": "Depolama: {{used}} / {{total}}",
+    "dropOrClick": "Fotoğrafları buraya bırakın veya göz atmak için tıklayın",
+    "fileTypes": "JPEG, PNG veya WebP • Fotoğraf başına maks. 10MB",
+    "yourPhotos": "Fotoğraflarınız",
+    "clearAll": "Tümünü Temizle",
+    "removePhoto": "{{index}}. fotoğrafı kaldır",
+    "compressing": "{{total}} fotoğraftan {{current}} sıkıştırılıyor...",
+    "maxPhotosReached": "En fazla {{max}} fotoğrafa izin verilir",
+    "onlyAdding": "{{total}} fotoğraftan sadece {{count}} ekleniyor (sınır: {{max}})",
+    "invalidFileType": "Lütfen geçerli resim dosyaları seçin (JPEG, PNG veya WebP)",
+    "compressionError": "Bazı resimler işlenemedi. Lütfen tekrar deneyin.",
+    "swipeHint": "Gezinmek için kaydırın",
+    "swipeToSeeMore": "Daha fazlası için kaydırın",
+    "personalizeHint": "Geri sayımınızı aile fotoğraflarıyla kişiselleştirin"
+  },
+  "fullscreen": {
+    "enter": "TV'ye Yayınla",
+    "exit": "Çıkış",
+    "enterTitle": "TV görüntüleme için tam ekrana gir",
+    "exitTitle": "Tam ekrandan çık"
+  },
+  "language": {
+    "select": "Dil Seç",
+    "current": "Mevcut Dil"
+  },
+  "donate": {
+    "button": "Bağış Yap",
+    "tooltip": "Bu projeyi bağışla destekleyin"
+  }
+}
+

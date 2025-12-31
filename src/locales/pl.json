@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Ładowanie odliczania...",
+    "error": "Nie udało się zainicjować odliczania",
+    "done": "Gotowe",
+    "edit": "Edytuj",
+    "add": "Dodaj",
+    "remove": "Usuń",
+    "clear": "Wyczyść",
+    "close": "Zamknij",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "search": "Szukaj",
+    "select": "Wybierz"
+  },
+  "countdown": {
+    "title": "ODLICZANIE DO NOWEGO ROKU",
+    "happyNewYear": "SZCZĘŚLIWEGO NOWEGO ROKU!",
+    "timeRemaining": "Czas pozostały do Nowego Roku",
+    "celebrating": "Świętujemy pierwsze 24 godziny Nowego Roku!",
+    "days": "Dni",
+    "hours": "Godzin",
+    "minutes": "Minut",
+    "seconds": "Sekund"
+  },
+  "timezone": {
+    "select": "Wybierz strefę czasową",
+    "search": "Szukaj miasta, kraju lub kontynentu...",
+    "noResults": "Nie znaleziono stref czasowych",
+    "searchHint": "Spróbuj wyszukać miasto, kraj lub kontynent",
+    "zones": "stref"
+  },
+  "photos": {
+    "addPhotos": "Dodaj Zdjęcia Rodzinne",
+    "editPhotos": "Edytuj zdjęcia",
+    "uploadPhotos": "Prześlij Zdjęcia",
+    "addUpTo": "Dodaj do {{max}} zdjęć do pokazu slajdów tła odliczania",
+    "photosCount": "Zdjęcia: {{current}} / {{max}}",
+    "storage": "Pamięć: {{used}} / {{total}}",
+    "dropOrClick": "Upuść zdjęcia tutaj lub kliknij, aby przeglądać",
+    "fileTypes": "JPEG, PNG lub WebP • Maks. 10MB na zdjęcie",
+    "yourPhotos": "Twoje Zdjęcia",
+    "clearAll": "Wyczyść Wszystko",
+    "removePhoto": "Usuń zdjęcie {{index}}",
+    "compressing": "Kompresowanie {{current}} z {{total}}...",
+    "maxPhotosReached": "Maksymalnie {{max}} zdjęć dozwolonych",
+    "onlyAdding": "Dodawanie tylko {{count}} z {{total}} zdjęć (limit: {{max}})",
+    "invalidFileType": "Wybierz prawidłowe pliki obrazów (JPEG, PNG lub WebP)",
+    "compressionError": "Nie udało się przetworzyć niektórych obrazów. Spróbuj ponownie.",
+    "swipeHint": "Przesuń, aby nawigować",
+    "swipeToSeeMore": "Przesuń, aby zobaczyć więcej",
+    "personalizeHint": "Spersonalizuj odliczanie zdjęciami rodzinnymi"
+  },
+  "fullscreen": {
+    "enter": "Przesyłaj na TV",
+    "exit": "Wyjdź",
+    "enterTitle": "Pełny ekran dla wyświetlacza TV",
+    "exitTitle": "Wyjdź z pełnego ekranu"
+  },
+  "language": {
+    "select": "Wybierz Język",
+    "current": "Obecny Język"
+  },
+  "donate": {
+    "button": "Wspomóż",
+    "tooltip": "Wesprzyj ten projekt darowizną"
+  }
+}
+

@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Aftelling laden...",
+    "error": "Kan aftelling niet initialiseren",
+    "done": "Klaar",
+    "edit": "Bewerken",
+    "add": "Toevoegen",
+    "remove": "Verwijderen",
+    "clear": "Wissen",
+    "close": "Sluiten",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "search": "Zoeken",
+    "select": "Selecteren"
+  },
+  "countdown": {
+    "title": "OUDEJAARSAVOND AFTELLING",
+    "happyNewYear": "GELUKKIG NIEUWJAAR!",
+    "timeRemaining": "Resterende tijd tot nieuwjaar",
+    "celebrating": "De eerste 24 uur van het nieuwe jaar vieren!",
+    "days": "Dagen",
+    "hours": "Uren",
+    "minutes": "Minuten",
+    "seconds": "Seconden"
+  },
+  "timezone": {
+    "select": "Selecteer tijdzone",
+    "search": "Zoek stad, land of continent...",
+    "noResults": "Geen tijdzones gevonden",
+    "searchHint": "Probeer een stad, land of continent te zoeken",
+    "zones": "zones"
+  },
+  "photos": {
+    "addPhotos": "Voeg Familiefoto's Toe",
+    "editPhotos": "Foto's bewerken",
+    "uploadPhotos": "Foto's Uploaden",
+    "addUpTo": "Voeg maximaal {{max}} foto's toe voor je aftelling achtergrond slideshow",
+    "photosCount": "Foto's: {{current}} / {{max}}",
+    "storage": "Opslag: {{used}} / {{total}}",
+    "dropOrClick": "Sleep foto's hierheen of klik om te bladeren",
+    "fileTypes": "JPEG, PNG of WebP • Max 10MB per foto",
+    "yourPhotos": "Jouw Foto's",
+    "clearAll": "Alles Wissen",
+    "removePhoto": "Foto {{index}} verwijderen",
+    "compressing": "Comprimeren {{current}} van {{total}}...",
+    "maxPhotosReached": "Maximaal {{max}} foto's toegestaan",
+    "onlyAdding": "Alleen {{count}} van {{total}} foto's toevoegen (limiet: {{max}})",
+    "invalidFileType": "Selecteer geldige afbeeldingsbestanden (JPEG, PNG of WebP)",
+    "compressionError": "Sommige afbeeldingen konden niet worden verwerkt. Probeer het opnieuw.",
+    "swipeHint": "Veeg om te navigeren",
+    "swipeToSeeMore": "Veeg om meer te zien",
+    "personalizeHint": "Personaliseer je aftelling met familiefoto's"
+  },
+  "fullscreen": {
+    "enter": "Cast naar TV",
+    "exit": "Sluiten",
+    "enterTitle": "Volledig scherm voor TV-weergave",
+    "exitTitle": "Volledig scherm afsluiten"
+  },
+  "language": {
+    "select": "Selecteer Taal",
+    "current": "Huidige Taal"
+  },
+  "donate": {
+    "button": "Doneren",
+    "tooltip": "Steun dit project met een donatie"
+  }
+}
+

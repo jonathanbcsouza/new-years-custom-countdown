@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "카운트다운 로딩 중...",
+    "error": "카운트다운 초기화 실패",
+    "done": "완료",
+    "edit": "편집",
+    "add": "추가",
+    "remove": "제거",
+    "clear": "지우기",
+    "close": "닫기",
+    "cancel": "취소",
+    "save": "저장",
+    "search": "검색",
+    "select": "선택"
+  },
+  "countdown": {
+    "title": "새해 전야 카운트다운",
+    "happyNewYear": "새해 복 많이 받으세요!",
+    "timeRemaining": "새해까지 남은 시간",
+    "celebrating": "새해 첫 24시간을 축하합니다!",
+    "days": "일",
+    "hours": "시간",
+    "minutes": "분",
+    "seconds": "초"
+  },
+  "timezone": {
+    "select": "시간대 선택",
+    "search": "도시, 국가 또는 대륙 검색...",
+    "noResults": "시간대를 찾을 수 없습니다",
+    "searchHint": "도시, 국가 또는 대륙을 검색해 보세요",
+    "zones": "시간대"
+  },
+  "photos": {
+    "addPhotos": "가족 사진 추가",
+    "editPhotos": "사진 편집",
+    "uploadPhotos": "사진 업로드",
+    "addUpTo": "카운트다운 배경 슬라이드쇼에 최대 {{max}}장의 사진 추가",
+    "photosCount": "사진: {{current}} / {{max}}",
+    "storage": "저장소: {{used}} / {{total}}",
+    "dropOrClick": "여기에 사진을 놓거나 클릭하여 찾아보기",
+    "fileTypes": "JPEG, PNG 또는 WebP • 사진당 최대 10MB",
+    "yourPhotos": "내 사진",
+    "clearAll": "모두 지우기",
+    "removePhoto": "사진 {{index}} 제거",
+    "compressing": "{{total}} 중 {{current}} 압축 중...",
+    "maxPhotosReached": "최대 {{max}}장의 사진 허용",
+    "onlyAdding": "{{total}}장 중 {{count}}장만 추가 중 (제한: {{max}})",
+    "invalidFileType": "유효한 이미지 파일을 선택하세요 (JPEG, PNG 또는 WebP)",
+    "compressionError": "일부 이미지 처리 실패. 다시 시도해 주세요.",
+    "swipeHint": "스와이프하여 탐색",
+    "swipeToSeeMore": "스와이프하여 더 보기",
+    "personalizeHint": "가족 사진으로 카운트다운 개인화하기"
+  },
+  "fullscreen": {
+    "enter": "TV로 전송",
+    "exit": "나가기",
+    "enterTitle": "TV 디스플레이를 위해 전체 화면으로 전환",
+    "exitTitle": "전체 화면 종료"
+  },
+  "language": {
+    "select": "언어 선택",
+    "current": "현재 언어"
+  },
+  "donate": {
+    "button": "후원",
+    "tooltip": "기부로 이 프로젝트를 지원하세요"
+  }
+}
+

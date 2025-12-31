@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Đang tải đếm ngược...",
+    "error": "Không thể khởi tạo đếm ngược",
+    "done": "Xong",
+    "edit": "Chỉnh sửa",
+    "add": "Thêm",
+    "remove": "Xóa",
+    "clear": "Xóa hết",
+    "close": "Đóng",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "search": "Tìm kiếm",
+    "select": "Chọn"
+  },
+  "countdown": {
+    "title": "ĐẾM NGƯỢC ĐÊM GIAO THỪA",
+    "happyNewYear": "CHÚC MỪNG NĂM MỚI!",
+    "timeRemaining": "Thời gian còn lại đến Năm Mới",
+    "celebrating": "Chúc mừng 24 giờ đầu tiên của Năm Mới!",
+    "days": "Ngày",
+    "hours": "Giờ",
+    "minutes": "Phút",
+    "seconds": "Giây"
+  },
+  "timezone": {
+    "select": "Chọn múi giờ",
+    "search": "Tìm thành phố, quốc gia hoặc châu lục...",
+    "noResults": "Không tìm thấy múi giờ",
+    "searchHint": "Thử tìm kiếm thành phố, quốc gia hoặc châu lục",
+    "zones": "múi"
+  },
+  "photos": {
+    "addPhotos": "Thêm Ảnh Gia Đình",
+    "editPhotos": "Chỉnh sửa ảnh",
+    "uploadPhotos": "Tải Ảnh Lên",
+    "addUpTo": "Thêm tối đa {{max}} ảnh cho trình chiếu nền đếm ngược",
+    "photosCount": "Ảnh: {{current}} / {{max}}",
+    "storage": "Lưu trữ: {{used}} / {{total}}",
+    "dropOrClick": "Thả ảnh vào đây hoặc nhấp để duyệt",
+    "fileTypes": "JPEG, PNG hoặc WebP • Tối đa 10MB mỗi ảnh",
+    "yourPhotos": "Ảnh Của Bạn",
+    "clearAll": "Xóa Tất Cả",
+    "removePhoto": "Xóa ảnh {{index}}",
+    "compressing": "Đang nén {{current}} / {{total}}...",
+    "maxPhotosReached": "Cho phép tối đa {{max}} ảnh",
+    "onlyAdding": "Chỉ thêm {{count}} / {{total}} ảnh (giới hạn: {{max}})",
+    "invalidFileType": "Vui lòng chọn tệp ảnh hợp lệ (JPEG, PNG hoặc WebP)",
+    "compressionError": "Không thể xử lý một số ảnh. Vui lòng thử lại.",
+    "swipeHint": "Vuốt để điều hướng",
+    "swipeToSeeMore": "Vuốt để xem thêm",
+    "personalizeHint": "Cá nhân hóa đếm ngược với ảnh gia đình"
+  },
+  "fullscreen": {
+    "enter": "Truyền đến TV",
+    "exit": "Thoát",
+    "enterTitle": "Toàn màn hình để hiển thị trên TV",
+    "exitTitle": "Thoát toàn màn hình"
+  },
+  "language": {
+    "select": "Chọn Ngôn Ngữ",
+    "current": "Ngôn Ngữ Hiện Tại"
+  },
+  "donate": {
+    "button": "Ủng hộ",
+    "tooltip": "Hỗ trợ dự án này bằng cách quyên góp"
+  }
+}
+

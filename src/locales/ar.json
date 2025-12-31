@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "جاري تحميل العد التنازلي...",
+    "error": "فشل في تهيئة العد التنازلي",
+    "done": "تم",
+    "edit": "تعديل",
+    "add": "إضافة",
+    "remove": "إزالة",
+    "clear": "مسح",
+    "close": "إغلاق",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "search": "بحث",
+    "select": "اختيار"
+  },
+  "countdown": {
+    "title": "العد التنازلي لليلة رأس السنة",
+    "happyNewYear": "سنة جديدة سعيدة!",
+    "timeRemaining": "الوقت المتبقي حتى السنة الجديدة",
+    "celebrating": "نحتفل بأول 24 ساعة من السنة الجديدة!",
+    "days": "أيام",
+    "hours": "ساعات",
+    "minutes": "دقائق",
+    "seconds": "ثواني"
+  },
+  "timezone": {
+    "select": "اختر المنطقة الزمنية",
+    "search": "ابحث عن مدينة أو بلد أو قارة...",
+    "noResults": "لم يتم العثور على مناطق زمنية",
+    "searchHint": "حاول البحث عن مدينة أو بلد أو قارة",
+    "zones": "مناطق"
+  },
+  "photos": {
+    "addPhotos": "أضف صور العائلة",
+    "editPhotos": "تعديل الصور",
+    "uploadPhotos": "تحميل الصور",
+    "addUpTo": "أضف حتى {{max}} صورة لعرض شرائح خلفية العد التنازلي",
+    "photosCount": "الصور: {{current}} / {{max}}",
+    "storage": "التخزين: {{used}} / {{total}}",
+    "dropOrClick": "أسقط الصور هنا أو انقر للتصفح",
+    "fileTypes": "JPEG أو PNG أو WebP • بحد أقصى 10 ميجابايت لكل صورة",
+    "yourPhotos": "صورك",
+    "clearAll": "مسح الكل",
+    "removePhoto": "إزالة الصورة {{index}}",
+    "compressing": "جاري ضغط {{current}} من {{total}}...",
+    "maxPhotosReached": "الحد الأقصى {{max}} صورة مسموح",
+    "onlyAdding": "إضافة {{count}} فقط من {{total}} صورة (الحد: {{max}})",
+    "invalidFileType": "يرجى اختيار ملفات صور صالحة (JPEG أو PNG أو WebP)",
+    "compressionError": "فشل في معالجة بعض الصور. يرجى المحاولة مرة أخرى.",
+    "swipeHint": "اسحب للتنقل",
+    "swipeToSeeMore": "اسحب لرؤية المزيد",
+    "personalizeHint": "خصص العد التنازلي بصور العائلة"
+  },
+  "fullscreen": {
+    "enter": "بث إلى التلفزيون",
+    "exit": "خروج",
+    "enterTitle": "دخول وضع ملء الشاشة لعرض التلفزيون",
+    "exitTitle": "الخروج من وضع ملء الشاشة"
+  },
+  "language": {
+    "select": "اختر اللغة",
+    "current": "اللغة الحالية"
+  },
+  "donate": {
+    "button": "تبرع",
+    "tooltip": "ادعم هذا المشروع بالتبرع"
+  }
+}
+
