@@ -94,11 +94,39 @@
     }
   }
 
+  @keyframes slide-fade {
+    0% {
+      opacity: 0;
+      transform: scale(1.05);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes ken-burns {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }
+
   .animate-in {
     animation: fade-in 0.15s ease-out, zoom-in 0.15s ease-out;
   }
 
   .animate-out {
     animation: fade-out 0.15s ease-in, zoom-out 0.15s ease-in;
+  }
+
+  .animate-slide-fade {
+    animation: slide-fade 1s ease-out forwards;
+  }
+
+  .animate-ken-burns {
+    animation: ken-burns 8s ease-out forwards;
   }
 }

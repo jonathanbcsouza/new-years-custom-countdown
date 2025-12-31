@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Countdown } from '@/components/Countdown';
 import { getUserTimezone, getNewYearDate } from '@/lib/geolocation';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { loadPhotos, savePhotos } from '@/lib/storage';
 
-const STORAGE_KEY = 'countdown-timezone';
+const TIMEZONE_STORAGE_KEY = 'countdown-timezone';
 
 type AppState =
   | { status: 'loading' }
@@ -12,10 +13,23 @@ type AppState =
 
 function App() {
   const [storedTimezone, setStoredTimezone] = useLocalStorage<string | null>(
-    STORAGE_KEY,
+    TIMEZONE_STORAGE_KEY,
     null
   );
   const [state, setState] = useState<AppState>({ status: 'loading' });
+  const [photos, setPhotos] = useState<string[]>([]);
+
+  // Load photos on mount
+  useEffect(() => {
+    const savedPhotos = loadPhotos();
+    setPhotos(savedPhotos);
+  }, []);
+
+  // Handle photo changes
+  const handlePhotosChange = useCallback((newPhotos: string[]) => {
+    setPhotos(newPhotos);
+    savePhotos(newPhotos);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -65,11 +79,14 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount - storedTimezone is intentionally excluded
 
-  const handleTimezoneChange = (newTimezone: string) => {
-    setStoredTimezone(newTimezone);
-    const targetDate = getNewYearDate(newTimezone);
-    setState({ status: 'ready', timezone: newTimezone, targetDate });
-  };
+  const handleTimezoneChange = useCallback(
+    (newTimezone: string) => {
+      setStoredTimezone(newTimezone);
+      const targetDate = getNewYearDate(newTimezone);
+      setState({ status: 'ready', timezone: newTimezone, targetDate });
+    },
+    [setStoredTimezone]
+  );
 
   if (state.status === 'loading') {
     return (
@@ -99,6 +116,8 @@ function App() {
       targetDate={state.targetDate}
       timezone={state.timezone}
       onTimezoneChange={handleTimezoneChange}
+      photos={photos}
+      onPhotosChange={handlePhotosChange}
     />
   );
 }
