@@ -7,6 +7,7 @@ import { PhotoUpload } from '@/components/PhotoUpload';
 import { TimezoneSelector } from '@/components/TimezoneSelector';
 import { FullscreenButton } from '@/components/FullscreenButton';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { DonateButton } from '@/components/DonateButton';
 
 interface CountdownProps {
   targetDate: Date;
@@ -61,10 +62,11 @@ export const Countdown = memo(function Countdown({
       {/* Main Layout */}
       <main className="min-h-screen flex flex-col relative z-10">
         {/* Top Bar Controls */}
-        {/* Left Side - Fullscreen & Language */}
+        {/* Left Side - Fullscreen, Language & Donate */}
         <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
           <FullscreenButton />
           <LanguageSelector />
+          <DonateButton />
         </div>
 
         {/* Right Side - Timezone Selector */}
@@ -82,7 +84,9 @@ export const Countdown = memo(function Countdown({
         >
           {/* Title */}
           <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold text-white tracking-widest text-glow mb-6 md:mb-10 text-center uppercase">
-            {showCelebration ? t('countdown.happyNewYear') : t('countdown.title')}
+            {showCelebration
+              ? t('countdown.happyNewYear')
+              : t('countdown.title')}
           </h1>
 
           {/* Countdown Timer Bar */}

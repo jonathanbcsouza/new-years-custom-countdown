@@ -60,6 +60,10 @@
   "language": {
     "select": "Sprache Auswählen",
     "current": "Aktuelle Sprache"
+  },
+  "donate": {
+    "button": "Spenden",
+    "tooltip": "Unterstützen Sie dieses Projekt mit einer Spende"
   }
 }
 

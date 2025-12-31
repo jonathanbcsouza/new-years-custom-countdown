@@ -60,6 +60,9 @@
   "language": {
     "select": "言語を選択",
     "current": "現在の言語"
+  },
+  "donate": {
+    "button": "寄付",
+    "tooltip": "このプロジェクトを寄付で応援してください"
   }
 }
-

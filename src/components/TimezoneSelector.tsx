@@ -316,9 +316,7 @@ export function TimezoneSelector({
               ) : (
                 <div className="px-4 py-8 text-center text-muted-foreground">
                   <p className="text-sm">{t('timezone.noResults')}</p>
-                  <p className="text-xs mt-1">
-                    {t('timezone.searchHint')}
-                  </p>
+                  <p className="text-xs mt-1">{t('timezone.searchHint')}</p>
                 </div>
               )}
             </div>
