@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react';
+import { memo, useState, useEffect, useCallback } from 'react';
 import { ImagePlus } from 'lucide-react';
 
 interface PhotoCarouselProps {
@@ -8,31 +8,49 @@ interface PhotoCarouselProps {
 }
 
 /**
- * Full-width photo carousel with sliding animation
- * Photos overlap and blend seamlessly into the background
+ * Full-width photo carousel with smooth crossfade animation
+ * Photos blend seamlessly with Ken Burns effect
  */
 export const PhotoCarousel = memo(function PhotoCarousel({
   photos,
   onAddClick,
-  interval = 6000,
+  interval = 7000,
 }: PhotoCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Smooth transition to next photo
+  const transitionTo = useCallback((newIndex: number) => {
+    if (newIndex === currentIndex || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setPrevIndex(currentIndex);
+    setCurrentIndex(newIndex);
+    
+    // Reset transition state after animation completes
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 2000); // Match CSS transition duration
+  }, [currentIndex, isTransitioning]);
 
   // Auto-advance carousel
   useEffect(() => {
     if (photos.length <= 1) return;
 
     const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % photos.length);
+      const nextIndex = (currentIndex + 1) % photos.length;
+      transitionTo(nextIndex);
     }, interval);
 
     return () => clearInterval(timer);
-  }, [photos.length, interval]);
+  }, [photos.length, interval, currentIndex, transitionTo]);
 
   // Reset index if photos change
   useEffect(() => {
     if (currentIndex >= photos.length && photos.length > 0) {
       setCurrentIndex(0);
+      setPrevIndex(0);
     }
   }, [photos.length, currentIndex]);
 
@@ -53,128 +71,89 @@ export const PhotoCarousel = memo(function PhotoCarousel({
     );
   }
 
-  // Calculate which photos to show (current, prev, next for smooth transitions)
-  const getPhotoIndex = (offset: number) => {
-    return (currentIndex + offset + photos.length) % photos.length;
-  };
-
   return (
     <div 
-      className="absolute bottom-0 left-0 right-0 h-[45vh] md:h-[50vh] lg:h-[55vh] overflow-hidden cursor-pointer"
+      className="absolute bottom-0 left-0 right-0 h-[50vh] md:h-[55vh] lg:h-[60vh] overflow-hidden cursor-pointer"
       onClick={onAddClick}
     >
       {/* Top gradient fade into background */}
       <div 
-        className="absolute inset-x-0 top-0 h-32 md:h-48 z-20 pointer-events-none"
+        className="absolute inset-x-0 top-0 h-40 md:h-56 z-20 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, rgba(10, 15, 35, 1) 0%, rgba(10, 15, 35, 0.8) 40%, transparent 100%)',
+          background: 'linear-gradient(to bottom, rgba(10, 15, 35, 1) 0%, rgba(10, 15, 35, 0.7) 50%, transparent 100%)',
         }}
       />
 
-      {/* Photo container */}
-      <div className="relative w-full h-full flex items-end justify-center">
-        {photos.length === 1 ? (
-          // Single photo - centered
-          <div className="relative w-full max-w-2xl h-full mx-auto">
-            <img
-              src={photos[0]}
-              alt="Family photo"
-              className="w-full h-full object-cover object-top"
+      {/* Photo layers with crossfade */}
+      <div className="relative w-full h-full">
+        {photos.map((photo, index) => {
+          const isCurrent = index === currentIndex;
+          const isPrev = index === prevIndex && isTransitioning;
+          const isVisible = isCurrent || isPrev;
+          
+          if (!isVisible) return null;
+
+          return (
+            <div
+              key={index}
+              className="absolute inset-0 w-full h-full"
               style={{
-                maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)',
-                WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%)',
+                opacity: isCurrent ? 1 : 0,
+                transition: 'opacity 2s ease-in-out, transform 8s ease-out',
+                transform: isCurrent ? 'scale(1.05)' : 'scale(1)',
+                zIndex: isCurrent ? 10 : 5,
               }}
-            />
-          </div>
-        ) : photos.length === 2 ? (
-          // Two photos - side by side with overlap
-          <div className="relative w-full h-full flex items-end justify-center">
-            {photos.map((photo, index) => (
-              <div
-                key={index}
-                className="absolute h-full transition-all duration-1000"
+            >
+              {/* Photo with Ken Burns zoom effect */}
+              <div 
+                className="w-full h-full"
                 style={{
-                  width: '55%',
-                  left: index === 0 ? '5%' : '40%',
-                  zIndex: index === currentIndex ? 10 : 5,
-                  opacity: index === currentIndex ? 1 : 0.7,
-                  transform: `scale(${index === currentIndex ? 1 : 0.95})`,
+                  animation: isCurrent ? 'kenBurns 12s ease-out forwards' : 'none',
                 }}
               >
                 <img
                   src={photo}
                   alt={`Family photo ${index + 1}`}
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                   style={{
-                    maskImage: `linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 95%), 
-                                linear-gradient(to ${index === 0 ? 'right' : 'left'}, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)`,
-                    WebkitMaskImage: `linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 95%), 
-                                      linear-gradient(to ${index === 0 ? 'right' : 'left'}, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)`,
-                    maskComposite: 'intersect',
-                    WebkitMaskComposite: 'source-in',
+                    maskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 85%)',
+                    WebkitMaskImage: 'linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 85%)',
                   }}
                 />
               </div>
-            ))}
-          </div>
-        ) : (
-          // 3+ photos - sliding carousel with overlapping images
-          <div className="relative w-full h-full">
-            {[-1, 0, 1].map((offset) => {
-              const photoIndex = getPhotoIndex(offset);
-              const isCenter = offset === 0;
-              const isLeft = offset === -1;
-              
-              return (
-                <div
-                  key={`${photoIndex}-${offset}`}
-                  className="absolute h-full transition-all duration-1000 ease-in-out"
-                  style={{
-                    width: isCenter ? '50%' : '35%',
-                    left: isLeft ? '0%' : isCenter ? '25%' : '65%',
-                    zIndex: isCenter ? 10 : 5,
-                    opacity: isCenter ? 1 : 0.6,
-                    transform: `scale(${isCenter ? 1 : 0.9})`,
-                  }}
-                >
-                  <img
-                    src={photos[photoIndex]}
-                    alt={`Family photo ${photoIndex + 1}`}
-                    className="w-full h-full object-cover object-top"
-                    style={{
-                      maskImage: `
-                        linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 90%),
-                        linear-gradient(to right, ${isLeft ? 'rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%' : 'rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%'})
-                      `,
-                      WebkitMaskImage: `
-                        linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 90%),
-                        linear-gradient(to right, ${isLeft ? 'rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%' : 'rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%'})
-                      `,
-                      maskComposite: 'intersect',
-                      WebkitMaskComposite: 'source-in',
-                    }}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
+            </div>
+          );
+        })}
       </div>
+
+      {/* Side gradients for blending */}
+      <div 
+        className="absolute inset-y-0 left-0 w-24 md:w-40 z-15 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to right, rgba(10, 15, 35, 0.8) 0%, transparent 100%)',
+        }}
+      />
+      <div 
+        className="absolute inset-y-0 right-0 w-24 md:w-40 z-15 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to left, rgba(10, 15, 35, 0.8) 0%, transparent 100%)',
+        }}
+      />
 
       {/* Navigation dots */}
       {photos.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-3">
           {photos.map((_, index) => (
             <button
               key={index}
               onClick={(e) => {
                 e.stopPropagation();
-                setCurrentIndex(index);
+                transitionTo(index);
               }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              className={`rounded-full transition-all duration-500 ${
                 index === currentIndex
-                  ? 'bg-white scale-125'
-                  : 'bg-white/40 hover:bg-white/60'
+                  ? 'w-8 h-2 bg-white'
+                  : 'w-2 h-2 bg-white/40 hover:bg-white/70'
               }`}
               aria-label={`View photo ${index + 1}`}
             />
@@ -183,11 +162,23 @@ export const PhotoCarousel = memo(function PhotoCarousel({
       )}
 
       {/* Edit hint */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30">
-        <span className="px-3 py-1 rounded-full bg-black/30 backdrop-blur-sm text-white/50 text-xs">
+      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-30 opacity-60 hover:opacity-100 transition-opacity">
+        <span className="px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-sm text-white/70 text-xs">
           Click to edit photos
         </span>
       </div>
+
+      {/* CSS for Ken Burns animation */}
+      <style>{`
+        @keyframes kenBurns {
+          0% {
+            transform: scale(1) translateY(0);
+          }
+          100% {
+            transform: scale(1.08) translateY(-2%);
+          }
+        }
+      `}</style>
     </div>
   );
 });

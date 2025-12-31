@@ -82,11 +82,13 @@ export const Countdown = memo(function Countdown({
         </div>
 
         {/* Content Container - Positioned above photos */}
-        <div className={`flex-1 flex flex-col items-center px-4 ${
-          photos.length > 0 
-            ? 'justify-start pt-16 md:pt-20' 
-            : 'justify-center pb-24'
-        }`}>
+        <div
+          className={`flex-1 flex flex-col items-center px-4 ${
+            photos.length > 0
+              ? 'justify-start pt-16 md:pt-20'
+              : 'justify-center pb-24'
+          }`}
+        >
           {/* Title */}
           <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold text-white tracking-widest text-glow mb-6 md:mb-10 text-center uppercase">
             {isComplete ? 'HAPPY NEW YEAR!' : "NEW YEAR'S EVE COUNTDOWN"}
