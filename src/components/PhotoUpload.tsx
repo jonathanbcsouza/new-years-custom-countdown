@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, memo } from 'react';
-import { X, Upload, ImagePlus, Loader2, AlertCircle } from 'lucide-react';
+import { X, Upload, ImagePlus, Loader2, AlertCircle, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { compressImages, isValidImageType } from '@/lib/imageCompression';
 import { getStorageUsage, formatBytes } from '@/lib/storage';
 
@@ -117,8 +117,8 @@ export const PhotoUpload = memo(function PhotoUpload({
   }, [onPhotosChange]);
 
   return (
-    <Card className="w-full max-w-2xl bg-card/95 backdrop-blur border-border shadow-xl">
-      <CardHeader className="pb-3">
+    <Card className="w-full max-w-2xl bg-card/95 backdrop-blur border-border shadow-xl max-h-[90vh] flex flex-col">
+      <CardHeader className="pb-3 flex-shrink-0">
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl flex items-center gap-2">
             <ImagePlus className="h-5 w-5" />
@@ -135,7 +135,7 @@ export const PhotoUpload = memo(function PhotoUpload({
         </p>
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 flex-1 overflow-y-auto">
         {/* Storage Info */}
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>
@@ -240,7 +240,18 @@ export const PhotoUpload = memo(function PhotoUpload({
           </div>
         )}
       </CardContent>
+
+      {/* Footer with Done Button */}
+      <CardFooter className="flex-shrink-0 pt-4 border-t border-border">
+        <Button
+          onClick={onClose}
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          size="lg"
+        >
+          <Check className="h-5 w-5 mr-2" />
+          {photos.length > 0 ? `Done (${photos.length} photos)` : 'Done'}
+        </Button>
+      </CardFooter>
     </Card>
   );
 });
-

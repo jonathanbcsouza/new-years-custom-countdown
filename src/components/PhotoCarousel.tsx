@@ -1,5 +1,5 @@
-import { memo, useState, useEffect, useCallback } from 'react';
-import { ImagePlus } from 'lucide-react';
+import { memo, useState, useEffect, useCallback, useRef } from 'react';
+import { ImagePlus, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PhotoCarouselProps {
   photos: string[];
@@ -8,8 +8,7 @@ interface PhotoCarouselProps {
 }
 
 /**
- * Full-width photo carousel with smooth crossfade animation
- * Photos blend seamlessly with Ken Burns effect
+ * Full-width photo carousel with smooth crossfade and swipe gestures
  */
 export const PhotoCarousel = memo(function PhotoCarousel({
   photos,
@@ -19,32 +18,75 @@ export const PhotoCarousel = memo(function PhotoCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  
+  // Touch handling state
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Smooth transition to next photo
+  // Smooth transition to a specific photo
   const transitionTo = useCallback((newIndex: number) => {
     if (newIndex === currentIndex || isTransitioning) return;
     
+    // Handle wrapping
+    let targetIndex = newIndex;
+    if (targetIndex < 0) targetIndex = photos.length - 1;
+    if (targetIndex >= photos.length) targetIndex = 0;
+    
     setIsTransitioning(true);
     setPrevIndex(currentIndex);
-    setCurrentIndex(newIndex);
+    setCurrentIndex(targetIndex);
     
-    // Reset transition state after animation completes
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 2000); // Match CSS transition duration
-  }, [currentIndex, isTransitioning]);
+    }, 1500);
+  }, [currentIndex, isTransitioning, photos.length]);
+
+  // Navigate to next/previous
+  const goNext = useCallback(() => {
+    transitionTo(currentIndex + 1);
+  }, [currentIndex, transitionTo]);
+
+  const goPrev = useCallback(() => {
+    transitionTo(currentIndex - 1);
+  }, [currentIndex, transitionTo]);
+
+  // Touch handlers for swipe
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    setIsPaused(true);
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    const diff = touchStartX.current - touchEndX.current;
+    const threshold = 50; // Minimum swipe distance
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        // Swiped left - go to next
+        goNext();
+      } else {
+        // Swiped right - go to previous
+        goPrev();
+      }
+    }
+    
+    // Resume auto-play after a delay
+    setTimeout(() => setIsPaused(false), 3000);
+  }, [goNext, goPrev]);
 
   // Auto-advance carousel
   useEffect(() => {
-    if (photos.length <= 1) return;
+    if (photos.length <= 1 || isPaused) return;
 
-    const timer = setInterval(() => {
-      const nextIndex = (currentIndex + 1) % photos.length;
-      transitionTo(nextIndex);
-    }, interval);
-
+    const timer = setInterval(goNext, interval);
     return () => clearInterval(timer);
-  }, [photos.length, interval, currentIndex, transitionTo]);
+  }, [photos.length, interval, goNext, isPaused]);
 
   // Reset index if photos change
   useEffect(() => {
@@ -73,8 +115,11 @@ export const PhotoCarousel = memo(function PhotoCarousel({
 
   return (
     <div 
-      className="absolute bottom-0 left-0 right-0 h-[50vh] md:h-[55vh] lg:h-[60vh] overflow-hidden cursor-pointer"
-      onClick={onAddClick}
+      ref={containerRef}
+      className="absolute bottom-0 left-0 right-0 h-[50vh] md:h-[55vh] lg:h-[60vh] overflow-hidden"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       {/* Top gradient fade into background */}
       <div 
@@ -84,7 +129,7 @@ export const PhotoCarousel = memo(function PhotoCarousel({
         }}
       />
 
-      {/* Photo layers with crossfade */}
+      {/* Photo layers with smooth crossfade */}
       <div className="relative w-full h-full">
         {photos.map((photo, index) => {
           const isCurrent = index === currentIndex;
@@ -99,16 +144,14 @@ export const PhotoCarousel = memo(function PhotoCarousel({
               className="absolute inset-0 w-full h-full"
               style={{
                 opacity: isCurrent ? 1 : 0,
-                transition: 'opacity 2s ease-in-out, transform 8s ease-out',
-                transform: isCurrent ? 'scale(1.05)' : 'scale(1)',
+                transition: 'opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)',
                 zIndex: isCurrent ? 10 : 5,
               }}
             >
-              {/* Photo with Ken Burns zoom effect */}
               <div 
                 className="w-full h-full"
                 style={{
-                  animation: isCurrent ? 'kenBurns 12s ease-out forwards' : 'none',
+                  animation: isCurrent ? 'kenBurns 14s ease-out forwards' : 'none',
                 }}
               >
                 <img
@@ -126,7 +169,7 @@ export const PhotoCarousel = memo(function PhotoCarousel({
         })}
       </div>
 
-      {/* Side gradients for blending */}
+      {/* Side gradients */}
       <div 
         className="absolute inset-y-0 left-0 w-24 md:w-40 z-15 pointer-events-none"
         style={{
@@ -139,6 +182,40 @@ export const PhotoCarousel = memo(function PhotoCarousel({
           background: 'linear-gradient(to left, rgba(10, 15, 35, 0.8) 0%, transparent 100%)',
         }}
       />
+
+      {/* Navigation arrows (desktop) */}
+      {photos.length > 1 && (
+        <>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goPrev();
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 
+                       p-2 rounded-full bg-black/30 backdrop-blur-sm
+                       text-white/60 hover:text-white hover:bg-black/50
+                       transition-all duration-300 opacity-0 hover:opacity-100
+                       hidden md:flex items-center justify-center"
+            aria-label="Previous photo"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goNext();
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 
+                       p-2 rounded-full bg-black/30 backdrop-blur-sm
+                       text-white/60 hover:text-white hover:bg-black/50
+                       transition-all duration-300 opacity-0 hover:opacity-100
+                       hidden md:flex items-center justify-center"
+            aria-label="Next photo"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </>
+      )}
 
       {/* Navigation dots */}
       {photos.length > 1 && (
@@ -161,21 +238,30 @@ export const PhotoCarousel = memo(function PhotoCarousel({
         </div>
       )}
 
-      {/* Edit hint */}
-      <div className="absolute bottom-14 left-1/2 -translate-x-1/2 z-30 opacity-60 hover:opacity-100 transition-opacity">
-        <span className="px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-sm text-white/70 text-xs">
-          Click to edit photos
-        </span>
+      {/* Edit button */}
+      <button
+        onClick={onAddClick}
+        className="absolute bottom-14 left-1/2 -translate-x-1/2 z-30 
+                   px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm 
+                   text-white/70 hover:text-white hover:bg-black/60
+                   text-sm transition-all duration-300"
+      >
+        Edit photos
+      </button>
+
+      {/* Swipe hint (mobile) */}
+      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 md:hidden">
+        <span className="text-white/40 text-xs">Swipe to navigate</span>
       </div>
 
-      {/* CSS for Ken Burns animation */}
+      {/* Ken Burns animation */}
       <style>{`
         @keyframes kenBurns {
           0% {
-            transform: scale(1) translateY(0);
+            transform: scale(1) translate(0, 0);
           }
           100% {
-            transform: scale(1.08) translateY(-2%);
+            transform: scale(1.08) translate(-1%, -2%);
           }
         }
       `}</style>
