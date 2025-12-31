@@ -1,0 +1,65 @@
+{
+  "common": {
+    "loading": "Cargando cuenta regresiva...",
+    "error": "Error al inicializar la cuenta regresiva",
+    "done": "Hecho",
+    "edit": "Editar",
+    "add": "Agregar",
+    "remove": "Eliminar",
+    "clear": "Limpiar",
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "search": "Buscar",
+    "select": "Seleccionar"
+  },
+  "countdown": {
+    "title": "CUENTA REGRESIVA DE AÑO NUEVO",
+    "happyNewYear": "¡FELIZ AÑO NUEVO!",
+    "timeRemaining": "Tiempo restante hasta el Año Nuevo",
+    "celebrating": "¡Celebrando las primeras 24 horas del Año Nuevo!",
+    "days": "Días",
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "seconds": "Segundos"
+  },
+  "timezone": {
+    "select": "Seleccionar zona horaria",
+    "search": "Buscar ciudad, país o continente...",
+    "noResults": "No se encontraron zonas horarias",
+    "searchHint": "Intenta buscar una ciudad, país o continente",
+    "zones": "zonas"
+  },
+  "photos": {
+    "addPhotos": "Agregar Fotos Familiares",
+    "editPhotos": "Editar fotos",
+    "uploadPhotos": "Subir Fotos",
+    "addUpTo": "Agrega hasta {{max}} fotos para tu presentación de fondo de cuenta regresiva",
+    "photosCount": "Fotos: {{current}} / {{max}}",
+    "storage": "Almacenamiento: {{used}} / {{total}}",
+    "dropOrClick": "Arrastra fotos aquí o haz clic para explorar",
+    "fileTypes": "JPEG, PNG o WebP • Máx. 10MB por foto",
+    "yourPhotos": "Tus Fotos",
+    "clearAll": "Limpiar Todo",
+    "removePhoto": "Eliminar foto {{index}}",
+    "compressing": "Comprimiendo {{current}} de {{total}}...",
+    "maxPhotosReached": "Máximo de {{max}} fotos permitidas",
+    "onlyAdding": "Solo agregando {{count}} de {{total}} fotos (límite: {{max}})",
+    "invalidFileType": "Por favor selecciona archivos de imagen válidos (JPEG, PNG o WebP)",
+    "compressionError": "Error al procesar algunas imágenes. Por favor intenta de nuevo.",
+    "swipeHint": "Desliza para navegar",
+    "swipeToSeeMore": "Desliza para ver más",
+    "personalizeHint": "Personaliza tu cuenta regresiva con fotos familiares"
+  },
+  "fullscreen": {
+    "enter": "Transmitir a TV",
+    "exit": "Salir",
+    "enterTitle": "Entrar en pantalla completa para TV",
+    "exitTitle": "Salir de pantalla completa"
+  },
+  "language": {
+    "select": "Seleccionar Idioma",
+    "current": "Idioma Actual"
+  }
+}
+

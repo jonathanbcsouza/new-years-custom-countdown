@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Globe, Search, ChevronDown, ChevronRight, X } from 'lucide-react';
 import {
   getGroupedTimezones,
@@ -22,6 +23,7 @@ export function TimezoneSelector({
   onChange,
   className,
 }: TimezoneSelectorProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedContinents, setExpandedContinents] = useState<Set<string>>(
@@ -190,7 +192,7 @@ export function TimezoneSelector({
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="Search city, country, or continent..."
+                  placeholder={t('timezone.search')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-9 pr-8 py-2 text-sm rounded-lg
@@ -237,7 +239,7 @@ export function TimezoneSelector({
                           (acc, c) => acc + c.timezones.length,
                           0
                         )}{' '}
-                        zones
+                        {t('timezone.zones')}
                       </span>
                     </button>
 
@@ -313,9 +315,9 @@ export function TimezoneSelector({
                 ))
               ) : (
                 <div className="px-4 py-8 text-center text-muted-foreground">
-                  <p className="text-sm">No timezones found</p>
+                  <p className="text-sm">{t('timezone.noResults')}</p>
                   <p className="text-xs mt-1">
-                    Try searching for a city, country, or continent
+                    {t('timezone.searchHint')}
                   </p>
                 </div>
               )}

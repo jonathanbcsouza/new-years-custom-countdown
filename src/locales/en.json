@@ -1,0 +1,65 @@
+{
+  "common": {
+    "loading": "Loading countdown...",
+    "error": "Failed to initialize countdown",
+    "done": "Done",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "clear": "Clear",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "search": "Search",
+    "select": "Select"
+  },
+  "countdown": {
+    "title": "NEW YEAR'S EVE COUNTDOWN",
+    "happyNewYear": "HAPPY NEW YEAR!",
+    "timeRemaining": "Time remaining until New Year",
+    "celebrating": "Celebrating the first 24 hours of the New Year!",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  },
+  "timezone": {
+    "select": "Select timezone",
+    "search": "Search city, country, or continent...",
+    "noResults": "No timezones found",
+    "searchHint": "Try searching for a city, country, or continent",
+    "zones": "zones"
+  },
+  "photos": {
+    "addPhotos": "Add Your Family Photos",
+    "editPhotos": "Edit photos",
+    "uploadPhotos": "Upload Photos",
+    "addUpTo": "Add up to {{max}} photos for your countdown background slideshow",
+    "photosCount": "Photos: {{current}} / {{max}}",
+    "storage": "Storage: {{used}} / {{total}}",
+    "dropOrClick": "Drop photos here or click to browse",
+    "fileTypes": "JPEG, PNG, or WebP • Max 10MB per photo",
+    "yourPhotos": "Your Photos",
+    "clearAll": "Clear All",
+    "removePhoto": "Remove photo {{index}}",
+    "compressing": "Compressing {{current}} of {{total}}...",
+    "maxPhotosReached": "Maximum {{max}} photos allowed",
+    "onlyAdding": "Only adding {{count}} of {{total}} photos (limit: {{max}})",
+    "invalidFileType": "Please select valid image files (JPEG, PNG, or WebP)",
+    "compressionError": "Failed to process some images. Please try again.",
+    "swipeHint": "Swipe to navigate",
+    "swipeToSeeMore": "Swipe to see more",
+    "personalizeHint": "Personalize your countdown with family photos"
+  },
+  "fullscreen": {
+    "enter": "Cast to TV",
+    "exit": "Exit",
+    "enterTitle": "Enter fullscreen for TV display",
+    "exitTitle": "Exit fullscreen"
+  },
+  "language": {
+    "select": "Select Language",
+    "current": "Current Language"
+  }
+}
+

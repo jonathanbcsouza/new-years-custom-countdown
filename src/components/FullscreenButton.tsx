@@ -1,4 +1,5 @@
 import { memo, useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Minimize, Tv } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -8,6 +9,7 @@ import { cn } from '@/lib/utils';
  * Works with Apple AirPlay, Chromecast, and standard fullscreen
  */
 export const FullscreenButton = memo(function FullscreenButton() {
+  const { t } = useTranslation();
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Check if fullscreen is supported
@@ -76,18 +78,18 @@ export const FullscreenButton = memo(function FullscreenButton() {
         isFullscreen && 'text-white bg-white/10'
       )}
       title={
-        isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen for TV display'
+        isFullscreen ? t('fullscreen.exitTitle') : t('fullscreen.enterTitle')
       }
     >
       {isFullscreen ? (
         <>
           <Minimize className="h-4 w-4" />
-          <span className="text-xs hidden sm:inline">Exit</span>
+          <span className="text-xs hidden sm:inline">{t('fullscreen.exit')}</span>
         </>
       ) : (
         <>
           <Tv className="h-4 w-4" />
-          <span className="text-xs hidden sm:inline">Cast to TV</span>
+          <span className="text-xs hidden sm:inline">{t('fullscreen.enter')}</span>
         </>
       )}
     </Button>

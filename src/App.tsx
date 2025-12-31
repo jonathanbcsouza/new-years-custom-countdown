@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Countdown } from '@/components/Countdown';
 import { getUserTimezone, getNewYearDate } from '@/lib/geolocation';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
@@ -17,6 +18,7 @@ type AppState =
   | { status: 'error'; message: string };
 
 function App() {
+  const { t } = useTranslation();
   const [storedTimezone, setStoredTimezone] = useLocalStorage<string | null>(
     TIMEZONE_STORAGE_KEY,
     null
@@ -136,7 +138,7 @@ function App() {
           className="text-2xl text-muted-foreground animate-pulse"
           role="status"
         >
-          Loading countdown...
+          {t('common.loading')}
         </p>
       </div>
     );
@@ -146,7 +148,7 @@ function App() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <p className="text-2xl text-destructive" role="alert">
-          {state.message}
+          {t('common.error')}
         </p>
       </div>
     );

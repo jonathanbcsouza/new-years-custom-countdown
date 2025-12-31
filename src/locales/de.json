@@ -1,0 +1,65 @@
+{
+  "common": {
+    "loading": "Countdown wird geladen...",
+    "error": "Countdown konnte nicht initialisiert werden",
+    "done": "Fertig",
+    "edit": "Bearbeiten",
+    "add": "Hinzufügen",
+    "remove": "Entfernen",
+    "clear": "Löschen",
+    "close": "Schließen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "search": "Suchen",
+    "select": "Auswählen"
+  },
+  "countdown": {
+    "title": "SILVESTER COUNTDOWN",
+    "happyNewYear": "FROHES NEUES JAHR!",
+    "timeRemaining": "Verbleibende Zeit bis zum Neujahr",
+    "celebrating": "Die ersten 24 Stunden des neuen Jahres feiern!",
+    "days": "Tage",
+    "hours": "Stunden",
+    "minutes": "Minuten",
+    "seconds": "Sekunden"
+  },
+  "timezone": {
+    "select": "Zeitzone auswählen",
+    "search": "Stadt, Land oder Kontinent suchen...",
+    "noResults": "Keine Zeitzonen gefunden",
+    "searchHint": "Versuchen Sie, nach einer Stadt, einem Land oder einem Kontinent zu suchen",
+    "zones": "Zonen"
+  },
+  "photos": {
+    "addPhotos": "Familienfotos Hinzufügen",
+    "editPhotos": "Fotos bearbeiten",
+    "uploadPhotos": "Fotos Hochladen",
+    "addUpTo": "Fügen Sie bis zu {{max}} Fotos für Ihre Countdown-Hintergrund-Diashow hinzu",
+    "photosCount": "Fotos: {{current}} / {{max}}",
+    "storage": "Speicher: {{used}} / {{total}}",
+    "dropOrClick": "Fotos hier ablegen oder klicken zum Durchsuchen",
+    "fileTypes": "JPEG, PNG oder WebP • Max. 10 MB pro Foto",
+    "yourPhotos": "Ihre Fotos",
+    "clearAll": "Alle löschen",
+    "removePhoto": "Foto {{index}} entfernen",
+    "compressing": "Komprimieren von {{current}} von {{total}}...",
+    "maxPhotosReached": "Maximal {{max}} Fotos erlaubt",
+    "onlyAdding": "Nur {{count}} von {{total}} Fotos hinzufügen (Limit: {{max}})",
+    "invalidFileType": "Bitte wählen Sie gültige Bilddateien (JPEG, PNG oder WebP)",
+    "compressionError": "Fehler beim Verarbeiten einiger Bilder. Bitte versuchen Sie es erneut.",
+    "swipeHint": "Wischen zum Navigieren",
+    "swipeToSeeMore": "Wischen, um mehr zu sehen",
+    "personalizeHint": "Personalisieren Sie Ihren Countdown mit Familienfotos"
+  },
+  "fullscreen": {
+    "enter": "Auf TV übertragen",
+    "exit": "Beenden",
+    "enterTitle": "Vollbild für TV-Anzeige aktivieren",
+    "exitTitle": "Vollbild beenden"
+  },
+  "language": {
+    "select": "Sprache Auswählen",
+    "current": "Aktuelle Sprache"
+  }
+}
+

@@ -1,0 +1,65 @@
+{
+  "common": {
+    "loading": "Chargement du compte à rebours...",
+    "error": "Échec de l'initialisation du compte à rebours",
+    "done": "Terminé",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "remove": "Supprimer",
+    "clear": "Effacer",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "search": "Rechercher",
+    "select": "Sélectionner"
+  },
+  "countdown": {
+    "title": "COMPTE À REBOURS DU NOUVEL AN",
+    "happyNewYear": "BONNE ANNÉE !",
+    "timeRemaining": "Temps restant jusqu'au Nouvel An",
+    "celebrating": "Célébrer les premières 24 heures de la nouvelle année !",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "seconds": "Secondes"
+  },
+  "timezone": {
+    "select": "Sélectionner le fuseau horaire",
+    "search": "Rechercher une ville, un pays ou un continent...",
+    "noResults": "Aucun fuseau horaire trouvé",
+    "searchHint": "Essayez de rechercher une ville, un pays ou un continent",
+    "zones": "fuseaux"
+  },
+  "photos": {
+    "addPhotos": "Ajouter des Photos de Famille",
+    "editPhotos": "Modifier les photos",
+    "uploadPhotos": "Télécharger des Photos",
+    "addUpTo": "Ajoutez jusqu'à {{max}} photos pour votre diaporama de fond de compte à rebours",
+    "photosCount": "Photos : {{current}} / {{max}}",
+    "storage": "Stockage : {{used}} / {{total}}",
+    "dropOrClick": "Déposez des photos ici ou cliquez pour parcourir",
+    "fileTypes": "JPEG, PNG ou WebP • Max 10 Mo par photo",
+    "yourPhotos": "Vos Photos",
+    "clearAll": "Tout effacer",
+    "removePhoto": "Supprimer la photo {{index}}",
+    "compressing": "Compression de {{current}} sur {{total}}...",
+    "maxPhotosReached": "Maximum de {{max}} photos autorisées",
+    "onlyAdding": "Ajout de seulement {{count}} sur {{total}} photos (limite : {{max}})",
+    "invalidFileType": "Veuillez sélectionner des fichiers image valides (JPEG, PNG ou WebP)",
+    "compressionError": "Échec du traitement de certaines images. Veuillez réessayer.",
+    "swipeHint": "Balayez pour naviguer",
+    "swipeToSeeMore": "Balayez pour voir plus",
+    "personalizeHint": "Personnalisez votre compte à rebours avec des photos de famille"
+  },
+  "fullscreen": {
+    "enter": "Diffuser sur TV",
+    "exit": "Quitter",
+    "enterTitle": "Passer en plein écran pour l'affichage TV",
+    "exitTitle": "Quitter le plein écran"
+  },
+  "language": {
+    "select": "Sélectionner la Langue",
+    "current": "Langue Actuelle"
+  }
+}
+

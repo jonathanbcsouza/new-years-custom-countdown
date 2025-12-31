@@ -1,4 +1,5 @@
 import { memo, useState, useEffect, useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ImagePlus, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PhotoCarouselProps {
@@ -15,6 +16,7 @@ export const PhotoCarousel = memo(function PhotoCarousel({
   onAddClick,
   interval = 7000,
 }: PhotoCarouselProps) {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -107,7 +109,7 @@ export const PhotoCarousel = memo(function PhotoCarousel({
                      transition-all duration-300 group"
         >
           <ImagePlus className="h-5 w-5 group-hover:scale-110 transition-transform" />
-          <span className="text-base font-medium">Add Your Family Photos</span>
+          <span className="text-base font-medium">{t('photos.addPhotos')}</span>
         </button>
       </div>
     );
@@ -246,12 +248,12 @@ export const PhotoCarousel = memo(function PhotoCarousel({
                    text-white/70 hover:text-white hover:bg-black/60
                    text-sm transition-all duration-300"
       >
-        Edit photos
+        {t('photos.editPhotos')}
       </button>
 
       {/* Swipe hint (mobile) */}
       <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-30 md:hidden">
-        <span className="text-white/40 text-xs">Swipe to navigate</span>
+        <span className="text-white/40 text-xs">{t('photos.swipeHint')}</span>
       </div>
 
       {/* Ken Burns animation */}

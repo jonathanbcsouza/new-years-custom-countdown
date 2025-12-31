@@ -1,10 +1,12 @@
 import { memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCountdown } from '@/hooks/useCountdown';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
 import { PhotoCarousel } from '@/components/PhotoCarousel';
 import { PhotoUpload } from '@/components/PhotoUpload';
 import { TimezoneSelector } from '@/components/TimezoneSelector';
 import { FullscreenButton } from '@/components/FullscreenButton';
+import { LanguageSelector } from '@/components/LanguageSelector';
 
 interface CountdownProps {
   targetDate: Date;
@@ -31,6 +33,7 @@ export const Countdown = memo(function Countdown({
   onPhotosChange,
   isCelebrationPeriod,
 }: CountdownProps) {
+  const { t } = useTranslation();
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
   const { days, hours, minutes, seconds, isComplete } =
     useCountdown(targetDate);
@@ -58,12 +61,13 @@ export const Countdown = memo(function Countdown({
       {/* Main Layout */}
       <main className="min-h-screen flex flex-col relative z-10">
         {/* Top Bar Controls */}
-        {/* Fullscreen Button - Top Left */}
-        <div className="absolute top-4 left-4 z-20">
+        {/* Left Side - Fullscreen & Language */}
+        <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
           <FullscreenButton />
+          <LanguageSelector />
         </div>
 
-        {/* Timezone Selector - Top Right */}
+        {/* Right Side - Timezone Selector */}
         <div className="absolute top-4 right-4 z-20">
           <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
         </div>
@@ -78,7 +82,7 @@ export const Countdown = memo(function Countdown({
         >
           {/* Title */}
           <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold text-white tracking-widest text-glow mb-6 md:mb-10 text-center uppercase">
-            {showCelebration ? 'HAPPY NEW YEAR!' : "NEW YEAR'S EVE COUNTDOWN"}
+            {showCelebration ? t('countdown.happyNewYear') : t('countdown.title')}
           </h1>
 
           {/* Countdown Timer Bar */}
@@ -87,7 +91,7 @@ export const Countdown = memo(function Countdown({
               <div
                 className="champagne-gradient rounded-lg md:rounded-xl px-6 py-4 md:px-10 md:py-6 animate-glow"
                 role="timer"
-                aria-label="Time remaining until New Year"
+                aria-label={t('countdown.timeRemaining')}
                 style={{
                   boxShadow:
                     '0 4px 30px rgba(255, 220, 150, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
@@ -132,7 +136,7 @@ export const Countdown = memo(function Countdown({
               </p>
               {isCelebrationPeriod && (
                 <p className="text-lg md:text-xl text-white/80">
-                  Celebrating the first 24 hours of the New Year!
+                  {t('countdown.celebrating')}
                 </p>
               )}
             </div>

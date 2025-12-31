@@ -1,0 +1,65 @@
+{
+  "common": {
+    "loading": "カウントダウンを読み込み中...",
+    "error": "カウントダウンの初期化に失敗しました",
+    "done": "完了",
+    "edit": "編集",
+    "add": "追加",
+    "remove": "削除",
+    "clear": "クリア",
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "search": "検索",
+    "select": "選択"
+  },
+  "countdown": {
+    "title": "大晦日カウントダウン",
+    "happyNewYear": "あけましておめでとうございます！",
+    "timeRemaining": "新年までの残り時間",
+    "celebrating": "新年の最初の24時間をお祝いしています！",
+    "days": "日",
+    "hours": "時間",
+    "minutes": "分",
+    "seconds": "秒"
+  },
+  "timezone": {
+    "select": "タイムゾーンを選択",
+    "search": "都市、国、または大陸を検索...",
+    "noResults": "タイムゾーンが見つかりません",
+    "searchHint": "都市、国、または大陸を検索してみてください",
+    "zones": "ゾーン"
+  },
+  "photos": {
+    "addPhotos": "家族の写真を追加",
+    "editPhotos": "写真を編集",
+    "uploadPhotos": "写真をアップロード",
+    "addUpTo": "カウントダウンの背景スライドショーに最大{{max}}枚の写真を追加",
+    "photosCount": "写真: {{current}} / {{max}}",
+    "storage": "ストレージ: {{used}} / {{total}}",
+    "dropOrClick": "写真をここにドロップするか、クリックして参照",
+    "fileTypes": "JPEG、PNG、またはWebP • 写真あたり最大10MB",
+    "yourPhotos": "あなたの写真",
+    "clearAll": "すべてクリア",
+    "removePhoto": "写真{{index}}を削除",
+    "compressing": "{{current}} / {{total}}を圧縮中...",
+    "maxPhotosReached": "最大{{max}}枚の写真が許可されています",
+    "onlyAdding": "{{total}}枚中{{count}}枚のみ追加（制限: {{max}}）",
+    "invalidFileType": "有効な画像ファイル（JPEG、PNG、またはWebP）を選択してください",
+    "compressionError": "一部の画像の処理に失敗しました。もう一度お試しください。",
+    "swipeHint": "スワイプしてナビゲート",
+    "swipeToSeeMore": "スワイプしてさらに表示",
+    "personalizeHint": "家族の写真でカウントダウンをパーソナライズ"
+  },
+  "fullscreen": {
+    "enter": "TVにキャスト",
+    "exit": "終了",
+    "enterTitle": "TV表示用に全画面表示",
+    "exitTitle": "全画面表示を終了"
+  },
+  "language": {
+    "select": "言語を選択",
+    "current": "現在の言語"
+  }
+}
+

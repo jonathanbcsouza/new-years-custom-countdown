@@ -1,0 +1,65 @@
+{
+  "common": {
+    "loading": "正在加载倒计时...",
+    "error": "初始化倒计时失败",
+    "done": "完成",
+    "edit": "编辑",
+    "add": "添加",
+    "remove": "删除",
+    "clear": "清除",
+    "close": "关闭",
+    "cancel": "取消",
+    "save": "保存",
+    "search": "搜索",
+    "select": "选择"
+  },
+  "countdown": {
+    "title": "新年倒计时",
+    "happyNewYear": "新年快乐！",
+    "timeRemaining": "距离新年的剩余时间",
+    "celebrating": "庆祝新年的前24小时！",
+    "days": "天",
+    "hours": "小时",
+    "minutes": "分钟",
+    "seconds": "秒"
+  },
+  "timezone": {
+    "select": "选择时区",
+    "search": "搜索城市、国家或大洲...",
+    "noResults": "未找到时区",
+    "searchHint": "尝试搜索城市、国家或大洲",
+    "zones": "时区"
+  },
+  "photos": {
+    "addPhotos": "添加家庭照片",
+    "editPhotos": "编辑照片",
+    "uploadPhotos": "上传照片",
+    "addUpTo": "为您的倒计时背景幻灯片添加最多{{max}}张照片",
+    "photosCount": "照片: {{current}} / {{max}}",
+    "storage": "存储: {{used}} / {{total}}",
+    "dropOrClick": "将照片拖放到此处或点击浏览",
+    "fileTypes": "JPEG、PNG或WebP • 每张照片最大10MB",
+    "yourPhotos": "您的照片",
+    "clearAll": "全部清除",
+    "removePhoto": "删除照片{{index}}",
+    "compressing": "正在压缩 {{current}} / {{total}}...",
+    "maxPhotosReached": "最多允许{{max}}张照片",
+    "onlyAdding": "仅添加{{total}}张中的{{count}}张（限制: {{max}}）",
+    "invalidFileType": "请选择有效的图像文件（JPEG、PNG或WebP）",
+    "compressionError": "处理某些图像时失败。请重试。",
+    "swipeHint": "滑动导航",
+    "swipeToSeeMore": "滑动查看更多",
+    "personalizeHint": "用家庭照片个性化您的倒计时"
+  },
+  "fullscreen": {
+    "enter": "投射到电视",
+    "exit": "退出",
+    "enterTitle": "进入全屏以在电视上显示",
+    "exitTitle": "退出全屏"
+  },
+  "language": {
+    "select": "选择语言",
+    "current": "当前语言"
+  }
+}
+

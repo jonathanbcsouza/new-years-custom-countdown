@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { X, Upload, ImagePlus, Loader2, AlertCircle, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -23,6 +24,7 @@ export const PhotoUpload = memo(function PhotoUpload({
   maxPhotos = MAX_PHOTOS_DEFAULT,
   onClose,
 }: PhotoUploadProps) {
+  const { t } = useTranslation();
   const [isDragging, setIsDragging] = useState(false);
   const [isCompressing, setIsCompressing] = useState(false);
   const [compressionProgress, setCompressionProgress] = useState({ current: 0, total: 0 });
@@ -39,20 +41,20 @@ export const PhotoUpload = memo(function PhotoUpload({
       // Validate file types
       const validFiles = fileArray.filter(isValidImageType);
       if (validFiles.length === 0) {
-        setError('Please select valid image files (JPEG, PNG, or WebP)');
+        setError(t('photos.invalidFileType'));
         return;
       }
 
       // Check photo limit
       const remainingSlots = maxPhotos - photos.length;
       if (remainingSlots <= 0) {
-        setError(`Maximum ${maxPhotos} photos allowed`);
+        setError(t('photos.maxPhotosReached', { max: maxPhotos }));
         return;
       }
 
       const filesToProcess = validFiles.slice(0, remainingSlots);
       if (filesToProcess.length < validFiles.length) {
-        setError(`Only adding ${filesToProcess.length} of ${validFiles.length} photos (limit: ${maxPhotos})`);
+        setError(t('photos.onlyAdding', { count: filesToProcess.length, total: validFiles.length, max: maxPhotos }));
       }
 
       // Compress images
@@ -67,7 +69,7 @@ export const PhotoUpload = memo(function PhotoUpload({
         onPhotosChange([...photos, ...compressed]);
       } catch (err) {
         console.error('Compression error:', err);
-        setError('Failed to process some images. Please try again.');
+        setError(t('photos.compressionError'));
       } finally {
         setIsCompressing(false);
         setCompressionProgress({ current: 0, total: 0 });
@@ -122,7 +124,7 @@ export const PhotoUpload = memo(function PhotoUpload({
         <div className="flex items-center justify-between">
           <CardTitle className="text-xl flex items-center gap-2">
             <ImagePlus className="h-5 w-5" />
-            Upload Photos
+            {t('photos.uploadPhotos')}
           </CardTitle>
           {onClose && (
             <Button variant="ghost" size="icon" onClick={onClose}>
@@ -131,7 +133,7 @@ export const PhotoUpload = memo(function PhotoUpload({
           )}
         </div>
         <p className="text-sm text-muted-foreground">
-          Add up to {maxPhotos} photos for your countdown background slideshow
+          {t('photos.addUpTo', { max: maxPhotos })}
         </p>
       </CardHeader>
 
@@ -139,10 +141,10 @@ export const PhotoUpload = memo(function PhotoUpload({
         {/* Storage Info */}
         <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>
-            Photos: {photos.length} / {maxPhotos}
+            {t('photos.photosCount', { current: photos.length, max: maxPhotos })}
           </span>
           <span className={storageInfo.isNearLimit ? 'text-destructive' : ''}>
-            Storage: {formatBytes(storageInfo.used)} / {formatBytes(storageInfo.total)}
+            {t('photos.storage', { used: formatBytes(storageInfo.used), total: formatBytes(storageInfo.total) })}
           </span>
         </div>
 
@@ -175,17 +177,17 @@ export const PhotoUpload = memo(function PhotoUpload({
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="h-10 w-10 animate-spin text-primary" />
               <p className="text-sm text-muted-foreground">
-                Compressing {compressionProgress.current} of {compressionProgress.total}...
+                {t('photos.compressing', { current: compressionProgress.current, total: compressionProgress.total })}
               </p>
             </div>
           ) : (
             <>
               <Upload className="h-10 w-10 mx-auto mb-3 text-muted-foreground" />
               <p className="text-sm font-medium">
-                Drop photos here or click to browse
+                {t('photos.dropOrClick')}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                JPEG, PNG, or WebP • Max 10MB per photo
+                {t('photos.fileTypes')}
               </p>
             </>
           )}
@@ -203,14 +205,14 @@ export const PhotoUpload = memo(function PhotoUpload({
         {photos.length > 0 && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Your Photos</span>
+              <span className="text-sm font-medium">{t('photos.yourPhotos')}</span>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleClearAll}
                 className="text-destructive hover:text-destructive"
               >
-                Clear All
+                {t('photos.clearAll')}
               </Button>
             </div>
 
@@ -230,7 +232,7 @@ export const PhotoUpload = memo(function PhotoUpload({
                     className="absolute top-1 right-1 p-1 rounded-full bg-black/60 text-white 
                              opacity-0 group-hover:opacity-100 transition-opacity duration-200
                              hover:bg-destructive"
-                    aria-label={`Remove photo ${index + 1}`}
+                    aria-label={t('photos.removePhoto', { index: index + 1 })}
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -249,7 +251,7 @@ export const PhotoUpload = memo(function PhotoUpload({
           size="lg"
         >
           <Check className="h-5 w-5 mr-2" />
-          {photos.length > 0 ? `Done (${photos.length} photos)` : 'Done'}
+          {t('common.done')} {photos.length > 0 && `(${photos.length})`}
         </Button>
       </CardFooter>
     </Card>
