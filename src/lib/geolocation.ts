@@ -106,10 +106,12 @@ export function getNewYearDate(timezone: string): NewYearResult {
       // Calculate milliseconds since midnight in the target timezone
       const msSinceMidnight = (hour * 3600 + minute * 60 + second) * 1000;
       const msIn24Hours = 24 * 60 * 60 * 1000;
-      
+
       // Celebration ends 24 hours after midnight Jan 1st in the target timezone
       // This is when Jan 2nd 00:00:00 arrives in the target timezone
-      const celebrationEndDate = new Date(now.getTime() + (msIn24Hours - msSinceMidnight));
+      const celebrationEndDate = new Date(
+        now.getTime() + (msIn24Hours - msSinceMidnight)
+      );
 
       return {
         targetDate: celebrationEndDate,
