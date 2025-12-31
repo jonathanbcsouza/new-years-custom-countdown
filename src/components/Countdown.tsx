@@ -4,6 +4,7 @@ import { StarryFireworksBackground } from '@/components/StarryFireworksBackgroun
 import { PhotoCarousel } from '@/components/PhotoCarousel';
 import { PhotoUpload } from '@/components/PhotoUpload';
 import { TimezoneSelector } from '@/components/TimezoneSelector';
+import { FullscreenButton } from '@/components/FullscreenButton';
 
 interface CountdownProps {
   targetDate: Date;
@@ -51,12 +52,15 @@ export const Countdown = memo(function Countdown({
 
       {/* Main Layout */}
       <main className="min-h-screen flex flex-col relative z-10">
+        {/* Top Bar Controls */}
+        {/* Fullscreen Button - Top Left */}
+        <div className="absolute top-4 left-4 z-20">
+          <FullscreenButton />
+        </div>
+
         {/* Timezone Selector - Top Right */}
         <div className="absolute top-4 right-4 z-20">
-          <TimezoneSelector
-            value={timezone}
-            onChange={onTimezoneChange}
-          />
+          <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
         </div>
 
         {/* Content Container - Positioned above photos */}

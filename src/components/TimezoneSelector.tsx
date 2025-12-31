@@ -1,6 +1,10 @@
 import { useState, useMemo, useCallback } from 'react';
 import { Globe, Search, ChevronDown, ChevronRight, X } from 'lucide-react';
-import { getGroupedTimezones, formatTimezone, type ContinentGroup } from '@/lib/timezones';
+import {
+  getGroupedTimezones,
+  formatTimezone,
+  type ContinentGroup,
+} from '@/lib/timezones';
 import { cn } from '@/lib/utils';
 
 interface TimezoneSelectorProps {
@@ -20,8 +24,12 @@ export function TimezoneSelector({
 }: TimezoneSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedContinents, setExpandedContinents] = useState<Set<string>>(new Set());
-  const [expandedCountries, setExpandedCountries] = useState<Set<string>>(new Set());
+  const [expandedContinents, setExpandedContinents] = useState<Set<string>>(
+    new Set()
+  );
+  const [expandedCountries, setExpandedCountries] = useState<Set<string>>(
+    new Set()
+  );
 
   const groupedTimezones = useMemo(() => getGroupedTimezones(), []);
 
@@ -38,8 +46,10 @@ export function TimezoneSelector({
       const matchingCountries = continentGroup.countries
         .map((countryGroup) => {
           // Check if country matches
-          const countryMatches = countryGroup.country.toLowerCase().includes(query);
-          
+          const countryMatches = countryGroup.country
+            .toLowerCase()
+            .includes(query);
+
           // Filter cities
           const matchingTimezones = countryGroup.timezones.filter((tz) =>
             tz.searchText.includes(query)
@@ -49,7 +59,9 @@ export function TimezoneSelector({
           if (countryMatches || matchingTimezones.length > 0) {
             return {
               ...countryGroup,
-              timezones: countryMatches ? countryGroup.timezones : matchingTimezones,
+              timezones: countryMatches
+                ? countryGroup.timezones
+                : matchingTimezones,
             };
           }
           return null;
@@ -57,14 +69,16 @@ export function TimezoneSelector({
         .filter(Boolean) as typeof continentGroup.countries;
 
       // Check if continent matches
-      const continentMatches = 
+      const continentMatches =
         continentGroup.continent.toLowerCase().includes(query) ||
         continentGroup.continentLabel.toLowerCase().includes(query);
 
       if (continentMatches || matchingCountries.length > 0) {
         result.push({
           ...continentGroup,
-          countries: continentMatches ? continentGroup.countries : matchingCountries,
+          countries: continentMatches
+            ? continentGroup.countries
+            : matchingCountries,
         });
       }
     });
@@ -117,11 +131,14 @@ export function TimezoneSelector({
     });
   }, []);
 
-  const handleSelect = useCallback((timezone: string) => {
-    onChange(timezone);
-    setIsOpen(false);
-    setSearchQuery('');
-  }, [onChange]);
+  const handleSelect = useCallback(
+    (timezone: string) => {
+      onChange(timezone);
+      setIsOpen(false);
+      setSearchQuery('');
+    },
+    [onChange]
+  );
 
   const currentLabel = formatTimezone(value);
 
@@ -136,31 +153,37 @@ export function TimezoneSelector({
                    min-w-[200px] md:min-w-[280px]"
       >
         <Globe className="h-4 w-4 text-white/70 shrink-0" />
-        <span className="truncate text-sm flex-1 text-left">{currentLabel}</span>
-        <ChevronDown className={cn(
-          "h-4 w-4 text-white/70 transition-transform",
-          isOpen && "rotate-180"
-        )} />
+        <span className="truncate text-sm flex-1 text-left">
+          {currentLabel}
+        </span>
+        <ChevronDown
+          className={cn(
+            'h-4 w-4 text-white/70 transition-transform',
+            isOpen && 'rotate-180'
+          )}
+        />
       </button>
 
       {/* Dropdown */}
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div 
-            className="fixed inset-0 z-40" 
+          <div
+            className="fixed inset-0 z-40"
             onClick={() => {
               setIsOpen(false);
               setSearchQuery('');
-            }} 
+            }}
           />
-          
+
           {/* Dropdown Content */}
-          <div className="absolute top-full right-0 mt-2 z-50
+          <div
+            className="absolute top-full right-0 mt-2 z-50
                           w-[calc(100vw-2rem)] sm:w-[320px] md:w-[400px] max-h-[70vh]
                           bg-card/95 backdrop-blur-md border border-border
                           rounded-xl shadow-2xl overflow-hidden
-                          animate-in fade-in-0 zoom-in-95">
+                          animate-in fade-in-0 zoom-in-95"
+          >
             {/* Search Input */}
             <div className="sticky top-0 z-10 bg-card border-b border-border p-3">
               <div className="relative">
@@ -200,22 +223,33 @@ export function TimezoneSelector({
                                  text-sm font-semibold text-foreground
                                  hover:bg-muted/50 transition-colors"
                     >
-                      <ChevronRight className={cn(
-                        "h-4 w-4 text-muted-foreground transition-transform",
-                        effectiveExpandedContinents.has(continentGroup.continent) && "rotate-90"
-                      )} />
+                      <ChevronRight
+                        className={cn(
+                          'h-4 w-4 text-muted-foreground transition-transform',
+                          effectiveExpandedContinents.has(
+                            continentGroup.continent
+                          ) && 'rotate-90'
+                        )}
+                      />
                       <span>{continentGroup.continentLabel}</span>
                       <span className="ml-auto text-xs text-muted-foreground">
-                        {continentGroup.countries.reduce((acc, c) => acc + c.timezones.length, 0)} zones
+                        {continentGroup.countries.reduce(
+                          (acc, c) => acc + c.timezones.length,
+                          0
+                        )}{' '}
+                        zones
                       </span>
                     </button>
 
                     {/* Countries */}
-                    {effectiveExpandedContinents.has(continentGroup.continent) && (
+                    {effectiveExpandedContinents.has(
+                      continentGroup.continent
+                    ) && (
                       <div className="ml-4 border-l border-border/50 pl-2">
                         {continentGroup.countries.map((countryGroup) => {
                           const countryKey = `${continentGroup.continent}/${countryGroup.country}`;
-                          const isCountryExpanded = effectiveExpandedCountries.has(countryKey);
+                          const isCountryExpanded =
+                            effectiveExpandedCountries.has(countryKey);
 
                           return (
                             <div key={countryKey} className="mb-0.5">
@@ -226,11 +260,15 @@ export function TimezoneSelector({
                                            text-sm text-foreground/90
                                            hover:bg-muted/50 transition-colors"
                               >
-                                <ChevronRight className={cn(
-                                  "h-3 w-3 text-muted-foreground transition-transform",
-                                  isCountryExpanded && "rotate-90"
-                                )} />
-                                <span className="font-medium">{countryGroup.country}</span>
+                                <ChevronRight
+                                  className={cn(
+                                    'h-3 w-3 text-muted-foreground transition-transform',
+                                    isCountryExpanded && 'rotate-90'
+                                  )}
+                                />
+                                <span className="font-medium">
+                                  {countryGroup.country}
+                                </span>
                                 <span className="ml-auto text-xs text-muted-foreground">
                                   {countryGroup.timezones.length}
                                 </span>
@@ -244,20 +282,22 @@ export function TimezoneSelector({
                                       key={tz.value}
                                       onClick={() => handleSelect(tz.value)}
                                       className={cn(
-                                        "w-full flex items-center justify-between px-3 py-1.5 rounded-md",
-                                        "text-sm transition-colors",
+                                        'w-full flex items-center justify-between px-3 py-1.5 rounded-md',
+                                        'text-sm transition-colors',
                                         value === tz.value
-                                          ? "bg-primary text-primary-foreground"
-                                          : "text-foreground/80 hover:bg-muted"
+                                          ? 'bg-primary text-primary-foreground'
+                                          : 'text-foreground/80 hover:bg-muted'
                                       )}
                                     >
                                       <span>{tz.city}</span>
-                                      <span className={cn(
-                                        "text-xs",
-                                        value === tz.value 
-                                          ? "text-primary-foreground/80" 
-                                          : "text-muted-foreground"
-                                      )}>
+                                      <span
+                                        className={cn(
+                                          'text-xs',
+                                          value === tz.value
+                                            ? 'text-primary-foreground/80'
+                                            : 'text-muted-foreground'
+                                        )}
+                                      >
                                         {tz.offset}
                                       </span>
                                     </button>
@@ -274,7 +314,9 @@ export function TimezoneSelector({
               ) : (
                 <div className="px-4 py-8 text-center text-muted-foreground">
                   <p className="text-sm">No timezones found</p>
-                  <p className="text-xs mt-1">Try searching for a city, country, or continent</p>
+                  <p className="text-xs mt-1">
+                    Try searching for a city, country, or continent
+                  </p>
                 </div>
               )}
             </div>
