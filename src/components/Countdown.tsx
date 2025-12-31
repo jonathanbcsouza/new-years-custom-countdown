@@ -62,15 +62,15 @@ export const Countdown = memo(function Countdown({
       {/* Main Layout */}
       <main className="min-h-screen flex flex-col relative z-10">
         {/* Top Bar Controls */}
-        {/* Left Side - Fullscreen, Language & Donate */}
+        {/* Left Side - Fullscreen & Language */}
         <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
           <FullscreenButton />
           <LanguageSelector />
-          <DonateButton />
         </div>
 
-        {/* Right Side - Timezone Selector */}
-        <div className="absolute top-4 right-4 z-20">
+        {/* Right Side - Donate & Timezone Selector */}
+        <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+          <DonateButton />
           <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
         </div>
 

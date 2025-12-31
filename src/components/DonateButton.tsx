@@ -20,11 +20,11 @@ export const DonateButton = memo(function DonateButton() {
       variant="ghost"
       size="sm"
       onClick={handleDonate}
-      className="text-white/50 hover:text-pink-400 hover:bg-pink-500/10 transition-all gap-2 group"
+      className="text-pink-400/80 hover:text-pink-400 hover:bg-pink-500/10 transition-all gap-1.5 group px-2 sm:px-3"
       title={t('donate.tooltip')}
     >
       <Heart className="h-4 w-4 group-hover:fill-pink-400 transition-all" />
-      <span className="text-xs hidden sm:inline">{t('donate.button')}</span>
+      <span className="text-xs">{t('donate.button')}</span>
     </Button>
   );
 });
