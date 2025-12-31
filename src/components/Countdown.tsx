@@ -1,12 +1,11 @@
 import { memo, useState } from 'react';
-import { ImagePlus, Images, Pencil } from 'lucide-react';
+import { Globe } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { TimezoneSelector } from '@/components/TimezoneSelector';
-import { BackgroundSlider } from '@/components/BackgroundSlider';
+import { FireworksBackground } from '@/components/FireworksBackground';
+import { PhotoCarousel } from '@/components/PhotoCarousel';
 import { PhotoUpload } from '@/components/PhotoUpload';
+import { TimezoneSelector } from '@/components/TimezoneSelector';
 
 interface CountdownProps {
   targetDate: Date;
@@ -16,79 +15,13 @@ interface CountdownProps {
   onPhotosChange: (photos: string[]) => void;
 }
 
-interface TimeUnitProps {
-  label: string;
-  value: number;
-}
-
 /**
- * Displays a single time unit in a card-like container
+ * Formats a number with leading zero
  */
-const TimeUnit = memo(function TimeUnit({ label, value }: TimeUnitProps) {
-  const formattedValue = String(value).padStart(2, '0');
-
-  return (
-    <Card className="min-w-[100px] md:min-w-[140px] bg-card/80 backdrop-blur-sm">
-      <CardContent className="p-4 md:p-6 text-center">
-        <span
-          className="text-5xl md:text-7xl font-bold text-primary tabular-nums block"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {formattedValue}
-        </span>
-        <span className="text-sm md:text-base text-muted-foreground uppercase tracking-wider mt-2 block">
-          {label}
-        </span>
-      </CardContent>
-    </Card>
-  );
-});
+const formatNumber = (num: number): string => String(num).padStart(2, '0');
 
 /**
- * Photo action button - shows different states based on photo count
- */
-const PhotoActionButton = memo(function PhotoActionButton({
-  photoCount,
-  onClick,
-}: {
-  photoCount: number;
-  onClick: () => void;
-}) {
-  const hasPhotos = photoCount > 0;
-
-  return (
-    <Button
-      variant="ghost"
-      onClick={onClick}
-      className="group flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-    >
-      {hasPhotos ? (
-        <>
-          <div className="relative">
-            <Images className="h-5 w-5" />
-            <Badge
-              variant="secondary"
-              className="absolute -top-2 -right-3 h-4 min-w-4 p-0 flex items-center justify-center text-[10px]"
-            >
-              {photoCount}
-            </Badge>
-          </div>
-          <span className="text-sm">Edit Photos</span>
-          <Pencil className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-        </>
-      ) : (
-        <>
-          <ImagePlus className="h-5 w-5" />
-          <span className="text-sm">Add Your Photos</span>
-        </>
-      )}
-    </Button>
-  );
-});
-
-/**
- * Main countdown component displaying time remaining until target date
+ * Main countdown component - New Year's Eve themed
  */
 export const Countdown = memo(function Countdown({
   targetDate,
@@ -98,76 +31,123 @@ export const Countdown = memo(function Countdown({
   onPhotosChange,
 }: CountdownProps) {
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
-  const { days, hours, minutes, seconds, isComplete } =
-    useCountdown(targetDate);
+  const [showTimezone, setShowTimezone] = useState(false);
+  const { days, hours, minutes, seconds, isComplete } = useCountdown(targetDate);
 
   return (
     <>
-      {/* Background Slider */}
-      <BackgroundSlider photos={photos} interval={5000} />
+      {/* Fireworks Background */}
+      <FireworksBackground />
 
-      <main className="min-h-screen flex items-center justify-center p-4 relative z-10">
-        <div className="text-center max-w-4xl w-full">
-          {/* Photo Upload Modal */}
-          {showPhotoUpload && (
-            <div className="fixed inset-0 z-30 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-              <PhotoUpload
-                photos={photos}
-                onPhotosChange={onPhotosChange}
-                maxPhotos={10}
-                onClose={() => setShowPhotoUpload(false)}
+      {/* Photo Upload Modal */}
+      {showPhotoUpload && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in">
+          <PhotoUpload
+            photos={photos}
+            onPhotosChange={onPhotosChange}
+            maxPhotos={10}
+            onClose={() => setShowPhotoUpload(false)}
+          />
+        </div>
+      )}
+
+      {/* Main Layout */}
+      <main className="min-h-screen flex flex-col relative z-10">
+        {/* Timezone Selector - Top Right */}
+        <div className="absolute top-4 right-4 z-20">
+          {showTimezone ? (
+            <div className="animate-in">
+              <TimezoneSelector
+                value={timezone}
+                onChange={(tz) => {
+                  onTimezoneChange(tz);
+                  setShowTimezone(false);
+                }}
               />
+            </div>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowTimezone(true)}
+              className="text-white/70 hover:text-white hover:bg-white/10"
+            >
+              <Globe className="h-4 w-4 mr-2" />
+              <span className="text-xs">{timezone.split('/').pop()?.replace(/_/g, ' ')}</span>
+            </Button>
+          )}
+        </div>
+
+        {/* Content Container */}
+        <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
+          {/* Title */}
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white tracking-wider text-glow mb-8 md:mb-12 text-center">
+            {isComplete ? '🎉 HAPPY NEW YEAR! 🎉' : "NEW YEAR'S EVE COUNTDOWN"}
+          </h1>
+
+          {/* Countdown Timer Bar */}
+          {!isComplete ? (
+            <div className="w-full max-w-4xl mx-auto mb-8 md:mb-12">
+              <div 
+                className="gold-gradient rounded-lg md:rounded-xl p-4 md:p-6 animate-glow"
+                role="timer"
+                aria-label="Time remaining until New Year"
+              >
+                <div className="flex items-center justify-center gap-2 md:gap-4">
+                  {/* Days */}
+                  <div className="text-center">
+                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
+                      {formatNumber(days)}
+                    </span>
+                  </div>
+                  <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white/80">:</span>
+                  
+                  {/* Hours */}
+                  <div className="text-center">
+                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
+                      {formatNumber(hours)}
+                    </span>
+                  </div>
+                  <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white/80">:</span>
+                  
+                  {/* Minutes */}
+                  <div className="text-center">
+                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
+                      {formatNumber(minutes)}
+                    </span>
+                  </div>
+                  <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white/80">:</span>
+                  
+                  {/* Seconds */}
+                  <div className="text-center">
+                    <span className="text-4xl md:text-6xl lg:text-8xl font-bold text-white tabular-nums text-glow">
+                      {formatNumber(seconds)}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Labels */}
+                <div className="flex items-center justify-center gap-8 md:gap-16 mt-2 md:mt-4">
+                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Days</span>
+                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Hours</span>
+                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Min</span>
+                  <span className="text-xs md:text-sm text-white/70 uppercase tracking-widest">Sec</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center mb-12">
+              <p className="text-3xl md:text-5xl text-white animate-float">
+                Welcome to the New Year! 🎊
+              </p>
             </div>
           )}
 
-          <Card className="bg-card/80 backdrop-blur-sm border-none shadow-lg">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-3xl md:text-5xl font-bold text-foreground">
-                {isComplete ? '🎉 Happy New Year! 🎉' : "New Year's Countdown"}
-              </CardTitle>
-              <div className="flex flex-col items-center gap-3 mt-4">
-                <TimezoneSelector
-                  value={timezone}
-                  onChange={onTimezoneChange}
-                />
-                <Badge variant="secondary" className="text-xs">
-                  📍 {timezone}
-                </Badge>
-              </div>
-            </CardHeader>
-
-            <CardContent className="pt-6 pb-8">
-              {!isComplete ? (
-                <div
-                  className="flex flex-wrap gap-3 md:gap-6 justify-center"
-                  role="timer"
-                  aria-label="Time remaining until New Year"
-                >
-                  <TimeUnit label="Days" value={days} />
-                  <TimeUnit label="Hours" value={hours} />
-                  <TimeUnit label="Minutes" value={minutes} />
-                  <TimeUnit label="Seconds" value={seconds} />
-                </div>
-              ) : (
-                <p className="text-2xl text-muted-foreground">
-                  Welcome to the New Year!
-                </p>
-              )}
-            </CardContent>
-
-            {/* Photo Action - Integrated into card footer */}
-            <div className="border-t border-border/50 py-4">
-              <PhotoActionButton
-                photoCount={photos.length}
-                onClick={() => setShowPhotoUpload(true)}
-              />
-              {photos.length === 0 && (
-                <p className="text-xs text-muted-foreground/60 mt-2">
-                  Personalize your countdown with family photos
-                </p>
-              )}
-            </div>
-          </Card>
+          {/* Photo Carousel */}
+          <PhotoCarousel 
+            photos={photos} 
+            onAddClick={() => setShowPhotoUpload(true)} 
+          />
         </div>
       </main>
     </>

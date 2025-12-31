@@ -4,48 +4,31 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.75rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    /* New Year's Eve Dark Theme - Gold & Navy */
+    --background: 220 60% 8%;
+    --foreground: 45 100% 95%;
+    --card: 220 50% 12%;
+    --card-foreground: 45 100% 95%;
+    --popover: 220 50% 12%;
+    --popover-foreground: 45 100% 95%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 220 60% 8%;
+    --secondary: 220 40% 18%;
+    --secondary-foreground: 45 100% 90%;
+    --muted: 220 40% 18%;
+    --muted-foreground: 220 20% 65%;
+    --accent: 45 90% 55%;
+    --accent-foreground: 220 60% 8%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 220 30% 25%;
+    --input: 220 30% 20%;
+    --ring: 45 100% 50%;
+    --radius: 0.75rem;
+    
+    /* Gold gradient for timer bar */
+    --gold-start: 45 100% 65%;
+    --gold-end: 35 100% 45%;
   }
 
   * {
@@ -54,79 +37,124 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    background: linear-gradient(180deg, hsl(220, 60%, 6%) 0%, hsl(220, 50%, 12%) 50%, hsl(220, 60%, 8%) 100%);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Fireworks background container */
+  .fireworks-bg {
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(255, 200, 100, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 30%, rgba(255, 180, 80, 0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 40% 70%, rgba(255, 210, 120, 0.06) 0%, transparent 40%),
+      radial-gradient(ellipse at 70% 80%, rgba(255, 190, 90, 0.08) 0%, transparent 50%),
+      linear-gradient(180deg, hsl(220, 60%, 6%) 0%, hsl(220, 50%, 12%) 50%, hsl(220, 60%, 8%) 100%);
+  }
+
+  /* Gold gradient bar for timer */
+  .gold-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(45, 100%, 70%) 0%,
+      hsl(40, 100%, 55%) 25%,
+      hsl(35, 100%, 45%) 50%,
+      hsl(40, 100%, 55%) 75%,
+      hsl(45, 100%, 65%) 100%
+    );
+  }
+
+  /* Sparkle animation */
+  .sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(255, 215, 100, 1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: sparkle 3s ease-in-out infinite;
+  }
+
+  /* Photo carousel styling */
+  .photo-carousel {
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   }
 }
 
 @layer utilities {
   @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @keyframes fade-out {
-    from {
-      opacity: 1;
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(255, 200, 100, 0.3), 0 0 40px rgba(255, 180, 80, 0.2);
     }
-    to {
-      opacity: 0;
+    50% { 
+      box-shadow: 0 0 30px rgba(255, 200, 100, 0.5), 0 0 60px rgba(255, 180, 80, 0.3);
     }
   }
 
-  @keyframes zoom-in {
-    from {
-      transform: scale(0.95);
-    }
-    to {
-      transform: scale(1);
-    }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
 
-  @keyframes zoom-out {
-    from {
-      transform: scale(1);
-    }
-    to {
-      transform: scale(0.95);
-    }
-  }
-
-  @keyframes slide-fade {
-    0% {
-      opacity: 0;
-      transform: scale(1.05);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes ken-burns {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(1.1);
-    }
+  @keyframes slide-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   .animate-in {
-    animation: fade-in 0.15s ease-out, zoom-in 0.15s ease-out;
+    animation: fade-in 0.3s ease-out;
   }
 
-  .animate-out {
-    animation: fade-out 0.15s ease-in, zoom-out 0.15s ease-in;
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
   }
 
-  .animate-slide-fade {
-    animation: slide-fade 1s ease-out forwards;
+  .animate-glow {
+    animation: glow-pulse 2s ease-in-out infinite;
   }
 
-  .animate-ken-burns {
-    animation: ken-burns 8s ease-out forwards;
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-slide-left {
+    animation: slide-left 30s linear infinite;
+  }
+
+  /* Text shadow for readability on fireworks */
+  .text-glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-gold-glow {
+    text-shadow: 0 0 20px rgba(255, 200, 100, 0.5), 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 }
