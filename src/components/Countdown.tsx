@@ -67,24 +67,20 @@ const PhotoActionButton = memo(function PhotoActionButton({
         <>
           <div className="relative">
             <Images className="h-5 w-5" />
-            <Badge 
-              variant="secondary" 
+            <Badge
+              variant="secondary"
               className="absolute -top-2 -right-3 h-4 min-w-4 p-0 flex items-center justify-center text-[10px]"
             >
               {photoCount}
             </Badge>
           </div>
-          <span className="text-sm">
-            Edit Photos
-          </span>
+          <span className="text-sm">Edit Photos</span>
           <Pencil className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
         </>
       ) : (
         <>
           <ImagePlus className="h-5 w-5" />
-          <span className="text-sm">
-            Add Your Photos
-          </span>
+          <span className="text-sm">Add Your Photos</span>
         </>
       )}
     </Button>
