@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Settings } from 'lucide-react';
+import { ImagePlus, Images, Pencil } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -46,6 +46,52 @@ const TimeUnit = memo(function TimeUnit({ label, value }: TimeUnitProps) {
 });
 
 /**
+ * Photo action button - shows different states based on photo count
+ */
+const PhotoActionButton = memo(function PhotoActionButton({
+  photoCount,
+  onClick,
+}: {
+  photoCount: number;
+  onClick: () => void;
+}) {
+  const hasPhotos = photoCount > 0;
+
+  return (
+    <Button
+      variant="ghost"
+      onClick={onClick}
+      className="group flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+    >
+      {hasPhotos ? (
+        <>
+          <div className="relative">
+            <Images className="h-5 w-5" />
+            <Badge 
+              variant="secondary" 
+              className="absolute -top-2 -right-3 h-4 min-w-4 p-0 flex items-center justify-center text-[10px]"
+            >
+              {photoCount}
+            </Badge>
+          </div>
+          <span className="text-sm">
+            Edit Photos
+          </span>
+          <Pencil className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+        </>
+      ) : (
+        <>
+          <ImagePlus className="h-5 w-5" />
+          <span className="text-sm">
+            Add Your Photos
+          </span>
+        </>
+      )}
+    </Button>
+  );
+});
+
+/**
  * Main countdown component displaying time remaining until target date
  */
 export const Countdown = memo(function Countdown({
@@ -66,17 +112,6 @@ export const Countdown = memo(function Countdown({
 
       <main className="min-h-screen flex items-center justify-center p-4 relative z-10">
         <div className="text-center max-w-4xl w-full">
-          {/* Settings Button */}
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setShowPhotoUpload(!showPhotoUpload)}
-            className="fixed top-4 right-4 bg-card/80 backdrop-blur-sm hover:bg-card z-20"
-            aria-label="Upload photos"
-          >
-            <Settings className="h-4 w-4" />
-          </Button>
-
           {/* Photo Upload Modal */}
           {showPhotoUpload && (
             <div className="fixed inset-0 z-30 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
@@ -123,15 +158,20 @@ export const Countdown = memo(function Countdown({
                 </p>
               )}
             </CardContent>
-          </Card>
 
-          {/* Photo hint */}
-          {photos.length === 0 && (
-            <p className="mt-4 text-sm text-muted-foreground/80">
-              Click the ⚙ button to add your own photos as a background
-              slideshow
-            </p>
-          )}
+            {/* Photo Action - Integrated into card footer */}
+            <div className="border-t border-border/50 py-4">
+              <PhotoActionButton
+                photoCount={photos.length}
+                onClick={() => setShowPhotoUpload(true)}
+              />
+              {photos.length === 0 && (
+                <p className="text-xs text-muted-foreground/60 mt-2">
+                  Personalize your countdown with family photos
+                </p>
+              )}
+            </div>
+          </Card>
         </div>
       </main>
     </>
