@@ -95,7 +95,10 @@ export const Countdown = memo(function Countdown({
                 {isComplete ? '🎉 Happy New Year! 🎉' : "New Year's Countdown"}
               </CardTitle>
               <div className="flex flex-col items-center gap-3 mt-4">
-                <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
+                <TimezoneSelector
+                  value={timezone}
+                  onChange={onTimezoneChange}
+                />
                 <Badge variant="secondary" className="text-xs">
                   📍 {timezone}
                 </Badge>
@@ -125,7 +128,8 @@ export const Countdown = memo(function Countdown({
           {/* Photo hint */}
           {photos.length === 0 && (
             <p className="mt-4 text-sm text-muted-foreground/80">
-              Click the ⚙ button to add your own photos as a background slideshow
+              Click the ⚙ button to add your own photos as a background
+              slideshow
             </p>
           )}
         </div>
