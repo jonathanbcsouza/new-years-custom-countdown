@@ -52,7 +52,7 @@
     "personalizeHint": "用家庭照片个性化您的倒计时"
   },
   "fullscreen": {
-    "enter": "投射到电视",
+    "enter": "全屏",
     "exit": "退出",
     "enterTitle": "进入全屏以在电视上显示",
     "exitTitle": "退出全屏"

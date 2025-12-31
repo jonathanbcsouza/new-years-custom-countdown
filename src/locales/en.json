@@ -52,9 +52,9 @@
     "personalizeHint": "Personalize your countdown with family photos"
   },
   "fullscreen": {
-    "enter": "Cast to TV",
+    "enter": "Full screen",
     "exit": "Exit",
-    "enterTitle": "Enter fullscreen for TV display",
+    "enterTitle": "Enter fullscreen mode",
     "exitTitle": "Exit fullscreen"
   },
   "language": {

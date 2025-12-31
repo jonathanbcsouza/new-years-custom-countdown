@@ -52,7 +52,7 @@
     "personalizeHint": "가족 사진으로 카운트다운 개인화하기"
   },
   "fullscreen": {
-    "enter": "TV로 전송",
+    "enter": "전체 화면",
     "exit": "나가기",
     "enterTitle": "TV 디스플레이를 위해 전체 화면으로 전환",
     "exitTitle": "전체 화면 종료"

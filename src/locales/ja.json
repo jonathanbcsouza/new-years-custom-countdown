@@ -52,7 +52,7 @@
     "personalizeHint": "家族の写真でカウントダウンをパーソナライズ"
   },
   "fullscreen": {
-    "enter": "TVにキャスト",
+    "enter": "全画面表示",
     "exit": "終了",
     "enterTitle": "TV表示用に全画面表示",
     "exitTitle": "全画面表示を終了"
