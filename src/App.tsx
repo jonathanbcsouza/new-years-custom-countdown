@@ -8,7 +8,12 @@ const TIMEZONE_STORAGE_KEY = 'countdown-timezone';
 
 type AppState =
   | { status: 'loading' }
-  | { status: 'ready'; timezone: string; targetDate: Date }
+  | {
+      status: 'ready';
+      timezone: string;
+      targetDate: Date;
+      isCelebrationPeriod: boolean;
+    }
   | { status: 'error'; message: string };
 
 function App() {
@@ -45,10 +50,15 @@ function App() {
           setStoredTimezone(timezone);
         }
 
-        const targetDate = getNewYearDate(timezone);
+        const newYearResult = getNewYearDate(timezone);
 
         if (isMounted) {
-          setState({ status: 'ready', timezone, targetDate });
+          setState({
+            status: 'ready',
+            timezone,
+            targetDate: newYearResult.targetDate,
+            isCelebrationPeriod: newYearResult.isCelebrationPeriod,
+          });
         }
       } catch (error) {
         console.error('Failed to initialize countdown:', error);
@@ -58,8 +68,13 @@ function App() {
           try {
             const fallbackTz =
               Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-            const targetDate = getNewYearDate(fallbackTz);
-            setState({ status: 'ready', timezone: fallbackTz, targetDate });
+            const newYearResult = getNewYearDate(fallbackTz);
+            setState({
+              status: 'ready',
+              timezone: fallbackTz,
+              targetDate: newYearResult.targetDate,
+              isCelebrationPeriod: newYearResult.isCelebrationPeriod,
+            });
             setStoredTimezone(fallbackTz);
           } catch {
             setState({
@@ -79,11 +94,37 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run on mount - storedTimezone is intentionally excluded
 
+  // Recalculate when celebration period ends
+  useEffect(() => {
+    if (state.status !== 'ready' || !state.isCelebrationPeriod) return;
+
+    const checkInterval = setInterval(() => {
+      const now = Date.now();
+      if (now >= state.targetDate.getTime()) {
+        // Celebration period ended, recalculate for next year
+        const newYearResult = getNewYearDate(state.timezone);
+        setState({
+          status: 'ready',
+          timezone: state.timezone,
+          targetDate: newYearResult.targetDate,
+          isCelebrationPeriod: newYearResult.isCelebrationPeriod,
+        });
+      }
+    }, 1000); // Check every second
+
+    return () => clearInterval(checkInterval);
+  }, [state]);
+
   const handleTimezoneChange = useCallback(
     (newTimezone: string) => {
       setStoredTimezone(newTimezone);
-      const targetDate = getNewYearDate(newTimezone);
-      setState({ status: 'ready', timezone: newTimezone, targetDate });
+      const newYearResult = getNewYearDate(newTimezone);
+      setState({
+        status: 'ready',
+        timezone: newTimezone,
+        targetDate: newYearResult.targetDate,
+        isCelebrationPeriod: newYearResult.isCelebrationPeriod,
+      });
     },
     [setStoredTimezone]
   );
@@ -118,6 +159,7 @@ function App() {
       onTimezoneChange={handleTimezoneChange}
       photos={photos}
       onPhotosChange={handlePhotosChange}
+      isCelebrationPeriod={state.isCelebrationPeriod}
     />
   );
 }

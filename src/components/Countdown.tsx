@@ -12,6 +12,7 @@ interface CountdownProps {
   onTimezoneChange: (timezone: string) => void;
   photos: string[];
   onPhotosChange: (photos: string[]) => void;
+  isCelebrationPeriod: boolean;
 }
 
 /**
@@ -28,10 +29,14 @@ export const Countdown = memo(function Countdown({
   onTimezoneChange,
   photos,
   onPhotosChange,
+  isCelebrationPeriod,
 }: CountdownProps) {
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
   const { days, hours, minutes, seconds, isComplete } =
     useCountdown(targetDate);
+
+  // Show celebration if we're in celebration period OR countdown is complete
+  const showCelebration = isCelebrationPeriod || isComplete;
 
   return (
     <>
@@ -73,11 +78,11 @@ export const Countdown = memo(function Countdown({
         >
           {/* Title */}
           <h1 className="text-xl md:text-3xl lg:text-4xl font-semibold text-white tracking-widest text-glow mb-6 md:mb-10 text-center uppercase">
-            {isComplete ? 'HAPPY NEW YEAR!' : "NEW YEAR'S EVE COUNTDOWN"}
+            {showCelebration ? 'HAPPY NEW YEAR!' : "NEW YEAR'S EVE COUNTDOWN"}
           </h1>
 
           {/* Countdown Timer Bar */}
-          {!isComplete ? (
+          {!showCelebration ? (
             <div className="w-full max-w-3xl mx-auto">
               <div
                 className="champagne-gradient rounded-lg md:rounded-xl px-6 py-4 md:px-10 md:py-6 animate-glow"
@@ -122,9 +127,14 @@ export const Countdown = memo(function Countdown({
             </div>
           ) : (
             <div className="text-center">
-              <p className="text-4xl md:text-6xl text-white animate-float">
+              <p className="text-4xl md:text-6xl text-white animate-float mb-4">
                 🎉 🎊 🥂
               </p>
+              {isCelebrationPeriod && (
+                <p className="text-lg md:text-xl text-white/80">
+                  Celebrating the first 24 hours of the New Year!
+                </p>
+              )}
             </div>
           )}
         </div>

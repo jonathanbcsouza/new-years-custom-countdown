@@ -73,18 +73,53 @@ function getDatePartsInTimezone(date: Date, timezone: string) {
 }
 
 /**
- * Calculates the New Year's Date for a given timezone
- * @param timezone - IANA timezone string
- * @returns Date object representing when New Year's arrives in that timezone
+ * Result of New Year calculation
  */
-export function getNewYearDate(timezone: string): Date {
+export interface NewYearResult {
+  targetDate: Date;
+  isCelebrationPeriod: boolean;
+  celebrationEndDate: Date | null;
+}
+
+/**
+ * Calculates the New Year's Date for a given timezone
+ * If New Year's has already passed but is within 24 hours, returns celebration state
+ * @param timezone - IANA timezone string
+ * @returns NewYearResult with target date and celebration status
+ */
+export function getNewYearDate(timezone: string): NewYearResult {
   const now = new Date();
   const { year, month, day, hour, minute, second } = getDatePartsInTimezone(
     now,
     timezone
   );
 
-  // Target year: always next year (handles Jan 1 correctly)
+  // Check if we're on January 1st
+  const isJanuary1st = month === 1 && day === 1;
+
+  if (isJanuary1st) {
+    // Calculate how many hours since midnight
+    const hoursSinceMidnight = hour + minute / 60 + second / 3600;
+
+    // If within 24 hours of New Year's (midnight Jan 1), show celebration
+    if (hoursSinceMidnight < 24) {
+      // Calculate milliseconds since midnight in the target timezone
+      const msSinceMidnight = (hour * 3600 + minute * 60 + second) * 1000;
+      const msIn24Hours = 24 * 60 * 60 * 1000;
+      
+      // Celebration ends 24 hours after midnight Jan 1st in the target timezone
+      // This is when Jan 2nd 00:00:00 arrives in the target timezone
+      const celebrationEndDate = new Date(now.getTime() + (msIn24Hours - msSinceMidnight));
+
+      return {
+        targetDate: celebrationEndDate,
+        isCelebrationPeriod: true,
+        celebrationEndDate,
+      };
+    }
+  }
+
+  // Normal case: calculate next New Year's
   const targetYear = year + 1;
 
   // Create timestamps for comparison (using local Date constructor)
@@ -102,5 +137,9 @@ export function getNewYearDate(timezone: string): Date {
   const msUntilNewYear = targetTimeMs - currentTimeMs;
 
   // Return the actual UTC moment when New Year's arrives
-  return new Date(now.getTime() + msUntilNewYear);
+  return {
+    targetDate: new Date(now.getTime() + msUntilNewYear),
+    isCelebrationPeriod: false,
+    celebrationEndDate: null,
+  };
 }
