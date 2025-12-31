@@ -110,6 +110,7 @@ npx shadcn@latest add dialog
 ## 🌐 API Usage
 
 This app uses **ip-api.com** for timezone detection:
+
 - **Endpoint**: `https://ip-api.com/json/?fields=timezone`
 - **Rate Limit**: 45 requests/minute (free tier)
 - **Fallback**: Browser timezone → UTC
@@ -127,6 +128,7 @@ No API key required for basic usage.
 ## 🚢 Deployment
 
 This app can be deployed to:
+
 - **Vercel** (recommended) - Zero config, automatic deployments
 - **Netlify** - Similar to Vercel
 - **AWS S3 + CloudFront** - For AWS infrastructure

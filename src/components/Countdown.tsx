@@ -2,10 +2,12 @@ import { memo } from 'react';
 import { useCountdown } from '@/hooks/useCountdown';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { TimezoneSelector } from '@/components/TimezoneSelector';
 
 interface CountdownProps {
   targetDate: Date;
-  timezone?: string;
+  timezone: string;
+  onTimezoneChange: (timezone: string) => void;
 }
 
 interface TimeUnitProps {
@@ -43,6 +45,7 @@ const TimeUnit = memo(function TimeUnit({ label, value }: TimeUnitProps) {
 export const Countdown = memo(function Countdown({
   targetDate,
   timezone,
+  onTimezoneChange,
 }: CountdownProps) {
   const { days, hours, minutes, seconds, isComplete } =
     useCountdown(targetDate);
@@ -55,13 +58,12 @@ export const Countdown = memo(function Countdown({
             <CardTitle className="text-3xl md:text-5xl font-bold text-foreground">
               {isComplete ? '🎉 Happy New Year! 🎉' : "New Year's Countdown"}
             </CardTitle>
-            {timezone && (
-              <div className="flex justify-center mt-4">
-                <Badge variant="secondary" className="text-xs">
-                  📍 {timezone}
-                </Badge>
-              </div>
-            )}
+            <div className="flex flex-col items-center gap-3 mt-4">
+              <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
+              <Badge variant="secondary" className="text-xs">
+                📍 {timezone}
+              </Badge>
+            </div>
           </CardHeader>
 
           <CardContent className="pt-6 pb-8">
