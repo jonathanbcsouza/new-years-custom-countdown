@@ -1,18 +1,16 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 
-// Audio files in public/audio folder
+// Audio files in public/audio folder (mp3 for smaller size)
 const AUDIO_FILES = [
-  '/audio/#1-1767238665820.wav',
-  '/audio/#1-1767238722256.wav',
-  '/audio/#2-1767238733739.wav',
-  '/audio/#3-1767238644708.wav',
-  '/audio/#3-1767238741761.wav',
-  '/audio/#4-1767238633481.wav',
-  '/audio/#4-1767238751408.wav',
+  '/audio/track-1-1767239911340.mp3',
+  '/audio/track-2-1767239958278.mp3',
+  '/audio/track-3-1767239977776.mp3',
+  '/audio/track-4-1767239998265.mp3',
 ];
 
 const SOUND_ENABLED_KEY = 'celebration-sound-enabled';
+const USER_INTERACTED_KEY = 'celebration-user-interacted';
 
 interface UseCelebrationAudioReturn {
   isSoundEnabled: boolean;
@@ -23,13 +21,18 @@ interface UseCelebrationAudioReturn {
 /**
  * Hook to manage celebration audio playback
  * Plays audio files in sequence during celebration mode
+ * Requires user interaction before playing (browser autoplay policy)
  */
 export function useCelebrationAudio(
   isCelebrationMode: boolean
 ): UseCelebrationAudioReturn {
   const [isSoundEnabled, setIsSoundEnabled] = useLocalStorage(
     SOUND_ENABLED_KEY,
-    true
+    false // Default to off - user must explicitly enable
+  );
+  const [hasUserInteracted, setHasUserInteracted] = useLocalStorage(
+    USER_INTERACTED_KEY,
+    false
   );
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -38,7 +41,7 @@ export function useCelebrationAudio(
 
   // Play next audio in sequence
   const playNextAudio = useCallback(() => {
-    if (!isSoundEnabled || !isCelebrationMode) {
+    if (!isSoundEnabled || !isCelebrationMode || !hasUserInteracted) {
       setIsPlaying(false);
       isPlayingRef.current = false;
       return;
@@ -51,7 +54,7 @@ export function useCelebrationAudio(
     // Create and play audio
     const audio = new Audio(audioSrc);
     audioRef.current = audio;
-    audio.volume = 0.7;
+    audio.volume = 0.6;
 
     audio.onplay = () => {
       setIsPlaying(true);
@@ -61,35 +64,38 @@ export function useCelebrationAudio(
     audio.onended = () => {
       // Play next audio after a short delay
       setTimeout(() => {
-        if (isPlayingRef.current && isSoundEnabled) {
+        if (isPlayingRef.current && isSoundEnabled && hasUserInteracted) {
           playNextAudio();
         }
-      }, 1000); // 1 second gap between tracks
+      }, 2000); // 2 second gap between tracks
     };
 
     audio.onerror = () => {
-      console.warn('Audio playback error, trying next track');
+      // Skip to next track on error
       setTimeout(() => {
-        if (isPlayingRef.current && isSoundEnabled) {
+        if (isPlayingRef.current && isSoundEnabled && hasUserInteracted) {
           playNextAudio();
         }
       }, 500);
     };
 
-    audio.play().catch((error) => {
-      console.warn('Audio autoplay blocked:', error);
+    audio.play().catch(() => {
+      // Silently fail - user hasn't interacted yet
       setIsPlaying(false);
       isPlayingRef.current = false;
     });
-  }, [isSoundEnabled, isCelebrationMode]);
+  }, [isSoundEnabled, isCelebrationMode, hasUserInteracted]);
 
-  // Start/stop audio based on celebration mode
+  // Start/stop audio based on celebration mode and user interaction
   useEffect(() => {
-    if (isCelebrationMode && isSoundEnabled && !isPlayingRef.current) {
-      // Start playing audio
+    if (
+      isCelebrationMode &&
+      isSoundEnabled &&
+      hasUserInteracted &&
+      !isPlayingRef.current
+    ) {
       playNextAudio();
     } else if (!isCelebrationMode || !isSoundEnabled) {
-      // Stop audio
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
@@ -104,10 +110,13 @@ export function useCelebrationAudio(
         audioRef.current = null;
       }
     };
-  }, [isCelebrationMode, isSoundEnabled, playNextAudio]);
+  }, [isCelebrationMode, isSoundEnabled, hasUserInteracted, playNextAudio]);
 
-  // Toggle sound on/off
+  // Toggle sound on/off - this counts as user interaction
   const toggleSound = useCallback(() => {
+    // Mark that user has interacted
+    setHasUserInteracted(true);
+
     setIsSoundEnabled((prev) => {
       const newValue = !prev;
       if (!newValue && audioRef.current) {
@@ -118,7 +127,7 @@ export function useCelebrationAudio(
       }
       return newValue;
     });
-  }, [setIsSoundEnabled]);
+  }, [setIsSoundEnabled, setHasUserInteracted]);
 
   return {
     isSoundEnabled,
