@@ -69,6 +69,12 @@
   "donate": {
     "button": "Belikan saya kopi",
     "tooltip": "Suka? Belikan saya kopi!"
+  },
+  "sound": {
+    "on": "Suara aktif",
+    "off": "Suara mati",
+    "enable": "Aktifkan suara perayaan",
+    "disable": "Nonaktifkan suara perayaan"
   }
 }
 

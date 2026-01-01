@@ -70,6 +70,12 @@
   "donate": {
     "button": "Invítame un café",
     "tooltip": "¿Te gustó? ¡Invítame un café!"
+  },
+  "sound": {
+    "on": "Sonido activado",
+    "off": "Sonido desactivado",
+    "enable": "Activar sonidos de celebración",
+    "disable": "Desactivar sonidos de celebración"
   }
 }
 

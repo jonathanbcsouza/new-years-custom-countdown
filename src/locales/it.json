@@ -69,6 +69,12 @@
   "donate": {
     "button": "Offrimi un caffè",
     "tooltip": "Ti è piaciuto? Offrimi un caffè!"
+  },
+  "sound": {
+    "on": "Audio attivo",
+    "off": "Audio disattivo",
+    "enable": "Attiva suoni di festa",
+    "disable": "Disattiva suoni di festa"
   }
 }
 

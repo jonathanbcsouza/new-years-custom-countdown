@@ -69,6 +69,12 @@
   "donate": {
     "button": "Bana kahve ısmarla",
     "tooltip": "Beğendiniz mi? Bana bir kahve ısmarlayın!"
+  },
+  "sound": {
+    "on": "Ses açık",
+    "off": "Ses kapalı",
+    "enable": "Kutlama seslerini aç",
+    "disable": "Kutlama seslerini kapat"
   }
 }
 

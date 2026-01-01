@@ -69,6 +69,12 @@
   "donate": {
     "button": "Me pague um café",
     "tooltip": "Gostou? Me pague um café!"
+  },
+  "sound": {
+    "on": "Som ligado",
+    "off": "Som desligado",
+    "enable": "Ativar sons de celebração",
+    "disable": "Desativar sons de celebração"
   }
 }
 

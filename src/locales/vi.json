@@ -69,6 +69,12 @@
   "donate": {
     "button": "Mua tôi cà phê",
     "tooltip": "Thích không? Mời tôi ly cà phê nhé!"
+  },
+  "sound": {
+    "on": "Bật âm thanh",
+    "off": "Tắt âm thanh",
+    "enable": "Bật âm thanh lễ hội",
+    "disable": "Tắt âm thanh lễ hội"
   }
 }
 

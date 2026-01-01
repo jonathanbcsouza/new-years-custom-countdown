@@ -69,6 +69,12 @@
   "donate": {
     "button": "Hokona he kawhe",
     "tooltip": "I pai ki a koe? Hokona he kawhe māku!"
+  },
+  "sound": {
+    "on": "Oro kei te wātea",
+    "off": "Oro kei te whakakore",
+    "enable": "Whakahohea ngā oro whakanuia",
+    "disable": "Whakakore ngā oro whakanuia"
   }
 }
 

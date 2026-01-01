@@ -1,6 +1,7 @@
 import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCountdown } from '@/hooks/useCountdown';
+import { useCelebrationAudio } from '@/hooks/useCelebrationAudio';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
 import { PhotoCarousel } from '@/components/PhotoCarousel';
 import { PhotoUpload } from '@/components/PhotoUpload';
@@ -8,6 +9,7 @@ import { TimezoneSelector } from '@/components/TimezoneSelector';
 import { FullscreenButton } from '@/components/FullscreenButton';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { DonateButton } from '@/components/DonateButton';
+import { SoundToggleButton } from '@/components/SoundToggleButton';
 
 interface CountdownProps {
   targetDate: Date;
@@ -42,6 +44,10 @@ export const Countdown = memo(function Countdown({
   // Show celebration if we're in celebration period OR countdown is complete
   const showCelebration = isCelebrationPeriod || isComplete;
 
+  // Celebration audio
+  const { isSoundEnabled, isPlaying, toggleSound } =
+    useCelebrationAudio(showCelebration);
+
   return (
     <>
       {/* Animated Starry Fireworks Background - Enhanced during celebration */}
@@ -62,10 +68,15 @@ export const Countdown = memo(function Countdown({
       {/* Main Layout */}
       <main className="min-h-screen flex flex-col relative z-10">
         {/* Top Bar Controls */}
-        {/* Left Side - Fullscreen & Language */}
+        {/* Left Side - Fullscreen, Language & Sound */}
         <div className="absolute top-4 left-4 z-20 flex items-center gap-1 sm:gap-2">
           <FullscreenButton />
           <LanguageSelector />
+          <SoundToggleButton
+            isSoundEnabled={isSoundEnabled}
+            isPlaying={isPlaying}
+            onToggle={toggleSound}
+          />
         </div>
 
         {/* Right Side - Timezone Selector & Donate (stacked on mobile, row on desktop) */}

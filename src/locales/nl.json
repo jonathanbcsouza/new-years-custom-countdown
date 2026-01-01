@@ -69,6 +69,12 @@
   "donate": {
     "button": "Trakteer me op koffie",
     "tooltip": "Bevallen? Trakteer me op een koffie!"
+  },
+  "sound": {
+    "on": "Geluid aan",
+    "off": "Geluid uit",
+    "enable": "Feestgeluiden inschakelen",
+    "disable": "Feestgeluiden uitschakelen"
   }
 }
 

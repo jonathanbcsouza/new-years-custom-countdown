@@ -69,6 +69,12 @@
   "donate": {
     "button": "Kauf mir einen Kaffee",
     "tooltip": "Hat es dir gefallen? Kauf mir einen Kaffee!"
+  },
+  "sound": {
+    "on": "Ton an",
+    "off": "Ton aus",
+    "enable": "Feierklänge aktivieren",
+    "disable": "Feierklänge deaktivieren"
   }
 }
 

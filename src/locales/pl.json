@@ -69,6 +69,12 @@
   "donate": {
     "button": "Postaw mi kawę",
     "tooltip": "Podobało się? Postaw mi kawę!"
+  },
+  "sound": {
+    "on": "Dźwięk wł.",
+    "off": "Dźwięk wył.",
+    "enable": "Włącz dźwięki świąteczne",
+    "disable": "Wyłącz dźwięki świąteczne"
   }
 }
 
