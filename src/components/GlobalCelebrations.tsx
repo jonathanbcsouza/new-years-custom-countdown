@@ -1,5 +1,6 @@
 import { memo, useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { Globe, PartyPopper, Clock, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { isNewYearInTimezone } from '@/lib/geolocation';
@@ -305,26 +306,23 @@ export const GlobalCelebrations = memo(function GlobalCelebrations({
 });
 
 /**
- * Button to open the Global Celebrations panel
+ * Button/Link to navigate to the World celebrations page
  */
-export const GlobalCelebrationsButton = memo(function GlobalCelebrationsButton({
-  onClick,
-}: {
-  onClick: () => void;
-}) {
+export const GlobalCelebrationsButton = memo(function GlobalCelebrationsButton() {
   const { t } = useTranslation();
 
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={onClick}
-      className="text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10 transition-all gap-1.5 group"
-      title={t('global.buttonTooltip')}
-    >
-      <Globe className="h-4 w-4 group-hover:animate-pulse" />
-      <span className="text-xs hidden sm:inline">{t('global.button')}</span>
-    </Button>
+    <Link to="/world">
+      <Button
+        variant="ghost"
+        size="sm"
+        className="text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10 transition-all gap-1.5 group"
+        title={t('world.buttonTooltip')}
+      >
+        <Globe className="h-4 w-4 group-hover:animate-pulse" />
+        <span className="text-xs hidden sm:inline">{t('world.button')}</span>
+      </Button>
+    </Link>
   );
 });
 
