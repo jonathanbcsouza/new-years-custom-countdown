@@ -48,6 +48,7 @@
     "clearAll": "Tout effacer",
     "removePhoto": "Supprimer la photo {{index}}",
     "compressing": "Compression de {{current}} sur {{total}}...",
+    "receiving": "Réception des photos...",
     "maxPhotosReached": "Maximum de {{max}} photos autorisées",
     "onlyAdding": "Ajout de seulement {{count}} sur {{total}} photos (limite : {{max}})",
     "invalidFileType": "Veuillez sélectionner des fichiers image valides (JPEG, PNG ou WebP)",
@@ -91,6 +92,9 @@
     "enterTitle": "Vous pouvez diffuser ceci sur votre TV!",
     "exitTitle": "Quitter le plein écran",
     "desc": "Afficher sur cet appareil en plein écran"
+  },
+  "fireworks": {
+    "tapHint": "Appuyez n'importe où pour des feux d'artifice"
   }
 }
 

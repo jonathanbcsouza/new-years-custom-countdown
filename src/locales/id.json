@@ -48,6 +48,7 @@
     "clearAll": "Hapus Semua",
     "removePhoto": "Hapus foto {{index}}",
     "compressing": "Mengompresi {{current}} dari {{total}}...",
+    "receiving": "Menerima foto...",
     "maxPhotosReached": "Maksimal {{max}} foto diizinkan",
     "onlyAdding": "Hanya menambahkan {{count}} dari {{total}} foto (batas: {{max}})",
     "invalidFileType": "Pilih file gambar yang valid (JPEG, PNG, atau WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "Anda dapat cast ini ke TV!",
     "exitTitle": "Keluar dari layar penuh",
     "desc": "Lihat di perangkat ini dalam layar penuh"
+  },
+  "fireworks": {
+    "tapHint": "Ketuk di mana saja untuk kembang api"
   }
 }
 

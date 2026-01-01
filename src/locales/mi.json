@@ -48,6 +48,7 @@
     "clearAll": "Whakakore Katoa",
     "removePhoto": "Tango whakaahua {{index}}",
     "compressing": "E kōpeke ana {{current}} o {{total}}...",
+    "receiving": "E tango ana i ngā whakaahua...",
     "maxPhotosReached": "{{max}} te mōrahi o ngā whakaahua",
     "onlyAdding": "E tāpiri ana i te {{count}} noa o {{total}} whakaahua (tepe: {{max}})",
     "invalidFileType": "Kōwhiri koa i ngā kōnae whakaahua tika (JPEG, PNG, WebP rānei)",
@@ -97,6 +98,9 @@
     "enterTitle": "Ka taea e koe te whakaatu i tēnei ki tō TV!",
     "exitTitle": "Puta i te mata katoa",
     "desc": "Tirohia i tēnei taputapu i te mata katoa"
+  },
+  "fireworks": {
+    "tapHint": "Pāwhiritia ki hea hei whakapā ahi"
   }
 }
 

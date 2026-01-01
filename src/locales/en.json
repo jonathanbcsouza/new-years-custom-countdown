@@ -49,6 +49,7 @@
     "clearAll": "Clear All",
     "removePhoto": "Remove photo {{index}}",
     "compressing": "Compressing {{current}} of {{total}}...",
+    "receiving": "Receiving photos...",
     "maxPhotosReached": "Maximum {{max}} photos allowed",
     "onlyAdding": "Only adding {{count}} of {{total}} photos (limit: {{max}})",
     "invalidFileType": "Please select valid image files (JPEG, PNG, or WebP)",
@@ -116,5 +117,8 @@
     "stillWaiting": "Still Waiting for 2026",
     "showMore": "Show {{count}} more",
     "showLess": "Show less"
+  },
+  "fireworks": {
+    "tapHint": "Tap anywhere for fireworks!"
   }
 }

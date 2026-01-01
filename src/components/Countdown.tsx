@@ -1,5 +1,6 @@
-import { memo, useState } from 'react';
+import { memo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Sparkles } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useCelebrationAudio } from '@/hooks/useCelebrationAudio';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
@@ -39,11 +40,20 @@ export const Countdown = memo(function Countdown({
 }: CountdownProps) {
   const { t } = useTranslation();
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+  const [showFireworkHint, setShowFireworkHint] = useState(true);
   const { days, hours, minutes, seconds, isComplete } =
     useCountdown(targetDate);
 
   // Show celebration if we're in celebration period OR countdown is complete
   const showCelebration = isCelebrationPeriod || isComplete;
+
+  // Hide firework hint after 15 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowFireworkHint(false);
+    }, 15000);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Celebration audio
   const { isSoundEnabled, isPlaying, toggleSound } =
@@ -83,9 +93,18 @@ export const Countdown = memo(function Countdown({
         </div>
 
         {/* Right Side - Timezone Selector & Donate (stacked on mobile, row on desktop) */}
-        <div className="absolute top-4 right-4 z-30 flex flex-col md:flex-row items-end md:items-center gap-1 md:gap-2">
-          <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
-          <DonateButton />
+        <div className="absolute top-4 right-4 z-30 flex flex-col items-end gap-1">
+          <div className="flex flex-col md:flex-row items-end md:items-center gap-1 md:gap-2">
+            <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
+            <DonateButton />
+          </div>
+          {/* Firework Hint - Discrete hint below controls */}
+          {showFireworkHint && (
+            <div className="mt-1 flex items-center gap-1.5 px-3 py-1 text-xs text-white/50 hover:text-white/70 transition-colors">
+              <Sparkles className="h-3 w-3 text-amber-400/60" />
+              <span>{t('fireworks.tapHint')}</span>
+            </div>
+          )}
         </div>
 
         {/* Content Container - Positioned above photos but below controls */}
@@ -159,6 +178,7 @@ export const Countdown = memo(function Countdown({
               )}
             </div>
           )}
+
         </div>
 
         {/* Photo Carousel - Fixed at bottom */}

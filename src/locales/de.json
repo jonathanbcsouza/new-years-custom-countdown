@@ -48,6 +48,7 @@
     "clearAll": "Alle löschen",
     "removePhoto": "Foto {{index}} entfernen",
     "compressing": "Komprimieren von {{current}} von {{total}}...",
+    "receiving": "Fotos werden empfangen...",
     "maxPhotosReached": "Maximal {{max}} Fotos erlaubt",
     "onlyAdding": "Nur {{count}} von {{total}} Fotos hinzufügen (Limit: {{max}})",
     "invalidFileType": "Bitte wählen Sie gültige Bilddateien (JPEG, PNG oder WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "Sie können dies auf Ihrem TV übertragen!",
     "exitTitle": "Vollbild beenden",
     "desc": "Auf diesem Gerät im Vollbildmodus anzeigen"
+  },
+  "fireworks": {
+    "tapHint": "Tippe irgendwo für Feuerwerk"
   }
 }
 

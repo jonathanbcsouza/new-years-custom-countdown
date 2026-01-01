@@ -48,6 +48,7 @@
     "clearAll": "Tümünü Temizle",
     "removePhoto": "{{index}}. fotoğrafı kaldır",
     "compressing": "{{total}} fotoğraftan {{current}} sıkıştırılıyor...",
+    "receiving": "Fotoğraflar alınıyor...",
     "maxPhotosReached": "En fazla {{max}} fotoğrafa izin verilir",
     "onlyAdding": "{{total}} fotoğraftan sadece {{count}} ekleniyor (sınır: {{max}})",
     "invalidFileType": "Lütfen geçerli resim dosyaları seçin (JPEG, PNG veya WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "Bunu TV'nize yayınlayabilirsiniz!",
     "exitTitle": "Tam ekrandan çık",
     "desc": "Bu cihazda tam ekran görüntüle"
+  },
+  "fireworks": {
+    "tapHint": "Havai fişek için herhangi bir yere dokunun"
   }
 }
 

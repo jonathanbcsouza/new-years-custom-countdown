@@ -48,6 +48,7 @@
     "clearAll": "Xóa Tất Cả",
     "removePhoto": "Xóa ảnh {{index}}",
     "compressing": "Đang nén {{current}} / {{total}}...",
+    "receiving": "Đang nhận ảnh...",
     "maxPhotosReached": "Cho phép tối đa {{max}} ảnh",
     "onlyAdding": "Chỉ thêm {{count}} / {{total}} ảnh (giới hạn: {{max}})",
     "invalidFileType": "Vui lòng chọn tệp ảnh hợp lệ (JPEG, PNG hoặc WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "Bạn có thể truyền lên TV!",
     "exitTitle": "Thoát toàn màn hình",
     "desc": "Xem trên thiết bị này ở chế độ toàn màn hình"
+  },
+  "fireworks": {
+    "tapHint": "Chạm bất cứ đâu để bắn pháo hoa"
   }
 }
 

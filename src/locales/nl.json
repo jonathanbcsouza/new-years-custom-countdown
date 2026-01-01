@@ -48,6 +48,7 @@
     "clearAll": "Alles Wissen",
     "removePhoto": "Foto {{index}} verwijderen",
     "compressing": "Comprimeren {{current}} van {{total}}...",
+    "receiving": "Foto's ontvangen...",
     "maxPhotosReached": "Maximaal {{max}} foto's toegestaan",
     "onlyAdding": "Alleen {{count}} van {{total}} foto's toevoegen (limiet: {{max}})",
     "invalidFileType": "Selecteer geldige afbeeldingsbestanden (JPEG, PNG of WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "Je kunt dit casten naar je TV!",
     "exitTitle": "Volledig scherm sluiten",
     "desc": "Bekijk op dit apparaat in volledig scherm"
+  },
+  "fireworks": {
+    "tapHint": "Tik ergens voor vuurwerk"
   }
 }
 

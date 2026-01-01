@@ -48,6 +48,7 @@
     "clearAll": "Limpar Tudo",
     "removePhoto": "Remover foto {{index}}",
     "compressing": "Comprimindo {{current}} de {{total}}...",
+    "receiving": "Recebendo fotos...",
     "maxPhotosReached": "Máximo de {{max}} fotos permitidas",
     "onlyAdding": "Apenas adicionando {{count}} de {{total}} fotos (limite: {{max}})",
     "invalidFileType": "Por favor selecione arquivos de imagem válidos (JPEG, PNG ou WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "Você pode transmitir isso na sua TV!",
     "exitTitle": "Sair da tela cheia",
     "desc": "Ver neste dispositivo em tela cheia"
+  },
+  "fireworks": {
+    "tapHint": "Toque em qualquer lugar para fogos de artifício"
   }
 }
 

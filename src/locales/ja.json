@@ -48,6 +48,7 @@
     "clearAll": "すべてクリア",
     "removePhoto": "写真{{index}}を削除",
     "compressing": "{{current}} / {{total}}を圧縮中...",
+    "receiving": "写真を受信中...",
     "maxPhotosReached": "最大{{max}}枚の写真が許可されています",
     "onlyAdding": "{{total}}枚中{{count}}枚のみ追加（制限: {{max}}）",
     "invalidFileType": "有効な画像ファイル（JPEG、PNG、またはWebP）を選択してください",
@@ -97,5 +98,8 @@
     "enterTitle": "これをTVにキャストできます！",
     "exitTitle": "フルスクリーンを終了",
     "desc": "このデバイスでフルスクリーン表示"
+  },
+  "fireworks": {
+    "tapHint": "どこでもタップで花火"
   }
 }

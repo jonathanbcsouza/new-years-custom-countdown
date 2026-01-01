@@ -48,6 +48,7 @@
     "clearAll": "مسح الكل",
     "removePhoto": "إزالة الصورة {{index}}",
     "compressing": "جاري ضغط {{current}} من {{total}}...",
+    "receiving": "جاري استلام الصور...",
     "maxPhotosReached": "الحد الأقصى {{max}} صورة مسموح",
     "onlyAdding": "إضافة {{count}} فقط من {{total}} صورة (الحد: {{max}})",
     "invalidFileType": "يرجى اختيار ملفات صور صالحة (JPEG أو PNG أو WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "يمكنك بث هذا على التلفاز!",
     "exitTitle": "الخروج من ملء الشاشة",
     "desc": "عرض على هذا الجهاز بملء الشاشة"
+  },
+  "fireworks": {
+    "tapHint": "انقر في أي مكان للألعاب النارية"
   }
 }
 

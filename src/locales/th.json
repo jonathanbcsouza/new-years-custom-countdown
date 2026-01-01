@@ -48,6 +48,7 @@
     "clearAll": "ล้างทั้งหมด",
     "removePhoto": "ลบรูปภาพ {{index}}",
     "compressing": "กำลังบีบอัด {{current}} จาก {{total}}...",
+    "receiving": "กำลังรับรูปภาพ...",
     "maxPhotosReached": "อนุญาตสูงสุด {{max}} รูป",
     "onlyAdding": "เพิ่มเพียง {{count}} จาก {{total}} รูป (จำกัด: {{max}})",
     "invalidFileType": "กรุณาเลือกไฟล์รูปภาพที่ถูกต้อง (JPEG, PNG หรือ WebP)",
@@ -97,6 +98,9 @@
     "enterTitle": "คุณสามารถแคสต์สิ่งนี้ไปยังทีวีได้!",
     "exitTitle": "ออกจากเต็มจอ",
     "desc": "ดูบนอุปกรณ์นี้แบบเต็มจอ"
+  },
+  "fireworks": {
+    "tapHint": "แตะที่ใดก็ได้เพื่อยิงพลุ"
   }
 }
 
