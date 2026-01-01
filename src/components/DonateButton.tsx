@@ -3,7 +3,7 @@ import { Coffee } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
 
-const STRIPE_DONATE_URL = 'https://buy.stripe.com/4gM28sfcyadz9kO0H68so02';
+const STRIPE_DONATE_URL = 'https://buy.stripe.com/6oU6oI9PlaJj9hrgrKeUU00';
 
 /**
  * "Buy me a coffee" button that opens Stripe payment page
