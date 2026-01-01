@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Countdown } from '@/components/Countdown';
 import { getUserTimezone, getNewYearDate } from '@/lib/geolocation';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 import { loadPhotos, savePhotos } from '@/lib/storage';
 
 const TIMEZONE_STORAGE_KEY = 'countdown-timezone';
@@ -25,6 +26,9 @@ function App() {
   );
   const [state, setState] = useState<AppState>({ status: 'loading' });
   const [photos, setPhotos] = useState<string[]>([]);
+
+  // Update document meta tags based on language
+  useDocumentMeta();
 
   // Load photos on mount
   useEffect(() => {

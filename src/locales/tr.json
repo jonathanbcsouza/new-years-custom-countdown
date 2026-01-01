@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Yeni Yıl Geri Sayımı 🎆 | Fotoğraflar ve Havai Fişeklerle Kutlayın",
+    "description": "Kişiselleştirilmiş geri sayım, havai fişek animasyonu ve kendi fotoğraflarınızla Yeni Yılı kutlayın. TV'ye yayınlayın!"
+  },
   "common": {
     "loading": "Geri sayım yükleniyor...",
     "error": "Geri sayım başlatılamadı",

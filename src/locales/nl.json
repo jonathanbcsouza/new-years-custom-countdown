@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Nieuwjaars Aftelling 🎆 | Vier met Foto's en Vuurwerk",
+    "description": "Vier het Nieuwe Jaar met een gepersonaliseerde aftelling, vuurwerkanimatie en je eigen foto's. Cast naar TV!"
+  },
   "common": {
     "loading": "Aftelling laden...",
     "error": "Kan aftelling niet initialiseren",

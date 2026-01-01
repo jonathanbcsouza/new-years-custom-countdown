@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Odliczanie do Nowego Roku 🎆 | Świętuj ze Zdjęciami i Fajerwerkami",
+    "description": "Świętuj Nowy Rok z spersonalizowanym odliczaniem, fajerwerkami i własnymi zdjęciami. Wyświetlaj na TV!"
+  },
   "common": {
     "loading": "Ładowanie odliczania...",
     "error": "Nie udało się zainicjować odliczania",

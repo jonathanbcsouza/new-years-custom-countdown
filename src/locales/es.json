@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Cuenta Regresiva de Año Nuevo 🎆 | Celebra con Fotos y Fuegos Artificiales",
+    "description": "Celebra el Año Nuevo con una cuenta regresiva personalizada, fuegos artificiales impresionantes y tus propias fotos. ¡Transmite a la TV!"
+  },
   "common": {
     "loading": "Cargando cuenta regresiva...",
     "error": "Error al inicializar la cuenta regresiva",

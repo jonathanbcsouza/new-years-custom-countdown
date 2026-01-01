@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Tatau Heke ki te Tau Hou 🎆 | Whakanui me ngā Whakaahua",
+    "description": "Whakanui i te Tau Hou me te tatau heke, ngā ahi tūrama ataahua, me ō whakaahua ake. Whakaatuhia ki te pouaka whakaata!"
+  },
   "common": {
     "loading": "E uta ana te tatau heke...",
     "error": "Kāore i taea te tīmata i te tatau heke",

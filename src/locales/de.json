@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Silvester-Countdown 🎆 | Feiern Sie mit Fotos und Feuerwerk",
+    "description": "Feiern Sie das neue Jahr mit einem personalisierten Countdown, Feuerwerk und Ihren eigenen Fotos. Übertragen Sie auf den TV!"
+  },
   "common": {
     "loading": "Countdown wird geladen...",
     "error": "Countdown konnte nicht initialisiert werden",

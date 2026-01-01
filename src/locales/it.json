@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Conto alla Rovescia di Capodanno 🎆 | Festeggia con Foto e Fuochi d'Artificio",
+    "description": "Festeggia il Nuovo Anno con un conto alla rovescia personalizzato, fuochi d'artificio e le tue foto. Trasmetti sulla TV!"
+  },
   "common": {
     "loading": "Caricamento conto alla rovescia...",
     "error": "Impossibile inizializzare il conto alla rovescia",

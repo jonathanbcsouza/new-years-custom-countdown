@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Compte à Rebours du Nouvel An 🎆 | Célébrez avec Photos et Feux d'Artifice",
+    "description": "Célébrez le Nouvel An avec un compte à rebours personnalisé, des feux d'artifice et vos propres photos. Diffusez sur votre TV!"
+  },
   "common": {
     "loading": "Chargement du compte à rebours...",
     "error": "Échec de l'initialisation du compte à rebours",

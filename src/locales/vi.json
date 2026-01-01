@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Đếm Ngược Năm Mới 🎆 | Ăn Mừng với Ảnh và Pháo Hoa",
+    "description": "Ăn mừng Năm Mới với đếm ngược cá nhân, hoạt hình pháo hoa và ảnh của riêng bạn. Chiếu lên TV!"
+  },
   "common": {
     "loading": "Đang tải đếm ngược...",
     "error": "Không thể khởi tạo đếm ngược",

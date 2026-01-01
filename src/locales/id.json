@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "Hitung Mundur Tahun Baru 🎆 | Rayakan dengan Foto dan Kembang Api",
+    "description": "Rayakan Tahun Baru dengan hitung mundur personal, animasi kembang api, dan foto Anda sendiri. Tampilkan di TV!"
+  },
   "common": {
     "loading": "Memuat hitungan mundur...",
     "error": "Gagal menginisialisasi hitungan mundur",

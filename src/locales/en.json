@@ -1,4 +1,8 @@
 {
+  "meta": {
+    "title": "New Year's Eve Countdown 🎆 | Celebrate with Photos & Fireworks",
+    "description": "Celebrate the New Year with a personalized countdown, stunning fireworks, and your own photos. Cast to TV and share with family!"
+  },
   "common": {
     "loading": "Loading countdown...",
     "error": "Failed to initialize countdown",
