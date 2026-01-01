@@ -179,7 +179,7 @@ export function TimezoneSelector({
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-40"
+            className="fixed inset-0 z-[100] bg-black/30"
             onClick={() => {
               setIsOpen(false);
               setSearchQuery('');
@@ -188,7 +188,7 @@ export function TimezoneSelector({
 
           {/* Dropdown Content */}
           <div
-            className="absolute top-full right-0 mt-2 z-50
+            className="absolute top-full right-0 mt-2 z-[110]
                           w-[calc(100vw-2rem)] sm:w-[320px] md:w-[400px] max-h-[70vh]
                           bg-card/95 backdrop-blur-md border border-border
                           rounded-xl shadow-2xl overflow-hidden

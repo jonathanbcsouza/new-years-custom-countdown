@@ -51,13 +51,13 @@ export function LanguageSelector() {
         <>
           {/* Backdrop */}
           <div
-            className="fixed inset-0 z-40"
-      onClick={() => setIsOpen(false)}
+            className="fixed inset-0 z-[100] bg-black/30"
+            onClick={() => setIsOpen(false)}
           />
 
           {/* Dropdown Content */}
           <div
-            className="absolute top-full left-0 mt-2 z-50
+            className="absolute top-full left-0 mt-2 z-[110]
                           w-[280px] md:w-[320px] max-h-[60vh]
                           bg-card/95 backdrop-blur-md border border-border
                           rounded-xl shadow-2xl overflow-hidden

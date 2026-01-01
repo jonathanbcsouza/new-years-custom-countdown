@@ -69,7 +69,7 @@ export const Countdown = memo(function Countdown({
       <main className="min-h-screen flex flex-col relative z-10">
         {/* Top Bar Controls */}
         {/* Left Side - Fullscreen, Language & Sound */}
-        <div className="absolute top-4 left-4 z-20 flex items-center gap-1 sm:gap-2">
+        <div className="absolute top-4 left-4 z-30 flex items-center gap-1 sm:gap-2">
           <FullscreenButton />
           <LanguageSelector />
           <SoundToggleButton
@@ -80,16 +80,16 @@ export const Countdown = memo(function Countdown({
         </div>
 
         {/* Right Side - Timezone Selector & Donate (stacked on mobile, row on desktop) */}
-        <div className="absolute top-4 right-4 z-20 flex flex-col md:flex-row items-end md:items-center gap-1 md:gap-2">
+        <div className="absolute top-4 right-4 z-30 flex flex-col md:flex-row items-end md:items-center gap-1 md:gap-2">
           <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
           <DonateButton />
         </div>
 
-        {/* Content Container - Positioned above photos */}
+        {/* Content Container - Positioned above photos but below controls */}
         <div
-          className={`flex-1 flex flex-col items-center px-4 ${
+          className={`flex-1 flex flex-col items-center px-4 z-10 ${
             photos.length > 0
-              ? 'justify-start pt-16 md:pt-20'
+              ? 'justify-start pt-20 md:pt-24'
               : 'justify-center pb-24'
           }`}
         >
