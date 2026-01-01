@@ -23,8 +23,8 @@ export const DonateButton = memo(function DonateButton() {
       className="text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10 transition-all gap-1.5 group px-2 sm:px-3"
       title={t('donate.tooltip')}
     >
-      <Coffee className="h-4 w-4 group-hover:scale-110 transition-all" />
-      <span className="text-xs hidden xs:inline sm:inline">{t('donate.button')}</span>
+      <Coffee className="h-4 w-4 group-hover:scale-110 transition-all shrink-0" />
+      <span className="text-xs whitespace-nowrap">{t('donate.button')}</span>
     </Button>
   );
 });
