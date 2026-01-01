@@ -32,7 +32,8 @@
     "search": "도시, 국가 또는 대륙 검색...",
     "noResults": "시간대를 찾을 수 없습니다",
     "searchHint": "도시, 국가 또는 대륙을 검색해 보세요",
-    "zones": "시간대"
+    "zones": "시간대",
+    "celebrating": "🎉"
   },
   "photos": {
     "addPhotos": "사진 추가하기",

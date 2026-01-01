@@ -1,11 +1,12 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe, Search, ChevronDown, ChevronRight, X } from 'lucide-react';
+import { Globe, Search, ChevronDown, ChevronRight, X, PartyPopper } from 'lucide-react';
 import {
   getGroupedTimezones,
   formatTimezone,
   type ContinentGroup,
 } from '@/lib/timezones';
+import { isNewYearInTimezone } from '@/lib/geolocation';
 import { cn } from '@/lib/utils';
 
 interface TimezoneSelectorProps {
@@ -279,31 +280,48 @@ export function TimezoneSelector({
                               {/* Cities */}
                               {isCountryExpanded && (
                                 <div className="ml-5 py-1">
-                                  {countryGroup.timezones.map((tz) => (
-                                    <button
-                                      key={tz.value}
-                                      onClick={() => handleSelect(tz.value)}
-                                      className={cn(
-                                        'w-full flex items-center justify-between px-3 py-1.5 rounded-md',
-                                        'text-sm transition-colors',
-                                        value === tz.value
-                                          ? 'bg-primary text-primary-foreground'
-                                          : 'text-foreground/80 hover:bg-muted'
-                                      )}
-                                    >
-                                      <span>{tz.city}</span>
-                                      <span
+                                  {countryGroup.timezones.map((tz) => {
+                                    const isCelebrating = isNewYearInTimezone(tz.value);
+                                    return (
+                                      <button
+                                        key={tz.value}
+                                        onClick={() => handleSelect(tz.value)}
                                         className={cn(
-                                          'text-xs',
+                                          'w-full flex items-center justify-between px-3 py-1.5 rounded-md',
+                                          'text-sm transition-colors',
                                           value === tz.value
-                                            ? 'text-primary-foreground/80'
-                                            : 'text-muted-foreground'
+                                            ? 'bg-primary text-primary-foreground'
+                                            : isCelebrating
+                                            ? 'text-foreground/80 hover:bg-amber-500/10 bg-amber-500/5'
+                                            : 'text-foreground/80 hover:bg-muted'
                                         )}
                                       >
-                                        {tz.offset}
-                                      </span>
-                                    </button>
-                                  ))}
+                                        <span className="flex items-center gap-1.5">
+                                          {isCelebrating && (
+                                            <PartyPopper className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                                          )}
+                                          {tz.city}
+                                        </span>
+                                        <span
+                                          className={cn(
+                                            'text-xs flex items-center gap-1',
+                                            value === tz.value
+                                              ? 'text-primary-foreground/80'
+                                              : isCelebrating
+                                              ? 'text-amber-500'
+                                              : 'text-muted-foreground'
+                                          )}
+                                        >
+                                          {isCelebrating && (
+                                            <span className="text-[10px] font-medium">
+                                              {t('timezone.celebrating')}
+                                            </span>
+                                          )}
+                                          {tz.offset}
+                                        </span>
+                                      </button>
+                                    );
+                                  })}
                                 </div>
                               )}
                             </div>

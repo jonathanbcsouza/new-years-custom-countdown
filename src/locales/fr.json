@@ -32,7 +32,8 @@
     "search": "Rechercher une ville, un pays ou un continent...",
     "noResults": "Aucun fuseau horaire trouvé",
     "searchHint": "Essayez de rechercher une ville, un pays ou un continent",
-    "zones": "fuseaux"
+    "zones": "fuseaux",
+    "celebrating": "🎉"
   },
   "photos": {
     "addPhotos": "Ajoutez Vos Photos",

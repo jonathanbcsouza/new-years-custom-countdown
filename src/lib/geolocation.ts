@@ -82,6 +82,27 @@ export interface NewYearResult {
 }
 
 /**
+ * Checks if a timezone has already reached New Year (is celebrating)
+ * @param timezone - IANA timezone string
+ * @returns boolean - true if New Year has arrived in this timezone
+ */
+export function isNewYearInTimezone(timezone: string): boolean {
+  try {
+    const now = new Date();
+    const { month, day, hour } = getDatePartsInTimezone(now, timezone);
+    
+    // Check if it's January 1st and within 24 hours of midnight
+    if (month === 1 && day === 1) {
+      const hoursSinceMidnight = hour;
+      return hoursSinceMidnight < 24;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Calculates the New Year's Date for a given timezone
  * If New Year's has already passed but is within 24 hours, returns celebration state
  * @param timezone - IANA timezone string

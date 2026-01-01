@@ -32,7 +32,8 @@
     "search": "搜索城市、国家或大洲...",
     "noResults": "未找到时区",
     "searchHint": "尝试搜索城市、国家或大洲",
-    "zones": "时区"
+    "zones": "时区",
+    "celebrating": "🎉"
   },
   "photos": {
     "addPhotos": "添加你的照片",

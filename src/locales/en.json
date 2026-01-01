@@ -32,7 +32,8 @@
     "search": "Search city, country, or continent...",
     "noResults": "No timezones found",
     "searchHint": "Try searching for a city, country, or continent",
-    "zones": "zones"
+    "zones": "zones",
+    "celebrating": "🎉"
   },
   "photos": {
     "addPhotos": "Add Your Own Photos",
