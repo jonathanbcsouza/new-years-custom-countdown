@@ -89,13 +89,24 @@ export interface NewYearResult {
 export function isNewYearInTimezone(timezone: string): boolean {
   try {
     const now = new Date();
-    const { month, day, hour } = getDatePartsInTimezone(now, timezone);
+    const { month, day, hour, minute, second } = getDatePartsInTimezone(
+      now,
+      timezone
+    );
 
     // Check if it's January 1st and within 24 hours of midnight
     if (month === 1 && day === 1) {
-      const hoursSinceMidnight = hour;
+      const hoursSinceMidnight = hour + minute / 60 + second / 3600;
       return hoursSinceMidnight < 24;
     }
+
+    // Check if it's January 2nd and within 24 hours of midnight on Jan 1st
+    // This handles timezones that are ahead and have already passed midnight
+    if (month === 1 && day === 2) {
+      const hoursSinceMidnight = hour + minute / 60 + second / 3600;
+      return hoursSinceMidnight < 24;
+    }
+
     return false;
   } catch {
     return false;

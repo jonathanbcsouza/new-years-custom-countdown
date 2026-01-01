@@ -91,5 +91,17 @@
     "enterTitle": "You can cast this on your TV!",
     "exitTitle": "Exit fullscreen",
     "desc": "View on this device in full screen"
+  },
+  "global": {
+    "title": "Global New Year Celebrations",
+    "subtitle": "See which cities have already celebrated",
+    "button": "World",
+    "buttonTooltip": "See global celebration status",
+    "celebrating": "of the world celebrating",
+    "cities": "cities",
+    "alreadyCelebrating": "Already Celebrating 2026",
+    "stillWaiting": "Still Waiting for 2026",
+    "showMore": "Show {{count}} more",
+    "showLess": "Show less"
   }
 }

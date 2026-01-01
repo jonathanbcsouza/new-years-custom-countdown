@@ -10,6 +10,10 @@ import { FullscreenButton } from '@/components/FullscreenButton';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { DonateButton } from '@/components/DonateButton';
 import { SoundToggleButton } from '@/components/SoundToggleButton';
+import {
+  GlobalCelebrations,
+  GlobalCelebrationsButton,
+} from '@/components/GlobalCelebrations';
 
 interface CountdownProps {
   targetDate: Date;
@@ -38,6 +42,7 @@ export const Countdown = memo(function Countdown({
 }: CountdownProps) {
   const { t } = useTranslation();
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
+  const [showGlobalCelebrations, setShowGlobalCelebrations] = useState(false);
   const { days, hours, minutes, seconds, isComplete } =
     useCountdown(targetDate);
 
@@ -65,10 +70,16 @@ export const Countdown = memo(function Countdown({
         </div>
       )}
 
+      {/* Global Celebrations Modal */}
+      <GlobalCelebrations
+        isOpen={showGlobalCelebrations}
+        onClose={() => setShowGlobalCelebrations(false)}
+      />
+
       {/* Main Layout */}
       <main className="min-h-screen flex flex-col relative z-10">
         {/* Top Bar Controls */}
-        {/* Left Side - Fullscreen, Language & Sound */}
+        {/* Left Side - Fullscreen, Language, Sound & Global */}
         <div className="absolute top-4 left-4 z-30 flex items-center gap-1 sm:gap-2">
           <FullscreenButton />
           <LanguageSelector />
@@ -76,6 +87,9 @@ export const Countdown = memo(function Countdown({
             isSoundEnabled={isSoundEnabled}
             isPlaying={isPlaying}
             onToggle={toggleSound}
+          />
+          <GlobalCelebrationsButton
+            onClick={() => setShowGlobalCelebrations(true)}
           />
         </div>
 
