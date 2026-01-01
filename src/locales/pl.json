@@ -75,6 +75,28 @@
     "off": "Dźwięk wył.",
     "enable": "Włącz dźwięki świąteczne",
     "disable": "Wyłącz dźwięki świąteczne"
+  },
+  "cast": {
+    "button": "Przesyłaj",
+    "connecting": "Łączenie...",
+    "connected": "Połączono",
+    "disconnect": "Zatrzymaj przesyłanie",
+    "tooltip": "Przesyłaj na Chromecast lub TV",
+    "toChromecast": "Przesyłaj na Chromecast",
+    "shareToTV": "Udostępnij na TV",
+    "shareToTVTooltip": "Udostępnij ekran na TV, Chromecast lub Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Przesyłaj na Google TV lub Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Udostępnij na Apple TV lub urządzenie AirPlay",
+    "tip": "Połącz urządzenie z tą samą siecią WiFi co TV"
+  },
+  "fullscreen": {
+    "enter": "Pełny ekran",
+    "exit": "Wyjdź",
+    "enterTitle": "Możesz przesłać to na swój TV!",
+    "exitTitle": "Wyjdź z pełnego ekranu",
+    "desc": "Wyświetl na tym urządzeniu w trybie pełnoekranowym"
   }
 }
 

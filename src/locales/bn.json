@@ -75,6 +75,28 @@
     "off": "শব্দ বন্ধ",
     "enable": "উদযাপনের শব্দ চালু করুন",
     "disable": "উদযাপনের শব্দ বন্ধ করুন"
+  },
+  "cast": {
+    "button": "কাস্ট",
+    "connecting": "সংযোগ হচ্ছে...",
+    "connected": "সংযুক্ত",
+    "disconnect": "কাস্ট বন্ধ করুন",
+    "tooltip": "Chromecast বা TV তে কাস্ট করুন",
+    "toChromecast": "Chromecast এ কাস্ট করুন",
+    "shareToTV": "TV তে শেয়ার করুন",
+    "shareToTVTooltip": "TV, Chromecast বা Apple TV তে আপনার স্ক্রিন শেয়ার করুন",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Google TV বা Chromecast এ কাস্ট করুন",
+    "airplay": "AirPlay",
+    "airplayDesc": "Apple TV বা AirPlay ডিভাইসে শেয়ার করুন",
+    "tip": "সেরা ফলাফলের জন্য আপনার ডিভাইসটি TV এর মতো একই WiFi এ সংযুক্ত করুন"
+  },
+  "fullscreen": {
+    "enter": "পূর্ণ স্ক্রিন",
+    "exit": "বের হন",
+    "enterTitle": "আপনি এটি আপনার TV তে কাস্ট করতে পারেন!",
+    "exitTitle": "পূর্ণ স্ক্রিন থেকে বের হন",
+    "desc": "এই ডিভাইসে পূর্ণ স্ক্রিনে দেখুন"
   }
 }
 

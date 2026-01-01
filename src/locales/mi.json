@@ -75,6 +75,28 @@
     "off": "Oro kei te whakakore",
     "enable": "Whakahohea ngā oro whakanuia",
     "disable": "Whakakore ngā oro whakanuia"
+  },
+  "cast": {
+    "button": "Whakaatu",
+    "connecting": "Hono ana...",
+    "connected": "Kua hono",
+    "disconnect": "Whakamutu te whakaatu",
+    "tooltip": "Whakaatu ki te Chromecast, TV rānei",
+    "toChromecast": "Whakaatu ki te Chromecast",
+    "shareToTV": "Toha ki te TV",
+    "shareToTVTooltip": "Tohaina tō mata ki te TV, Chromecast, Apple TV rānei",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Whakaatu ki te Google TV, Chromecast rānei",
+    "airplay": "AirPlay",
+    "airplayDesc": "Toha ki te Apple TV, taputapu AirPlay rānei",
+    "tip": "Honoa tō taputapu ki te WiFi ōrite ki tō TV mō ngā hua pai rawa"
+  },
+  "fullscreen": {
+    "enter": "Mata katoa",
+    "exit": "Puta",
+    "enterTitle": "Ka taea e koe te whakaatu i tēnei ki tō TV!",
+    "exitTitle": "Puta i te mata katoa",
+    "desc": "Tirohia i tēnei taputapu i te mata katoa"
   }
 }
 

@@ -75,6 +75,28 @@
     "off": "Ses kapalı",
     "enable": "Kutlama seslerini aç",
     "disable": "Kutlama seslerini kapat"
+  },
+  "cast": {
+    "button": "Yayınla",
+    "connecting": "Bağlanıyor...",
+    "connected": "Bağlandı",
+    "disconnect": "Yayını durdur",
+    "tooltip": "Chromecast veya TV'ye yayınla",
+    "toChromecast": "Chromecast'e yayınla",
+    "shareToTV": "TV'de paylaş",
+    "shareToTVTooltip": "Ekranınızı TV, Chromecast veya Apple TV'de paylaşın",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Google TV veya Chromecast'e yayınla",
+    "airplay": "AirPlay",
+    "airplayDesc": "Apple TV veya AirPlay cihazıyla paylaş",
+    "tip": "En iyi sonuçlar için cihazınızı TV ile aynı WiFi'ye bağlayın"
+  },
+  "fullscreen": {
+    "enter": "Tam ekran",
+    "exit": "Çık",
+    "enterTitle": "Bunu TV'nize yayınlayabilirsiniz!",
+    "exitTitle": "Tam ekrandan çık",
+    "desc": "Bu cihazda tam ekran görüntüle"
   }
 }
 

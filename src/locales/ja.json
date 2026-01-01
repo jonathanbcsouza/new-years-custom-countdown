@@ -75,5 +75,27 @@
     "off": "サウンドオフ",
     "enable": "お祝いの音を有効にする",
     "disable": "お祝いの音を無効にする"
+  },
+  "cast": {
+    "button": "キャスト",
+    "connecting": "接続中...",
+    "connected": "接続済み",
+    "disconnect": "キャストを停止",
+    "tooltip": "ChromecastまたはTVにキャスト",
+    "toChromecast": "Chromecastにキャスト",
+    "shareToTV": "TVに共有",
+    "shareToTVTooltip": "TV、Chromecast、またはApple TVに画面を共有",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Google TVまたはChromecastにキャスト",
+    "airplay": "AirPlay",
+    "airplayDesc": "Apple TVまたはAirPlayデバイスに共有",
+    "tip": "最良の結果を得るには、デバイスをTVと同じWiFiに接続してください"
+  },
+  "fullscreen": {
+    "enter": "フルスクリーン",
+    "exit": "終了",
+    "enterTitle": "これをTVにキャストできます！",
+    "exitTitle": "フルスクリーンを終了",
+    "desc": "このデバイスでフルスクリーン表示"
   }
 }

@@ -75,6 +75,28 @@
     "off": "Suara mati",
     "enable": "Aktifkan suara perayaan",
     "disable": "Nonaktifkan suara perayaan"
+  },
+  "cast": {
+    "button": "Cast",
+    "connecting": "Menghubungkan...",
+    "connected": "Terhubung",
+    "disconnect": "Hentikan cast",
+    "tooltip": "Cast ke Chromecast atau TV",
+    "toChromecast": "Cast ke Chromecast",
+    "shareToTV": "Bagikan ke TV",
+    "shareToTVTooltip": "Bagikan layar ke TV, Chromecast atau Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Cast ke Google TV atau Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Bagikan ke Apple TV atau perangkat AirPlay",
+    "tip": "Hubungkan perangkat ke WiFi yang sama dengan TV"
+  },
+  "fullscreen": {
+    "enter": "Layar penuh",
+    "exit": "Keluar",
+    "enterTitle": "Anda dapat cast ini ke TV!",
+    "exitTitle": "Keluar dari layar penuh",
+    "desc": "Lihat di perangkat ini dalam layar penuh"
   }
 }
 

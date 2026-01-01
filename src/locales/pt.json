@@ -75,6 +75,28 @@
     "off": "Som desligado",
     "enable": "Ativar sons de celebração",
     "disable": "Desativar sons de celebração"
+  },
+  "cast": {
+    "button": "Transmitir",
+    "connecting": "Conectando...",
+    "connected": "Conectado",
+    "disconnect": "Parar transmissão",
+    "tooltip": "Transmitir para Chromecast ou TV",
+    "toChromecast": "Transmitir para Chromecast",
+    "shareToTV": "Compartilhar na TV",
+    "shareToTVTooltip": "Compartilhe sua tela na TV, Chromecast ou Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Transmitir para Google TV ou Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Compartilhar com Apple TV ou dispositivo AirPlay",
+    "tip": "Conecte seu dispositivo à mesma rede WiFi da sua TV"
+  },
+  "fullscreen": {
+    "enter": "Tela cheia",
+    "exit": "Sair",
+    "enterTitle": "Você pode transmitir isso na sua TV!",
+    "exitTitle": "Sair da tela cheia",
+    "desc": "Ver neste dispositivo em tela cheia"
   }
 }
 

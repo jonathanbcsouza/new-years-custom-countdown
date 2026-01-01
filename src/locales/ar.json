@@ -75,6 +75,28 @@
     "off": "الصوت معطل",
     "enable": "تفعيل أصوات الاحتفال",
     "disable": "إيقاف أصوات الاحتفال"
+  },
+  "cast": {
+    "button": "بث",
+    "connecting": "جاري الاتصال...",
+    "connected": "متصل",
+    "disconnect": "إيقاف البث",
+    "tooltip": "البث إلى Chromecast أو التلفاز",
+    "toChromecast": "البث إلى Chromecast",
+    "shareToTV": "مشاركة على التلفاز",
+    "shareToTVTooltip": "شارك شاشتك على التلفاز أو Chromecast أو Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "البث إلى Google TV أو Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "مشاركة مع Apple TV أو جهاز AirPlay",
+    "tip": "قم بتوصيل جهازك بنفس شبكة WiFi الخاصة بالتلفاز"
+  },
+  "fullscreen": {
+    "enter": "ملء الشاشة",
+    "exit": "خروج",
+    "enterTitle": "يمكنك بث هذا على التلفاز!",
+    "exitTitle": "الخروج من ملء الشاشة",
+    "desc": "عرض على هذا الجهاز بملء الشاشة"
   }
 }
 

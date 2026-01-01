@@ -75,6 +75,28 @@
     "off": "声音关",
     "enable": "开启庆祝音效",
     "disable": "关闭庆祝音效"
+  },
+  "cast": {
+    "button": "投屏",
+    "connecting": "连接中...",
+    "connected": "已连接",
+    "disconnect": "停止投屏",
+    "tooltip": "投屏到Chromecast或电视",
+    "toChromecast": "投屏到Chromecast",
+    "shareToTV": "分享到电视",
+    "shareToTVTooltip": "将屏幕分享到电视、Chromecast或Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "投屏到Google TV或Chromecast",
+    "airplay": "AirPlay隔空播放",
+    "airplayDesc": "分享到Apple TV或AirPlay设备",
+    "tip": "请将设备连接到与电视相同的WiFi以获得最佳效果"
+  },
+  "fullscreen": {
+    "enter": "全屏",
+    "exit": "退出",
+    "enterTitle": "您可以将此投屏到电视！",
+    "exitTitle": "退出全屏",
+    "desc": "在此设备上全屏显示"
   }
 }
 

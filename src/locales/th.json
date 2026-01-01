@@ -75,6 +75,28 @@
     "off": "ปิดเสียง",
     "enable": "เปิดเสียงเฉลิมฉลอง",
     "disable": "ปิดเสียงเฉลิมฉลอง"
+  },
+  "cast": {
+    "button": "แคสต์",
+    "connecting": "กำลังเชื่อมต่อ...",
+    "connected": "เชื่อมต่อแล้ว",
+    "disconnect": "หยุดแคสต์",
+    "tooltip": "แคสต์ไปยัง Chromecast หรือทีวี",
+    "toChromecast": "แคสต์ไปยัง Chromecast",
+    "shareToTV": "แชร์ไปยังทีวี",
+    "shareToTVTooltip": "แชร์หน้าจอไปยังทีวี, Chromecast หรือ Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "แคสต์ไปยัง Google TV หรือ Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "แชร์กับ Apple TV หรืออุปกรณ์ AirPlay",
+    "tip": "เชื่อมต่ออุปกรณ์กับ WiFi เดียวกับทีวีเพื่อผลลัพธ์ที่ดีที่สุด"
+  },
+  "fullscreen": {
+    "enter": "เต็มจอ",
+    "exit": "ออก",
+    "enterTitle": "คุณสามารถแคสต์สิ่งนี้ไปยังทีวีได้!",
+    "exitTitle": "ออกจากเต็มจอ",
+    "desc": "ดูบนอุปกรณ์นี้แบบเต็มจอ"
   }
 }
 

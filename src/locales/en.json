@@ -56,12 +56,6 @@
     "swipeToSeeMore": "Swipe to see more",
     "personalizeHint": "Personalize your countdown with your own photos"
   },
-  "fullscreen": {
-    "enter": "Full screen",
-    "exit": "Exit",
-    "enterTitle": "You can cast this on your TV!",
-    "exitTitle": "Exit fullscreen"
-  },
   "language": {
     "select": "Select Language",
     "current": "Current Language"
@@ -75,5 +69,27 @@
     "off": "Sound off",
     "enable": "Turn on celebration sounds",
     "disable": "Turn off celebration sounds"
+  },
+  "cast": {
+    "button": "Cast",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "disconnect": "Stop casting",
+    "tooltip": "Cast to Chromecast or TV",
+    "toChromecast": "Cast to Chromecast",
+    "shareToTV": "Share to TV",
+    "shareToTVTooltip": "Share your screen to TV, Chromecast, or Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Cast to Google TV or Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Share to Apple TV or AirPlay device",
+    "tip": "Connect your device to the same WiFi as your TV for best results"
+  },
+  "fullscreen": {
+    "enter": "Full screen",
+    "exit": "Exit",
+    "enterTitle": "You can cast this on your TV!",
+    "exitTitle": "Exit fullscreen",
+    "desc": "View on this device in full screen"
   }
 }

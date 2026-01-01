@@ -75,6 +75,28 @@
     "off": "Geluid uit",
     "enable": "Feestgeluiden inschakelen",
     "disable": "Feestgeluiden uitschakelen"
+  },
+  "cast": {
+    "button": "Casten",
+    "connecting": "Verbinden...",
+    "connected": "Verbonden",
+    "disconnect": "Stop casten",
+    "tooltip": "Cast naar Chromecast of TV",
+    "toChromecast": "Cast naar Chromecast",
+    "shareToTV": "Delen op TV",
+    "shareToTVTooltip": "Deel je scherm op TV, Chromecast of Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Cast naar Google TV of Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Delen met Apple TV of AirPlay-apparaat",
+    "tip": "Verbind je apparaat met dezelfde WiFi als je TV"
+  },
+  "fullscreen": {
+    "enter": "Volledig scherm",
+    "exit": "Sluiten",
+    "enterTitle": "Je kunt dit casten naar je TV!",
+    "exitTitle": "Volledig scherm sluiten",
+    "desc": "Bekijk op dit apparaat in volledig scherm"
   }
 }
 

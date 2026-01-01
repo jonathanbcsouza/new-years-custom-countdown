@@ -75,6 +75,28 @@
     "off": "Звук выкл",
     "enable": "Включить праздничные звуки",
     "disable": "Выключить праздничные звуки"
+  },
+  "cast": {
+    "button": "Трансляция",
+    "connecting": "Подключение...",
+    "connected": "Подключено",
+    "disconnect": "Остановить трансляцию",
+    "tooltip": "Транслировать на Chromecast или ТВ",
+    "toChromecast": "Транслировать на Chromecast",
+    "shareToTV": "Показать на ТВ",
+    "shareToTVTooltip": "Поделитесь экраном на ТВ, Chromecast или Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Транслировать на Google TV или Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Поделиться с Apple TV или AirPlay устройством",
+    "tip": "Подключите устройство к той же WiFi сети, что и телевизор"
+  },
+  "fullscreen": {
+    "enter": "Полный экран",
+    "exit": "Выход",
+    "enterTitle": "Вы можете транслировать это на ТВ!",
+    "exitTitle": "Выйти из полноэкранного режима",
+    "desc": "Просмотр на этом устройстве в полноэкранном режиме"
   }
 }
 

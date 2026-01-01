@@ -75,6 +75,28 @@
     "off": "소리 끄기",
     "enable": "축하 소리 켜기",
     "disable": "축하 소리 끄기"
+  },
+  "cast": {
+    "button": "전송",
+    "connecting": "연결 중...",
+    "connected": "연결됨",
+    "disconnect": "전송 중지",
+    "tooltip": "Chromecast 또는 TV로 전송",
+    "toChromecast": "Chromecast로 전송",
+    "shareToTV": "TV에 공유",
+    "shareToTVTooltip": "TV, Chromecast 또는 Apple TV에 화면 공유",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Google TV 또는 Chromecast로 전송",
+    "airplay": "AirPlay",
+    "airplayDesc": "Apple TV 또는 AirPlay 기기에 공유",
+    "tip": "최상의 결과를 위해 기기를 TV와 동일한 WiFi에 연결하세요"
+  },
+  "fullscreen": {
+    "enter": "전체 화면",
+    "exit": "종료",
+    "enterTitle": "TV에 이것을 전송할 수 있습니다!",
+    "exitTitle": "전체 화면 종료",
+    "desc": "이 기기에서 전체 화면으로 보기"
   }
 }
 

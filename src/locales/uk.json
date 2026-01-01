@@ -75,6 +75,28 @@
     "off": "Звук вимкнено",
     "enable": "Увімкнути святкові звуки",
     "disable": "Вимкнути святкові звуки"
+  },
+  "cast": {
+    "button": "Трансляція",
+    "connecting": "Підключення...",
+    "connected": "Підключено",
+    "disconnect": "Зупинити трансляцію",
+    "tooltip": "Транслювати на Chromecast або ТВ",
+    "toChromecast": "Транслювати на Chromecast",
+    "shareToTV": "Поділитися на ТВ",
+    "shareToTVTooltip": "Поділіться екраном на ТВ, Chromecast або Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Транслювати на Google TV або Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Поділитися з Apple TV або AirPlay пристроєм",
+    "tip": "Підключіть пристрій до тієї ж WiFi мережі, що й телевізор"
+  },
+  "fullscreen": {
+    "enter": "Повний екран",
+    "exit": "Вийти",
+    "enterTitle": "Ви можете транслювати це на ТВ!",
+    "exitTitle": "Вийти з повноекранного режиму",
+    "desc": "Переглянути на цьому пристрої в повноекранному режимі"
   }
 }
 

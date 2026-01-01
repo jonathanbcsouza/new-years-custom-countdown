@@ -56,12 +56,6 @@
     "swipeToSeeMore": "Balayez pour voir plus",
     "personalizeHint": "Personnalisez votre compte à rebours avec des photos de famille"
   },
-  "fullscreen": {
-    "enter": "Plein écran",
-    "exit": "Quitter",
-    "enterTitle": "Passer en plein écran pour l'affichage TV",
-    "exitTitle": "Quitter le plein écran"
-  },
   "language": {
     "select": "Sélectionner la Langue",
     "current": "Langue Actuelle"
@@ -75,6 +69,28 @@
     "off": "Son désactivé",
     "enable": "Activer les sons de fête",
     "disable": "Désactiver les sons de fête"
+  },
+  "cast": {
+    "button": "Diffuser",
+    "connecting": "Connexion...",
+    "connected": "Connecté",
+    "disconnect": "Arrêter la diffusion",
+    "tooltip": "Diffuser sur Chromecast ou TV",
+    "toChromecast": "Diffuser sur Chromecast",
+    "shareToTV": "Partager sur TV",
+    "shareToTVTooltip": "Partagez votre écran sur TV, Chromecast ou Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Diffuser sur Google TV ou Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Partager avec Apple TV ou appareil AirPlay",
+    "tip": "Connectez votre appareil au même WiFi que votre TV"
+  },
+  "fullscreen": {
+    "enter": "Plein écran",
+    "exit": "Quitter",
+    "enterTitle": "Vous pouvez diffuser ceci sur votre TV!",
+    "exitTitle": "Quitter le plein écran",
+    "desc": "Afficher sur cet appareil en plein écran"
   }
 }
 

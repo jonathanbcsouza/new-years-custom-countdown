@@ -75,6 +75,28 @@
     "off": "Ton aus",
     "enable": "Feierklänge aktivieren",
     "disable": "Feierklänge deaktivieren"
+  },
+  "cast": {
+    "button": "Übertragen",
+    "connecting": "Verbinden...",
+    "connected": "Verbunden",
+    "disconnect": "Übertragung beenden",
+    "tooltip": "Auf Chromecast oder TV übertragen",
+    "toChromecast": "Auf Chromecast übertragen",
+    "shareToTV": "Auf TV teilen",
+    "shareToTVTooltip": "Bildschirm auf TV, Chromecast oder Apple TV teilen",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Auf Google TV oder Chromecast übertragen",
+    "airplay": "AirPlay",
+    "airplayDesc": "Mit Apple TV oder AirPlay-Gerät teilen",
+    "tip": "Verbinden Sie Ihr Gerät mit demselben WLAN wie Ihr TV"
+  },
+  "fullscreen": {
+    "enter": "Vollbild",
+    "exit": "Beenden",
+    "enterTitle": "Sie können dies auf Ihrem TV übertragen!",
+    "exitTitle": "Vollbild beenden",
+    "desc": "Auf diesem Gerät im Vollbildmodus anzeigen"
   }
 }
 

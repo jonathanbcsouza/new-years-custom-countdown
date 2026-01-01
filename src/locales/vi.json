@@ -75,6 +75,28 @@
     "off": "Tắt âm thanh",
     "enable": "Bật âm thanh lễ hội",
     "disable": "Tắt âm thanh lễ hội"
+  },
+  "cast": {
+    "button": "Truyền",
+    "connecting": "Đang kết nối...",
+    "connected": "Đã kết nối",
+    "disconnect": "Dừng truyền",
+    "tooltip": "Truyền đến Chromecast hoặc TV",
+    "toChromecast": "Truyền đến Chromecast",
+    "shareToTV": "Chia sẻ lên TV",
+    "shareToTVTooltip": "Chia sẻ màn hình lên TV, Chromecast hoặc Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Truyền đến Google TV hoặc Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Chia sẻ với Apple TV hoặc thiết bị AirPlay",
+    "tip": "Kết nối thiết bị với cùng WiFi với TV để có kết quả tốt nhất"
+  },
+  "fullscreen": {
+    "enter": "Toàn màn hình",
+    "exit": "Thoát",
+    "enterTitle": "Bạn có thể truyền lên TV!",
+    "exitTitle": "Thoát toàn màn hình",
+    "desc": "Xem trên thiết bị này ở chế độ toàn màn hình"
   }
 }
 

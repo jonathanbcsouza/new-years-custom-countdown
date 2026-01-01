@@ -75,6 +75,28 @@
     "off": "Audio disattivo",
     "enable": "Attiva suoni di festa",
     "disable": "Disattiva suoni di festa"
+  },
+  "cast": {
+    "button": "Trasmetti",
+    "connecting": "Connessione...",
+    "connected": "Connesso",
+    "disconnect": "Interrompi trasmissione",
+    "tooltip": "Trasmetti su Chromecast o TV",
+    "toChromecast": "Trasmetti su Chromecast",
+    "shareToTV": "Condividi su TV",
+    "shareToTVTooltip": "Condividi lo schermo su TV, Chromecast o Apple TV",
+    "chromecast": "Chromecast",
+    "chromecastDesc": "Trasmetti su Google TV o Chromecast",
+    "airplay": "AirPlay",
+    "airplayDesc": "Condividi con Apple TV o dispositivo AirPlay",
+    "tip": "Connetti il dispositivo alla stessa rete WiFi della TV"
+  },
+  "fullscreen": {
+    "enter": "Schermo intero",
+    "exit": "Esci",
+    "enterTitle": "Puoi trasmettere questo sulla TV!",
+    "exitTitle": "Esci da schermo intero",
+    "desc": "Visualizza su questo dispositivo a schermo intero"
   }
 }
 
