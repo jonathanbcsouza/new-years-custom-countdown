@@ -1,6 +1,13 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe, Search, ChevronDown, ChevronRight, X, PartyPopper } from 'lucide-react';
+import {
+  Globe,
+  Search,
+  ChevronDown,
+  ChevronRight,
+  X,
+  PartyPopper,
+} from 'lucide-react';
 import {
   getGroupedTimezones,
   formatTimezone,
@@ -281,7 +288,9 @@ export function TimezoneSelector({
                               {isCountryExpanded && (
                                 <div className="ml-5 py-1">
                                   {countryGroup.timezones.map((tz) => {
-                                    const isCelebrating = isNewYearInTimezone(tz.value);
+                                    const isCelebrating = isNewYearInTimezone(
+                                      tz.value
+                                    );
                                     return (
                                       <button
                                         key={tz.value}

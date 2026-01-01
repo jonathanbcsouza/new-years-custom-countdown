@@ -90,7 +90,7 @@ export function isNewYearInTimezone(timezone: string): boolean {
   try {
     const now = new Date();
     const { month, day, hour } = getDatePartsInTimezone(now, timezone);
-    
+
     // Check if it's January 1st and within 24 hours of midnight
     if (month === 1 && day === 1) {
       const hoursSinceMidnight = hour;
