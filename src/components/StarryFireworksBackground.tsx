@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef, useCallback } from 'react';
 
 interface Particle {
   x: number;
@@ -16,6 +16,14 @@ interface StarryFireworksBackgroundProps {
   celebrationMode?: boolean;
 }
 
+// Audio files for click-triggered fireworks
+const FIREWORK_AUDIO_FILES = [
+  '/audio/track-1-1767239911340.mp3',
+  '/audio/track-2-1767239958278.mp3',
+  '/audio/track-3-1767239977776.mp3',
+  '/audio/track-4-1767239998265.mp3',
+];
+
 /**
  * Canvas-based animated starry night with fireworks
  * Creates a realistic New Year's Eve sky effect
@@ -28,11 +36,62 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
   const particlesRef = useRef<Particle[]>([]);
   const starsRef = useRef<{ x: number; y: number; size: number; twinkle: number; speed: number }[]>([]);
   const celebrationModeRef = useRef(celebrationMode);
+  const audioIndexRef = useRef(0);
+  const createFireworkRef = useRef<((x: number, y: number, intense?: boolean) => void) | null>(null);
 
   // Update ref when prop changes
   useEffect(() => {
     celebrationModeRef.current = celebrationMode;
   }, [celebrationMode]);
+
+  // Play audio for click-triggered fireworks (cycles through tracks)
+  const playFireworkAudio = useCallback(() => {
+    const audio = new Audio(FIREWORK_AUDIO_FILES[audioIndexRef.current]);
+    audio.volume = 0.5;
+    audio.play().catch((err) => {
+      // Silently fail if autoplay is blocked
+      console.debug('Audio play failed:', err);
+    });
+    // Cycle to next track
+    audioIndexRef.current = (audioIndexRef.current + 1) % FIREWORK_AUDIO_FILES.length;
+  }, []);
+
+  // Handle click/touch anywhere on the page to trigger firework
+  const handleInteraction = useCallback((x: number, y: number, target: HTMLElement) => {
+    if (!createFireworkRef.current) return;
+
+    // Check if the interaction was on an interactive element (button, input, link, etc.)
+    const isInteractiveElement = target.closest('button, a, input, select, textarea, [role="button"], [role="link"], [data-no-firework]');
+    
+    // Don't trigger firework if interacting with interactive elements
+    if (isInteractiveElement) return;
+
+    // Create an intense firework at interaction position
+    createFireworkRef.current(x, y, true);
+    
+    // Play corresponding audio
+    playFireworkAudio();
+  }, [playFireworkAudio]);
+
+  // Handle mouse click
+  const handleGlobalClick = useCallback((event: MouseEvent) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    handleInteraction(event.clientX, event.clientY, event.target as HTMLElement);
+  }, [handleInteraction]);
+
+  // Handle touch end (for mobile devices)
+  const handleGlobalTouchEnd = useCallback((event: TouchEvent) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    // Get the last touch point
+    const touch = event.changedTouches[0];
+    if (!touch) return;
+    
+    handleInteraction(touch.clientX, touch.clientY, event.target as HTMLElement);
+  }, [handleInteraction]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -84,8 +143,10 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
       'rgba(255, 240, 200, ',
     ];
 
-    // Create firework explosion
+    // Create firework explosion - stored in ref for click handler access
     const createFirework = (x: number, y: number, intense = false) => {
+      // Store reference for click handler
+      createFireworkRef.current = createFirework;
       const isCelebrating = celebrationModeRef.current || intense;
       const colors = isCelebrating ? celebrationColors : normalColors;
       const particleCount = isCelebrating ? 100 + Math.random() * 60 : 60 + Math.random() * 40;
@@ -297,16 +358,25 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
     window.addEventListener('resize', resize);
     animationId = requestAnimationFrame(animate);
 
+    // Store createFirework reference for click handler
+    createFireworkRef.current = createFirework;
+
     // Create initial fireworks
     setTimeout(() => createFirework(canvas.width * 0.3, canvas.height * 0.25), 500);
     setTimeout(() => createFirework(canvas.width * 0.7, canvas.height * 0.2), 1200);
     setTimeout(() => createFirework(canvas.width * 0.5, canvas.height * 0.35), 2000);
 
+    // Add global click and touch listeners for interactive fireworks
+    document.addEventListener('click', handleGlobalClick);
+    document.addEventListener('touchend', handleGlobalTouchEnd, { passive: true });
+
     return () => {
       window.removeEventListener('resize', resize);
+      document.removeEventListener('click', handleGlobalClick);
+      document.removeEventListener('touchend', handleGlobalTouchEnd);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [handleGlobalClick, handleGlobalTouchEnd]);
 
   return (
     <canvas

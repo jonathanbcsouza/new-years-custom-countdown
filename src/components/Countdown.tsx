@@ -79,9 +79,10 @@ export const Countdown = memo(function Countdown({
 
       {/* Main Layout */}
       <main className="min-h-screen flex flex-col relative z-10">
-        {/* Top Bar Controls */}
-        {/* Left Side - Fullscreen, Language, Sound & Global */}
-        <div className="absolute top-4 left-4 z-30 flex items-center gap-1 sm:gap-2">
+        {/* Top Bar Controls - Responsive layout */}
+        
+        {/* Left Side Controls */}
+        <div className="absolute top-3 left-3 z-30 flex items-center gap-1">
           <FullscreenButton />
           <LanguageSelector />
           <SoundToggleButton
@@ -92,15 +93,16 @@ export const Countdown = memo(function Countdown({
           <GlobalCelebrationsButton />
         </div>
 
-        {/* Right Side - Timezone Selector & Donate (stacked on mobile, row on desktop) */}
-        <div className="absolute top-4 right-4 z-30 flex flex-col items-end gap-1">
-          <div className="flex flex-col md:flex-row items-end md:items-center gap-1 md:gap-2">
+        {/* Right Side Controls */}
+        <div className="absolute top-3 right-3 z-30 flex flex-col items-end gap-1">
+          <div className="flex items-center gap-1">
             <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
             <DonateButton />
           </div>
+          
           {/* Firework Hint - Discrete hint below controls */}
           {showFireworkHint && (
-            <div className="mt-1 flex items-center gap-1.5 px-3 py-1 text-xs text-white/50 hover:text-white/70 transition-colors">
+            <div className="flex items-center gap-1.5 px-2 py-1 text-xs text-white/50">
               <Sparkles className="h-3 w-3 text-amber-400/60" />
               <span>{t('fireworks.tapHint')}</span>
             </div>
