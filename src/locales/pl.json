@@ -31,7 +31,7 @@
     "zones": "stref"
   },
   "photos": {
-    "addPhotos": "Dodaj Zdjęcia Rodzinne",
+    "addPhotos": "Dodaj Swoje Zdjęcia",
     "editPhotos": "Edytuj zdjęcia",
     "uploadPhotos": "Prześlij Zdjęcia",
     "addUpTo": "Dodaj do {{max}} zdjęć do pokazu slajdów tła odliczania",
@@ -62,8 +62,8 @@
     "current": "Obecny Język"
   },
   "donate": {
-    "button": "Wspomóż",
-    "tooltip": "Wesprzyj ten projekt darowizną"
+    "button": "Postaw mi ☕",
+    "tooltip": "Podobało się? Postaw mi kawę!"
   }
 }
 

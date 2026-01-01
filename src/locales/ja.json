@@ -31,7 +31,7 @@
     "zones": "ゾーン"
   },
   "photos": {
-    "addPhotos": "家族の写真を追加",
+    "addPhotos": "写真を追加",
     "editPhotos": "写真を編集",
     "uploadPhotos": "写真をアップロード",
     "addUpTo": "カウントダウンの背景スライドショーに最大{{max}}枚の写真を追加",
@@ -62,7 +62,7 @@
     "current": "現在の言語"
   },
   "donate": {
-    "button": "寄付",
-    "tooltip": "このプロジェクトを寄付で応援してください"
+    "button": "☕をおごる",
+    "tooltip": "気に入りましたか？コーヒーをおごってください！"
   }
 }

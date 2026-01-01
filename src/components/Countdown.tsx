@@ -44,8 +44,8 @@ export const Countdown = memo(function Countdown({
 
   return (
     <>
-      {/* Animated Starry Fireworks Background */}
-      <StarryFireworksBackground />
+      {/* Animated Starry Fireworks Background - Enhanced during celebration */}
+      <StarryFireworksBackground celebrationMode={showCelebration} />
 
       {/* Photo Upload Modal */}
       {showPhotoUpload && (

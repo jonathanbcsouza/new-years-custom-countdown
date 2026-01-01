@@ -31,7 +31,7 @@
     "zones": "múi"
   },
   "photos": {
-    "addPhotos": "Thêm Ảnh Gia Đình",
+    "addPhotos": "Thêm Ảnh Của Bạn",
     "editPhotos": "Chỉnh sửa ảnh",
     "uploadPhotos": "Tải Ảnh Lên",
     "addUpTo": "Thêm tối đa {{max}} ảnh cho trình chiếu nền đếm ngược",
@@ -62,8 +62,8 @@
     "current": "Ngôn Ngữ Hiện Tại"
   },
   "donate": {
-    "button": "Ủng hộ",
-    "tooltip": "Hỗ trợ dự án này bằng cách quyên góp"
+    "button": "Mua tôi ☕",
+    "tooltip": "Thích không? Mời tôi ly cà phê nhé!"
   }
 }
 

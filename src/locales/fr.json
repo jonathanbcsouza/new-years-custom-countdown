@@ -31,7 +31,7 @@
     "zones": "fuseaux"
   },
   "photos": {
-    "addPhotos": "Ajouter des Photos de Famille",
+    "addPhotos": "Ajoutez Vos Photos",
     "editPhotos": "Modifier les photos",
     "uploadPhotos": "Télécharger des Photos",
     "addUpTo": "Ajoutez jusqu'à {{max}} photos pour votre diaporama de fond de compte à rebours",
@@ -62,8 +62,8 @@
     "current": "Langue Actuelle"
   },
   "donate": {
-    "button": "Faire un don",
-    "tooltip": "Soutenez ce projet avec un don"
+    "button": "Offrez-moi un ☕",
+    "tooltip": "Vous avez aimé ? Offrez-moi un café !"
   }
 }
 

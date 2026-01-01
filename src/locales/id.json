@@ -31,7 +31,7 @@
     "zones": "zona"
   },
   "photos": {
-    "addPhotos": "Tambah Foto Keluarga",
+    "addPhotos": "Tambah Foto Anda",
     "editPhotos": "Edit foto",
     "uploadPhotos": "Unggah Foto",
     "addUpTo": "Tambahkan hingga {{max}} foto untuk slideshow latar belakang hitungan mundur",
@@ -62,8 +62,8 @@
     "current": "Bahasa Saat Ini"
   },
   "donate": {
-    "button": "Donasi",
-    "tooltip": "Dukung proyek ini dengan donasi"
+    "button": "Belikan ☕",
+    "tooltip": "Suka? Belikan saya kopi!"
   }
 }
 

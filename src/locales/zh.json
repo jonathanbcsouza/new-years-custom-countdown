@@ -31,7 +31,7 @@
     "zones": "时区"
   },
   "photos": {
-    "addPhotos": "添加家庭照片",
+    "addPhotos": "添加你的照片",
     "editPhotos": "编辑照片",
     "uploadPhotos": "上传照片",
     "addUpTo": "为您的倒计时背景幻灯片添加最多{{max}}张照片",
@@ -62,8 +62,8 @@
     "current": "当前语言"
   },
   "donate": {
-    "button": "捐赠",
-    "tooltip": "通过捐赠支持此项目"
+    "button": "请我喝☕",
+    "tooltip": "喜欢吗？请我喝杯咖啡！"
   }
 }
 

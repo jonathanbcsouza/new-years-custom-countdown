@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "E uta ana te tatau heke...",
+    "error": "Kāore i taea te tīmata i te tatau heke",
+    "done": "Kua oti",
+    "edit": "Whakatika",
+    "add": "Tāpiri",
+    "remove": "Tango",
+    "clear": "Whakakore",
+    "close": "Katia",
+    "cancel": "Whakakore",
+    "save": "Tiaki",
+    "search": "Rapu",
+    "select": "Kōwhiri"
+  },
+  "countdown": {
+    "title": "TATAU HEKE KI TE TAU HOU",
+    "happyNewYear": "HARI TAU HOU!",
+    "timeRemaining": "Te wā e toe ana ki te Tau Hou",
+    "celebrating": "E whakanui ana i ngā hāora 24 tuatahi o te Tau Hou!",
+    "days": "Ngā rā",
+    "hours": "Ngā hāora",
+    "minutes": "Ngā meneti",
+    "seconds": "Ngā hēkona"
+  },
+  "timezone": {
+    "select": "Kōwhiri rohe wā",
+    "search": "Rapu tāone, whenua, ao rānei...",
+    "noResults": "Kāore he rohe wā i kitea",
+    "searchHint": "Ngana ki te rapu i tētahi tāone, whenua, ao rānei",
+    "zones": "ngā rohe"
+  },
+  "photos": {
+    "addPhotos": "Tāpiri Ō Whakaahua",
+    "editPhotos": "Whakatika whakaahua",
+    "uploadPhotos": "Tuku Whakaahua",
+    "addUpTo": "Tāpiri ake ki te {{max}} whakaahua mō tō tatau heke",
+    "photosCount": "Whakaahua: {{current}} / {{max}}",
+    "storage": "Rokiroki: {{used}} / {{total}}",
+    "dropOrClick": "Tuku whakaahua ki konei, pāwhiri rānei ki te tirotiro",
+    "fileTypes": "JPEG, PNG, WebP rānei • 10MB te mōrahi mō ia whakaahua",
+    "yourPhotos": "Ō Whakaahua",
+    "clearAll": "Whakakore Katoa",
+    "removePhoto": "Tango whakaahua {{index}}",
+    "compressing": "E kōpeke ana {{current}} o {{total}}...",
+    "maxPhotosReached": "{{max}} te mōrahi o ngā whakaahua",
+    "onlyAdding": "E tāpiri ana i te {{count}} noa o {{total}} whakaahua (tepe: {{max}})",
+    "invalidFileType": "Kōwhiri koa i ngā kōnae whakaahua tika (JPEG, PNG, WebP rānei)",
+    "compressionError": "Kāore i taea te tukatuka ētahi whakaahua. Ngana anō.",
+    "swipeHint": "Pāhuri ki te whakatere",
+    "swipeToSeeMore": "Pāhuri kia kite i ētahi atu",
+    "personalizeHint": "Whakaahuatia tō tatau heke ki ō whakaahua ake"
+  },
+  "fullscreen": {
+    "enter": "Mata katoa",
+    "exit": "Puta",
+    "enterTitle": "Ka taea e koe te whakaatu i tēnei ki tō pouaka whakaata!",
+    "exitTitle": "Puta i te mata katoa"
+  },
+  "language": {
+    "select": "Kōwhiri Reo",
+    "current": "Reo o Nāianei"
+  },
+  "donate": {
+    "button": "Hokona he ☕",
+    "tooltip": "I pai ki a koe? Hokona he kawhe māku!"
+  }
+}
+

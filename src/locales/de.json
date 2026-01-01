@@ -31,7 +31,7 @@
     "zones": "Zonen"
   },
   "photos": {
-    "addPhotos": "Familienfotos Hinzufügen",
+    "addPhotos": "Eigene Fotos Hinzufügen",
     "editPhotos": "Fotos bearbeiten",
     "uploadPhotos": "Fotos Hochladen",
     "addUpTo": "Fügen Sie bis zu {{max}} Fotos für Ihre Countdown-Hintergrund-Diashow hinzu",
@@ -62,8 +62,8 @@
     "current": "Aktuelle Sprache"
   },
   "donate": {
-    "button": "Spenden",
-    "tooltip": "Unterstützen Sie dieses Projekt mit einer Spende"
+    "button": "Kauf mir einen ☕",
+    "tooltip": "Hat es dir gefallen? Kauf mir einen Kaffee!"
   }
 }
 

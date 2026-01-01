@@ -31,7 +31,7 @@
     "zones": "dilim"
   },
   "photos": {
-    "addPhotos": "Aile Fotoğrafları Ekle",
+    "addPhotos": "Fotoğraflarınızı Ekleyin",
     "editPhotos": "Fotoğrafları düzenle",
     "uploadPhotos": "Fotoğraf Yükle",
     "addUpTo": "Geri sayım arka plan slayt gösterisi için en fazla {{max}} fotoğraf ekleyin",
@@ -62,8 +62,8 @@
     "current": "Mevcut Dil"
   },
   "donate": {
-    "button": "Bağış Yap",
-    "tooltip": "Bu projeyi bağışla destekleyin"
+    "button": "Bana ☕ ısmarla",
+    "tooltip": "Beğendiniz mi? Bana bir kahve ısmarlayın!"
   }
 }
 

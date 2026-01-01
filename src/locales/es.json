@@ -31,7 +31,7 @@
     "zones": "zonas"
   },
   "photos": {
-    "addPhotos": "Agregar Fotos Familiares",
+    "addPhotos": "Agrega Tus Fotos",
     "editPhotos": "Editar fotos",
     "uploadPhotos": "Subir Fotos",
     "addUpTo": "Agrega hasta {{max}} fotos para tu presentación de fondo de cuenta regresiva",
@@ -53,6 +53,7 @@
   },
   "fullscreen": {
     "enter": "Pantalla completa",
+    "enterTitle": "¡Puedes proyectar esto en tu TV!",
     "exit": "Salir",
     "enterTitle": "Entrar en pantalla completa para TV",
     "exitTitle": "Salir de pantalla completa"
@@ -62,8 +63,8 @@
     "current": "Idioma Actual"
   },
   "donate": {
-    "button": "Donar",
-    "tooltip": "Apoya este proyecto con una donación"
+    "button": "Invítame un ☕",
+    "tooltip": "¿Te gustó? ¡Invítame un café!"
   }
 }
 

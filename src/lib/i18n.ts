@@ -20,10 +20,12 @@ import th from '@/locales/th.json';
 import pl from '@/locales/pl.json';
 import nl from '@/locales/nl.json';
 import uk from '@/locales/uk.json';
+import mi from '@/locales/mi.json';
 
-// Top 20 languages by number of speakers worldwide
+// Top languages by number of speakers + Maori for New Zealand
 export const supportedLanguages = [
   { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'mi', name: 'Māori', nativeName: 'Te Reo Māori' },
   { code: 'zh', name: 'Chinese', nativeName: '中文' },
   { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
   { code: 'es', name: 'Spanish', nativeName: 'Español' },
@@ -63,6 +65,7 @@ const getInitialLanguage = (): LanguageCode => {
 i18n.use(initReactI18next).init({
   resources: {
     en: { translation: en },
+    mi: { translation: mi },
     es: { translation: es },
     pt: { translation: pt },
     fr: { translation: fr },

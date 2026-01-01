@@ -31,7 +31,7 @@
     "zones": "fusos"
   },
   "photos": {
-    "addPhotos": "Adicionar Fotos da Família",
+    "addPhotos": "Adicione Suas Fotos",
     "editPhotos": "Editar fotos",
     "uploadPhotos": "Enviar Fotos",
     "addUpTo": "Adicione até {{max}} fotos para sua apresentação de fundo da contagem regressiva",
@@ -62,8 +62,8 @@
     "current": "Idioma Atual"
   },
   "donate": {
-    "button": "Doar",
-    "tooltip": "Apoie este projeto com uma doação"
+    "button": "Me pague um ☕",
+    "tooltip": "Gostou? Me pague um café!"
   }
 }
 

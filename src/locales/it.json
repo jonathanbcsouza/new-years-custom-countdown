@@ -31,7 +31,7 @@
     "zones": "fusi"
   },
   "photos": {
-    "addPhotos": "Aggiungi Foto di Famiglia",
+    "addPhotos": "Aggiungi le Tue Foto",
     "editPhotos": "Modifica foto",
     "uploadPhotos": "Carica Foto",
     "addUpTo": "Aggiungi fino a {{max}} foto per lo slideshow del conto alla rovescia",
@@ -62,8 +62,8 @@
     "current": "Lingua Attuale"
   },
   "donate": {
-    "button": "Dona",
-    "tooltip": "Supporta questo progetto con una donazione"
+    "button": "Offrimi un ☕",
+    "tooltip": "Ti è piaciuto? Offrimi un caffè!"
   }
 }
 

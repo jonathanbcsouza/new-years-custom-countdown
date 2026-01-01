@@ -31,7 +31,7 @@
     "zones": "시간대"
   },
   "photos": {
-    "addPhotos": "가족 사진 추가",
+    "addPhotos": "사진 추가하기",
     "editPhotos": "사진 편집",
     "uploadPhotos": "사진 업로드",
     "addUpTo": "카운트다운 배경 슬라이드쇼에 최대 {{max}}장의 사진 추가",
@@ -62,8 +62,8 @@
     "current": "현재 언어"
   },
   "donate": {
-    "button": "후원",
-    "tooltip": "기부로 이 프로젝트를 지원하세요"
+    "button": "☕ 한잔 사기",
+    "tooltip": "마음에 드셨나요? 커피 한 잔 사주세요!"
   }
 }
 

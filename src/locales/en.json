@@ -31,7 +31,7 @@
     "zones": "zones"
   },
   "photos": {
-    "addPhotos": "Add Your Family Photos",
+    "addPhotos": "Add Your Own Photos",
     "editPhotos": "Edit photos",
     "uploadPhotos": "Upload Photos",
     "addUpTo": "Add up to {{max}} photos for your countdown background slideshow",
@@ -49,12 +49,12 @@
     "compressionError": "Failed to process some images. Please try again.",
     "swipeHint": "Swipe to navigate",
     "swipeToSeeMore": "Swipe to see more",
-    "personalizeHint": "Personalize your countdown with family photos"
+    "personalizeHint": "Personalize your countdown with your own photos"
   },
   "fullscreen": {
     "enter": "Full screen",
     "exit": "Exit",
-    "enterTitle": "Enter fullscreen mode",
+    "enterTitle": "You can cast this on your TV!",
     "exitTitle": "Exit fullscreen"
   },
   "language": {
@@ -62,8 +62,8 @@
     "current": "Current Language"
   },
   "donate": {
-    "button": "Donate",
-    "tooltip": "Support this project with a donation"
+    "button": "Buy me a ☕",
+    "tooltip": "Enjoyed the website? Buy me a coffee!"
   }
 }
 

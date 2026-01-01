@@ -31,7 +31,7 @@
     "zones": "zones"
   },
   "photos": {
-    "addPhotos": "Voeg Familiefoto's Toe",
+    "addPhotos": "Voeg Je Foto's Toe",
     "editPhotos": "Foto's bewerken",
     "uploadPhotos": "Foto's Uploaden",
     "addUpTo": "Voeg maximaal {{max}} foto's toe voor je aftelling achtergrond slideshow",
@@ -62,8 +62,8 @@
     "current": "Huidige Taal"
   },
   "donate": {
-    "button": "Doneren",
-    "tooltip": "Steun dit project met een donatie"
+    "button": "Trakteer me op ☕",
+    "tooltip": "Bevallen? Trakteer me op een koffie!"
   }
 }
 
