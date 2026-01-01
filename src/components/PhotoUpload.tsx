@@ -27,6 +27,7 @@ export const PhotoUpload = memo(function PhotoUpload({
   const { t } = useTranslation();
   const [isDragging, setIsDragging] = useState(false);
   const [isCompressing, setIsCompressing] = useState(false);
+  const [isReceiving, setIsReceiving] = useState(false);
   const [compressionProgress, setCompressionProgress] = useState({ current: 0, total: 0 });
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -36,12 +37,20 @@ export const PhotoUpload = memo(function PhotoUpload({
   const handleFiles = useCallback(
     async (files: FileList | File[]) => {
       setError(null);
+      
+      // Show immediate feedback that files were received
+      setIsReceiving(true);
+      
+      // Small delay to ensure UI updates before heavy processing
+      await new Promise(resolve => setTimeout(resolve, 50));
+      
       const fileArray = Array.from(files);
 
       // Validate file types
       const validFiles = fileArray.filter(isValidImageType);
       if (validFiles.length === 0) {
         setError(t('photos.invalidFileType'));
+        setIsReceiving(false);
         return;
       }
 
@@ -49,6 +58,7 @@ export const PhotoUpload = memo(function PhotoUpload({
       const remainingSlots = maxPhotos - photos.length;
       if (remainingSlots <= 0) {
         setError(t('photos.maxPhotosReached', { max: maxPhotos }));
+        setIsReceiving(false);
         return;
       }
 
@@ -58,6 +68,7 @@ export const PhotoUpload = memo(function PhotoUpload({
       }
 
       // Compress images
+      setIsReceiving(false);
       setIsCompressing(true);
       setCompressionProgress({ current: 0, total: filesToProcess.length });
 
@@ -75,7 +86,7 @@ export const PhotoUpload = memo(function PhotoUpload({
         setCompressionProgress({ current: 0, total: 0 });
       }
     },
-    [photos, onPhotosChange, maxPhotos]
+    [photos, onPhotosChange, maxPhotos, t]
   );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -99,8 +110,17 @@ export const PhotoUpload = memo(function PhotoUpload({
 
   const handleFileInput = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (e.target.files) {
-        handleFiles(e.target.files);
+      if (e.target.files && e.target.files.length > 0) {
+        // Capture files immediately before any async operations
+        const files = Array.from(e.target.files);
+        
+        // Reset file input immediately to allow re-selection and close native picker faster
+        e.target.value = '';
+        
+        // Process files asynchronously with a small delay to ensure native picker closes
+        requestAnimationFrame(() => {
+          handleFiles(files);
+        });
       }
     },
     [handleFiles]
@@ -161,7 +181,7 @@ export const PhotoUpload = memo(function PhotoUpload({
               ? 'border-primary bg-primary/10 scale-[1.02]' 
               : 'border-border hover:border-primary/50 hover:bg-muted/50'
             }
-            ${isCompressing ? 'pointer-events-none opacity-60' : ''}
+            ${(isCompressing || isReceiving) ? 'pointer-events-none opacity-60' : ''}
           `}
         >
           <input
@@ -173,7 +193,14 @@ export const PhotoUpload = memo(function PhotoUpload({
             className="hidden"
           />
 
-          {isCompressing ? (
+          {isReceiving ? (
+            <div className="flex flex-col items-center gap-3">
+              <Loader2 className="h-10 w-10 animate-spin text-primary" />
+              <p className="text-sm text-muted-foreground">
+                {t('photos.receiving')}
+              </p>
+            </div>
+          ) : isCompressing ? (
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="h-10 w-10 animate-spin text-primary" />
               <p className="text-sm text-muted-foreground">
