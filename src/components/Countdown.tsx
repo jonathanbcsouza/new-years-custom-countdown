@@ -90,15 +90,18 @@ export const Countdown = memo(function Countdown({
             isPlaying={isPlaying}
             onToggle={toggleSound}
           />
-          <GlobalCelebrationsButton />
         </div>
 
-        {/* Right Side Controls */}
+        {/* Right Side Controls - Stacked on mobile */}
         <div className="absolute top-3 right-3 z-30 flex flex-col items-end gap-1">
-          <div className="flex items-center gap-1">
-            <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
-            <DonateButton />
-          </div>
+          {/* Row 1: Timezone */}
+          <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
+          
+          {/* Row 2: Donate - visible on mobile and desktop */}
+          <DonateButton />
+          
+          {/* Row 3: World button */}
+          <GlobalCelebrationsButton />
           
           {/* Firework Hint - Discrete hint below controls */}
           {showFireworkHint && (
