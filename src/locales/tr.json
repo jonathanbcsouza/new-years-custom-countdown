@@ -30,7 +30,8 @@
     "hours": "Saat",
     "minutes": "Dakika",
     "seconds": "Saniye",
-    "alsoComingUp": "Ayrıca yaklaşan"
+    "alsoComingUp": "Ayrıca yaklaşan",
+    "publicHolidayOn": "Resmi tatil {{date}}"
   },
   "timezone": {
     "select": "Saat dilimi seç",

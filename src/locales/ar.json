@@ -30,7 +30,8 @@
     "hours": "ساعات",
     "minutes": "دقائق",
     "seconds": "ثواني",
-    "alsoComingUp": "قادم أيضاً"
+    "alsoComingUp": "قادم أيضاً",
+    "publicHolidayOn": "عطلة رسمية في {{date}}"
   },
   "timezone": {
     "select": "اختر المنطقة الزمنية",

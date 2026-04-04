@@ -30,7 +30,8 @@
     "hours": "時間",
     "minutes": "分",
     "seconds": "秒",
-    "alsoComingUp": "まもなく到来"
+    "alsoComingUp": "まもなく到来",
+    "publicHolidayOn": "祝日: {{date}}"
   },
   "timezone": {
     "select": "タイムゾーンを選択",

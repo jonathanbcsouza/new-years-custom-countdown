@@ -30,7 +30,31 @@ interface CountdownProps {
 
 const formatNumber = (num: number): string => String(num).padStart(2, '0');
 
-function SecondaryCountdownCard({ entry }: { entry: SecondaryCelebration }) {
+function formatYmd(ymd: { year: number; month: number; day: number }, locale: string, includeYear = true): string {
+  const d = new Date(ymd.year, ymd.month - 1, ymd.day);
+  const opts: Intl.DateTimeFormatOptions = includeYear
+    ? { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }
+    : { weekday: 'short', month: 'short', day: 'numeric' };
+  return new Intl.DateTimeFormat(locale, opts).format(d);
+}
+
+function formatObservedDate(ymd: { year: number; month: number; day: number }, locale: string): string {
+  const d = new Date(ymd.year, ymd.month - 1, ymd.day);
+  return new Intl.DateTimeFormat(locale, { weekday: 'long', month: 'short', day: 'numeric' }).format(d);
+}
+
+function ObservedDateNote({ holiday, locale }: { holiday: ResolvedHoliday; locale: string }) {
+  const { t } = useTranslation();
+  if (!holiday.observedDate) return null;
+  const formatted = formatObservedDate(holiday.observedDate, locale);
+  return (
+    <p className="text-center text-xs text-amber-300/70 mt-1 italic">
+      {t('countdown.publicHolidayOn', { date: formatted, defaultValue: `Public holiday on ${formatted}` })}
+    </p>
+  );
+}
+
+function SecondaryCountdownCard({ entry, locale }: { entry: SecondaryCelebration; locale: string }) {
   const { t } = useTranslation();
   const { days, hours, minutes, seconds } = useCountdown(entry.targetDate);
   const theme = getTheme(entry.holiday.definition.theme);
@@ -51,7 +75,7 @@ function SecondaryCountdownCard({ entry }: { entry: SecondaryCelebration }) {
           {entry.holiday.definition.emoji} {name}
         </span>
         <span className="text-[10px] md:text-xs text-white/50 whitespace-nowrap">
-          {entry.holiday.date.day}/{entry.holiday.date.month}
+          {formatYmd(entry.holiday.date, locale, false)}
         </span>
       </div>
       <div className="flex items-center justify-center gap-1">
@@ -71,6 +95,7 @@ function SecondaryCountdownCard({ entry }: { entry: SecondaryCelebration }) {
           {formatNumber(seconds)}
         </span>
       </div>
+      <ObservedDateNote holiday={entry.holiday} locale={locale} />
     </div>
   );
 }
@@ -85,7 +110,8 @@ export const Countdown = memo(function Countdown({
   holiday,
   secondaryHolidays = [],
 }: CountdownProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language ?? 'en';
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
   const [showFireworkHint, setShowFireworkHint] = useState(true);
   const { days, hours, minutes, seconds, isComplete } = useCountdown(targetDate);
@@ -217,9 +243,12 @@ export const Countdown = memo(function Countdown({
               </div>
 
               {holiday && (
-                <p className="text-center text-sm text-white/50">
-                  {holiday.definition.emoji} {holidayName} — {holiday.date.day}/{holiday.date.month}/{holiday.date.year}
-                </p>
+                <div>
+                  <p className="text-center text-sm text-white/50">
+                    {holiday.definition.emoji} {holidayName} — {formatYmd(holiday.date, locale)}
+                  </p>
+                  <ObservedDateNote holiday={holiday} locale={locale} />
+                </div>
               )}
 
               {/* Secondary countdowns — holidays within 7 days */}
@@ -237,6 +266,7 @@ export const Countdown = memo(function Countdown({
                       <SecondaryCountdownCard
                         key={entry.holiday.definition.id}
                         entry={entry}
+                        locale={locale}
                       />
                     ))}
                   </div>

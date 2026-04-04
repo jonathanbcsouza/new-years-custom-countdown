@@ -30,7 +30,8 @@
     "hours": "Giờ",
     "minutes": "Phút",
     "seconds": "Giây",
-    "alsoComingUp": "Cũng sắp đến"
+    "alsoComingUp": "Cũng sắp đến",
+    "publicHolidayOn": "Ngày lễ vào {{date}}"
   },
   "timezone": {
     "select": "Chọn múi giờ",

@@ -93,6 +93,8 @@ export interface ResolvedHoliday {
   definition: HolidayDefinition;
   /** Gregorian date of the next occurrence. */
   date: { year: number; month: number; day: number };
+  /** Set only when the public holiday is observed on a different day. */
+  observedDate?: { year: number; month: number; day: number };
 }
 
 export interface HolidayContext {

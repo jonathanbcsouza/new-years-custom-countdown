@@ -30,7 +30,8 @@
     "hours": "Horas",
     "minutes": "Minutos",
     "seconds": "Segundos",
-    "alsoComingUp": "También se acerca"
+    "alsoComingUp": "También se acerca",
+    "publicHolidayOn": "Festivo el {{date}}"
   },
   "timezone": {
     "select": "Seleccionar zona horaria",

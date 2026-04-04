@@ -15,6 +15,7 @@ import {
   lastWeekdayOfMonth,
   type YMD,
 } from './dateProviders';
+import { resolveObservedDate } from './observedDates';
 
 // ---------------------------------------------------------------------------
 // Date resolution: convert a HolidayDateRule into a concrete YMD for a year
@@ -112,7 +113,12 @@ export function resolveUpcomingHolidays(
   for (const c of candidates) {
     if (seen.has(c.def.id)) continue;
     seen.add(c.def.id);
-    results.push({ definition: c.def, date: c.date });
+    const observed = resolveObservedDate(c.def.id, c.date, context.countryCode);
+    results.push({
+      definition: c.def,
+      date: c.date,
+      ...(observed ? { observedDate: observed } : {}),
+    });
     if (results.length >= limit) break;
   }
 
@@ -199,7 +205,12 @@ export function getActiveHolidayForZone(
       const dateNum = ymdToNum(date);
       if (dateNum > todayNum) continue;
 
-      const resolved: ResolvedHoliday = { definition: def, date };
+      const observed = resolveObservedDate(def.id, date, context.countryCode);
+      const resolved: ResolvedHoliday = {
+        definition: def,
+        date,
+        ...(observed ? { observedDate: observed } : {}),
+      };
       if (isHolidayActive(resolved, context, now)) {
         if (!best || def.priority > best.priority) {
           best = { holiday: resolved, priority: def.priority };

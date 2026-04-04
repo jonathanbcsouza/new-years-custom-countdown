@@ -30,7 +30,8 @@
     "hours": "Jam",
     "minutes": "Menit",
     "seconds": "Detik",
-    "alsoComingUp": "Juga akan datang"
+    "alsoComingUp": "Juga akan datang",
+    "publicHolidayOn": "Hari libur pada {{date}}"
   },
   "timezone": {
     "select": "Pilih zona waktu",

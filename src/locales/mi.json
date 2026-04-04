@@ -30,7 +30,8 @@
     "hours": "Ngā hāora",
     "minutes": "Ngā meneti",
     "seconds": "Ngā hēkona",
-    "alsoComingUp": "E haere mai ana anō"
+    "alsoComingUp": "E haere mai ana anō",
+    "publicHolidayOn": "Hararei tūmatanui i te {{date}}"
   },
   "timezone": {
     "select": "Kōwhiri rohe wā",

@@ -30,7 +30,8 @@
     "hours": "ชั่วโมง",
     "minutes": "นาที",
     "seconds": "วินาที",
-    "alsoComingUp": "กำลังจะมาถึงเช่นกัน"
+    "alsoComingUp": "กำลังจะมาถึงเช่นกัน",
+    "publicHolidayOn": "วันหยุดราชการ {{date}}"
   },
   "timezone": {
     "select": "เลือกเขตเวลา",

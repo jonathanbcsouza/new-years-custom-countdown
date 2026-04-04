@@ -30,7 +30,8 @@
     "hours": "Годин",
     "minutes": "Хвилин",
     "seconds": "Секунд",
-    "alsoComingUp": "Також незабаром"
+    "alsoComingUp": "Також незабаром",
+    "publicHolidayOn": "Вихідний день {{date}}"
   },
   "timezone": {
     "select": "Виберіть часовий пояс",

@@ -30,7 +30,8 @@
     "hours": "小时",
     "minutes": "分钟",
     "seconds": "秒",
-    "alsoComingUp": "即将到来"
+    "alsoComingUp": "即将到来",
+    "publicHolidayOn": "公众假期在{{date}}"
   },
   "timezone": {
     "select": "选择时区",

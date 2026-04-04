@@ -30,7 +30,8 @@
     "hours": "ঘন্টা",
     "minutes": "মিনিট",
     "seconds": "সেকেন্ড",
-    "alsoComingUp": "এছাড়াও আসছে"
+    "alsoComingUp": "এছাড়াও আসছে",
+    "publicHolidayOn": "সরকারি ছুটি {{date}}"
   },
   "timezone": {
     "select": "সময় অঞ্চল নির্বাচন করুন",

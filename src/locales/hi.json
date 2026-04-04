@@ -30,7 +30,8 @@
     "hours": "घंटे",
     "minutes": "मिनट",
     "seconds": "सेकंड",
-    "alsoComingUp": "जल्द आने वाले"
+    "alsoComingUp": "जल्द आने वाले",
+    "publicHolidayOn": "सार्वजनिक अवकाश {{date}} को"
   },
   "timezone": {
     "select": "समय क्षेत्र चुनें",

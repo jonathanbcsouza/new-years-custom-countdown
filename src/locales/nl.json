@@ -30,7 +30,8 @@
     "hours": "Uren",
     "minutes": "Minuten",
     "seconds": "Seconden",
-    "alsoComingUp": "Ook binnenkort"
+    "alsoComingUp": "Ook binnenkort",
+    "publicHolidayOn": "Feestdag op {{date}}"
   },
   "timezone": {
     "select": "Selecteer tijdzone",

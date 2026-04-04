@@ -30,7 +30,8 @@
     "hours": "시간",
     "minutes": "분",
     "seconds": "초",
-    "alsoComingUp": "곧 다가오는"
+    "alsoComingUp": "곧 다가오는",
+    "publicHolidayOn": "공휴일: {{date}}"
   },
   "timezone": {
     "select": "시간대 선택",
