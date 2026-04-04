@@ -126,4 +126,90 @@
   .text-gold-glow {
     text-shadow: 0 0 15px rgba(255, 220, 150, 0.4), 0 2px 4px rgba(0, 0, 0, 0.5);
   }
+
+  /* Holiday decoration animations */
+  @keyframes holiday-fall-kf {
+    0% {
+      transform: translateY(-10vh) rotate(0deg);
+    }
+    25% {
+      transform: translateY(25vh) rotate(90deg) translateX(20px);
+    }
+    50% {
+      transform: translateY(50vh) rotate(180deg) translateX(-15px);
+    }
+    75% {
+      transform: translateY(75vh) rotate(270deg) translateX(10px);
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+    }
+  }
+
+  @keyframes holiday-float-kf {
+    0% {
+      transform: translateY(110vh) scale(0.8);
+    }
+    20% {
+      transform: translateY(80vh) translateX(15px) scale(1);
+    }
+    40% {
+      transform: translateY(55vh) translateX(-10px) scale(0.9);
+    }
+    60% {
+      transform: translateY(30vh) translateX(20px) scale(1.05);
+    }
+    80% {
+      transform: translateY(10vh) translateX(-5px) scale(0.95);
+    }
+    100% {
+      transform: translateY(-10vh) scale(0.8);
+    }
+  }
+
+  @keyframes holiday-drift-kf {
+    0% {
+      transform: translate(0, 110vh) rotate(0deg);
+    }
+    25% {
+      transform: translate(30px, 75vh) rotate(45deg);
+    }
+    50% {
+      transform: translate(-25px, 40vh) rotate(-30deg);
+    }
+    75% {
+      transform: translate(20px, 15vh) rotate(60deg);
+    }
+    100% {
+      transform: translate(-10px, -10vh) rotate(0deg);
+    }
+  }
+
+  .holiday-fall {
+    animation: holiday-fall-kf linear infinite;
+  }
+
+  .holiday-float {
+    animation: holiday-float-kf ease-in-out infinite;
+  }
+
+  .holiday-drift {
+    animation: holiday-drift-kf ease-in-out infinite;
+  }
+
+  /* Secondary countdown entrance */
+  @keyframes slide-up-fade {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up-fade 0.5s ease-out;
+  }
 }

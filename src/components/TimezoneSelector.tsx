@@ -13,7 +13,8 @@ import {
   formatTimezone,
   type ContinentGroup,
 } from '@/lib/timezones';
-import { isNewYearInTimezone } from '@/lib/geolocation';
+import { isCelebrationInTimezone } from '@/lib/geolocation';
+import { getPrimaryCountryCodeForTimezone } from '@/lib/timezoneCountry';
 import { cn } from '@/lib/utils';
 
 interface TimezoneSelectorProps {
@@ -288,8 +289,11 @@ export function TimezoneSelector({
                               {isCountryExpanded && (
                                 <div className="ml-5 py-1">
                                   {countryGroup.timezones.map((tz) => {
-                                    const isCelebrating = isNewYearInTimezone(
-                                      tz.value
+                                    const isCelebrating = isCelebrationInTimezone(
+                                      tz.value,
+                                      getPrimaryCountryCodeForTimezone(
+                                        tz.value
+                                      )
                                     );
                                     return (
                                       <button
