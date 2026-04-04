@@ -52,6 +52,13 @@ export function mardiGrasDate(year: number): YMD {
   return { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
 }
 
+export function corpusChristiDate(year: number): YMD {
+  const e = easterDate(year);
+  const d = new Date(e.year, e.month - 1, e.day);
+  d.setDate(d.getDate() + 60);
+  return { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
+}
+
 // ---------------------------------------------------------------------------
 // Chinese / Lunar New Year
 // ---------------------------------------------------------------------------
@@ -351,6 +358,7 @@ const providers: Record<string, DateProvider> = {
   easter: easterDate,
   good_friday: goodFridayDate,
   mardi_gras: mardiGrasDate,
+  corpus_christi: corpusChristiDate,
   lunar_new_year: lunarNewYearDate,
   islamic_new_year: islamicNewYearDate,
   ramadan_start: ramadanStartDate,

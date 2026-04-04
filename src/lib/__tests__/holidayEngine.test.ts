@@ -11,11 +11,13 @@ import {
 import {
   easterDate,
   lunarNewYearDate,
+  corpusChristiDate,
   nthWeekdayOfMonth,
   lastWeekdayOfMonth,
   nowruzDate,
   diwaliDate,
 } from '../holidays/dateProviders';
+import { resolveObservedDate } from '../holidays/observedDates';
 
 // ---------------------------------------------------------------------------
 // Date provider unit tests
@@ -60,6 +62,12 @@ describe('dateProviders', () => {
       const d = diwaliDate(2026);
       expect(d).not.toBeNull();
       expect(d!.month).toBeGreaterThanOrEqual(10);
+    });
+  });
+
+  describe('corpusChristiDate', () => {
+    it('returns correct date for 2026', () => {
+      expect(corpusChristiDate(2026)).toEqual({ year: 2026, month: 6, day: 4 });
     });
   });
 
@@ -262,6 +270,42 @@ describe('holidayEngine', () => {
       const results = resolveUpcomingHolidays(brContext, jan15, 10);
       const ids = results.map((r) => r.definition.id);
       expect(ids).toContain('carnival');
+    });
+
+    it('includes Tiradentes for Brazil context in April', () => {
+      const apr1 = new Date(2026, 3, 1, 12, 0, 0);
+      const results = resolveUpcomingHolidays(brContext, apr1, 20);
+      const ids = results.map((r) => r.definition.id);
+      expect(ids).toContain('tiradentes');
+    });
+  });
+
+  describe('observed date rules', () => {
+    it('resolves NZ ANZAC observed date when Apr 25 is weekend', () => {
+      const observed = resolveObservedDate(
+        'anzac_day',
+        { year: 2027, month: 4, day: 25 },
+        'NZ',
+      );
+      expect(observed).toEqual({ year: 2027, month: 4, day: 26 });
+    });
+
+    it('resolves NZ Boxing Day to Tuesday when Christmas is Mondayised', () => {
+      const observed = resolveObservedDate(
+        'boxing_day',
+        { year: 2027, month: 12, day: 26 },
+        'NZ',
+      );
+      expect(observed).toEqual({ year: 2027, month: 12, day: 28 });
+    });
+
+    it('resolves NZ day-after-new-year to Tuesday when New Year is Mondayised', () => {
+      const observed = resolveObservedDate(
+        'day_after_new_years_day',
+        { year: 2022, month: 1, day: 2 },
+        'NZ',
+      );
+      expect(observed).toEqual({ year: 2022, month: 1, day: 4 });
     });
   });
 });

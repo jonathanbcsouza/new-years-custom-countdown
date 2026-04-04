@@ -69,6 +69,7 @@ addRule('canada_day', ['CA'], { kind: 'next_monday' });
 // NZ Mondayisation
 addRule('waitangi_day', ['NZ'], { kind: 'next_monday' });
 addRule('anzac_day', ['NZ'], { kind: 'next_monday' });
+addRule('day_after_new_years_day', ['NZ'], { kind: 'next_monday' });
 
 // Australia Day — next Monday if weekend
 addRule('australia_day', ['AU'], { kind: 'next_monday' });
@@ -111,12 +112,7 @@ function ymdEqual(a: YMD, b: YMD): boolean {
   return a.year === b.year && a.month === b.month && a.day === b.day;
 }
 
-/**
- * Resolves the public-holiday observed date for a given holiday + country.
- * Returns `null` when the observed date is the same as the cultural date
- * (i.e. no shift needed or no rule exists).
- */
-export function resolveObservedDate(
+function resolveObservedCore(
   holidayId: string,
   culturalDate: YMD,
   countryCode: string | undefined,
@@ -132,4 +128,46 @@ export function resolveObservedDate(
 
   const observed = applyShift(culturalDate, rule);
   return ymdEqual(observed, culturalDate) ? null : observed;
+}
+
+function getObservedOrCultural(
+  holidayId: string,
+  culturalDate: YMD,
+  countryCode: string | undefined,
+): YMD {
+  return resolveObservedCore(holidayId, culturalDate, countryCode) ?? culturalDate;
+}
+
+/**
+ * Resolves the public-holiday observed date for a given holiday + country.
+ * Returns `null` when the observed date is the same as the cultural date
+ * (i.e. no shift needed or no rule exists).
+ */
+export function resolveObservedDate(
+  holidayId: string,
+  culturalDate: YMD,
+  countryCode: string | undefined,
+): YMD | null {
+  const coreObserved = resolveObservedCore(holidayId, culturalDate, countryCode);
+  if (!coreObserved) return null;
+
+  // In NZ/UK/AU/CA, Boxing Day can become Tuesday when Christmas also shifts to Monday.
+  if (holidayId === 'boxing_day') {
+    const christmasDate: YMD = { year: culturalDate.year, month: 12, day: 25 };
+    const christmasObserved = getObservedOrCultural('christmas', christmasDate, countryCode);
+    if (ymdEqual(coreObserved, christmasObserved)) {
+      return addDays(coreObserved, 1);
+    }
+  }
+
+  // In NZ, Day after New Year's Day can move to Tuesday if New Year's Day is Mondayised.
+  if (holidayId === 'day_after_new_years_day') {
+    const newYearsDate: YMD = { year: culturalDate.year, month: 1, day: 1 };
+    const newYearsObserved = getObservedOrCultural('new_years_day', newYearsDate, countryCode);
+    if (ymdEqual(coreObserved, newYearsObserved)) {
+      return addDays(coreObserved, 1);
+    }
+  }
+
+  return coreObserved;
 }
