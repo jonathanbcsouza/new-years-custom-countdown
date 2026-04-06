@@ -223,6 +223,45 @@ export function getActiveHolidayForZone(
 }
 
 // ---------------------------------------------------------------------------
+// Full-catalog resolution for the holidays listing page
+// ---------------------------------------------------------------------------
+
+/**
+ * Resolves every holiday in the catalog for the given year, sorted
+ * chronologically. Optionally filter by country code; when undefined
+ * all holidays are returned (global view).
+ */
+export function resolveAllHolidaysForYear(
+  year: number,
+  countryCode?: string,
+): ResolvedHoliday[] {
+  const results: ResolvedHoliday[] = [];
+
+  for (const def of HOLIDAY_CATALOG) {
+    if (countryCode && !isApplicable(def, countryCode)) continue;
+
+    const date = resolveRuleForYear(def, year);
+    if (!date) continue;
+
+    const observed = resolveObservedDate(def.id, date, countryCode);
+    results.push({
+      definition: def,
+      date,
+      ...(observed ? { observedDate: observed } : {}),
+    });
+  }
+
+  results.sort((a, b) => {
+    const aNum = ymdToNum(a.date);
+    const bNum = ymdToNum(b.date);
+    if (aNum !== bNum) return aNum - bNum;
+    return b.definition.priority - a.definition.priority;
+  });
+
+  return results;
+}
+
+// ---------------------------------------------------------------------------
 // Internal date-parts extraction (reuses Intl API)
 // ---------------------------------------------------------------------------
 function getDatePartsFromDate(date: Date, timezone: string): DateParts {

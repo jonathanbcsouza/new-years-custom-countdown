@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import { WorldPage } from './pages/WorldPage';
+import { HolidaysPage } from './pages/HolidaysPage';
 import './index.css';
 import { initGA } from './lib/analytics';
 import './lib/i18n'; // Initialize i18n
@@ -22,6 +23,7 @@ createRoot(rootElement).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/world" element={<WorldPage />} />
+        <Route path="/holidays" element={<HolidaysPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

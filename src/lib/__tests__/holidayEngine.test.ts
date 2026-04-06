@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   resolveNextHoliday,
   resolveUpcomingHolidays,
+  resolveAllHolidaysForYear,
   isHolidayActive,
   getHolidayTargetInstant,
   getActiveHolidayForZone,
@@ -277,6 +278,59 @@ describe('holidayEngine', () => {
       const results = resolveUpcomingHolidays(brContext, apr1, 20);
       const ids = results.map((r) => r.definition.id);
       expect(ids).toContain('tiradentes');
+    });
+  });
+
+  describe('resolveAllHolidaysForYear', () => {
+    it('returns holidays in chronological order', () => {
+      const all = resolveAllHolidaysForYear(2026);
+      for (let i = 1; i < all.length; i++) {
+        const prev = all[i - 1]!.date;
+        const curr = all[i]!.date;
+        const prevNum = prev.year * 10000 + prev.month * 100 + prev.day;
+        const currNum = curr.year * 10000 + curr.month * 100 + curr.day;
+        expect(currNum).toBeGreaterThanOrEqual(prevNum);
+      }
+    });
+
+    it('returns at least 30 holidays for a global view', () => {
+      const all = resolveAllHolidaysForYear(2026);
+      expect(all.length).toBeGreaterThanOrEqual(30);
+    });
+
+    it('filters to only BR-applicable holidays when country is BR', () => {
+      const br = resolveAllHolidaysForYear(2026, 'BR');
+      for (const h of br) {
+        const m = h.definition.markets;
+        expect(m === 'worldwide' || (Array.isArray(m) && m.includes('BR'))).toBe(true);
+      }
+    });
+
+    it('filters to only NZ-applicable holidays when country is NZ', () => {
+      const nz = resolveAllHolidaysForYear(2026, 'NZ');
+      for (const h of nz) {
+        const m = h.definition.markets;
+        expect(m === 'worldwide' || (Array.isArray(m) && m.includes('NZ'))).toBe(true);
+      }
+    });
+
+    it('BR results include tiradentes', () => {
+      const br = resolveAllHolidaysForYear(2026, 'BR');
+      const ids = br.map((h) => h.definition.id);
+      expect(ids).toContain('tiradentes');
+    });
+
+    it('US results exclude tiradentes', () => {
+      const us = resolveAllHolidaysForYear(2026, 'US');
+      const ids = us.map((h) => h.definition.id);
+      expect(ids).not.toContain('tiradentes');
+    });
+
+    it('global results include worldwide holidays', () => {
+      const all = resolveAllHolidaysForYear(2026);
+      const ids = all.map((h) => h.definition.id);
+      expect(ids).toContain('christmas');
+      expect(ids).toContain('new_years_day');
     });
   });
 

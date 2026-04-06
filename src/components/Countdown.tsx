@@ -1,6 +1,7 @@
 import { memo, useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Sparkles, Calendar } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useCelebrationAudio } from '@/hooks/useCelebrationAudio';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
@@ -13,6 +14,7 @@ import { LanguageSelector } from '@/components/LanguageSelector';
 import { DonateButton } from '@/components/DonateButton';
 import { SoundToggleButton } from '@/components/SoundToggleButton';
 import { GlobalCelebrationsButton } from '@/components/GlobalCelebrations';
+import { Button } from '@/components/ui/button';
 import { getTheme } from '@/lib/holidays/themes';
 import type { ResolvedHoliday } from '@/lib/holidays';
 import type { SecondaryCelebration } from '@/lib/geolocation';
@@ -51,6 +53,23 @@ function ObservedDateNote({ holiday, locale }: { holiday: ResolvedHoliday; local
     <p className="text-center text-xs text-amber-300/70 mt-1 italic">
       {t('countdown.publicHolidayOn', { date: formatted, defaultValue: `Public holiday on ${formatted}` })}
     </p>
+  );
+}
+
+function HolidaysPageButton() {
+  const { t } = useTranslation();
+  return (
+    <Link to="/holidays">
+      <Button
+        variant="ghost"
+        size="sm"
+        className="text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10 transition-all gap-1.5 group"
+        title={t('holidaysPage.buttonTooltip')}
+      >
+        <Calendar className="h-4 w-4 group-hover:animate-pulse" />
+        <span className="text-xs hidden sm:inline">{t('holidaysPage.button')}</span>
+      </Button>
+    </Link>
   );
 }
 
@@ -189,6 +208,7 @@ export const Countdown = memo(function Countdown({
           <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
           <DonateButton />
           <GlobalCelebrationsButton />
+          <HolidaysPageButton />
           {showFireworkHint && (
             <div className="flex items-center gap-1.5 px-2 py-1 text-xs text-white/50">
               <Sparkles className="h-3 w-3 text-amber-400/60" />
