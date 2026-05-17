@@ -33,6 +33,14 @@
     "alsoComingUp": "Also coming up",
     "publicHolidayOn": "Public holiday on {{date}}"
   },
+  "holidaySelector": {
+    "auto": "Auto (next holiday)",
+    "autoWithName": "Auto: {{name}}",
+    "select": "Choose holiday",
+    "search": "Search holidays...",
+    "noResults": "No holidays found",
+    "countDown": "Count down"
+  },
   "timezone": {
     "select": "Select timezone",
     "search": "Search city, country, or continent...",

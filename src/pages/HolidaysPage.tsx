@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft,
   Calendar,
@@ -8,6 +8,7 @@ import {
   Filter,
   Globe,
   X,
+  Timer,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
@@ -63,10 +64,12 @@ function HolidayCard({
   holiday,
   locale,
   compact = false,
+  onCountDown,
 }: {
   holiday: ResolvedHoliday;
   locale: string;
   compact?: boolean;
+  onCountDown?: (holidayId: string) => void;
 }) {
   const { t } = useTranslation();
   const theme = getTheme(holiday.definition.theme);
@@ -133,6 +136,20 @@ function HolidayCard({
               {markets}
             </p>
           )}
+          {onCountDown && !isPast && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onCountDown(holiday.definition.id);
+              }}
+              className="mt-2 flex items-center gap-1.5 text-xs font-medium text-amber-400/90
+                         hover:text-amber-300 transition-colors"
+            >
+              <Timer className="h-3.5 w-3.5" />
+              {t('holidaySelector.countDown', { defaultValue: 'Count down' })}
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -141,8 +158,13 @@ function HolidayCard({
 
 export function HolidaysPage() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const locale = i18n.language ?? 'en';
   const currentYear = new Date().getFullYear();
+
+  const handleCountDown = (holidayId: string) => {
+    navigate('/', { state: { holidayId } });
+  };
 
   const [search, setSearch] = useState('');
   const [themeFilter, setThemeFilter] = useState<ThemeVariant | 'all'>('all');
@@ -280,7 +302,12 @@ export function HolidaysPage() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {upcoming.map((h) => (
-                <HolidayCard key={h.definition.id} holiday={h} locale={locale} />
+                <HolidayCard
+                  key={h.definition.id}
+                  holiday={h}
+                  locale={locale}
+                  onCountDown={handleCountDown}
+                />
               ))}
             </div>
           </section>
@@ -322,6 +349,7 @@ export function HolidaysPage() {
                             holiday={h}
                             locale={locale}
                             compact
+                            onCountDown={handleCountDown}
                           />
                         ))}
                       </div>

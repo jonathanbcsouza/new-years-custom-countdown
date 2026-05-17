@@ -9,6 +9,7 @@ import { HolidayDecorations } from '@/components/HolidayDecorations';
 import { PhotoCarousel } from '@/components/PhotoCarousel';
 import { PhotoUpload } from '@/components/PhotoUpload';
 import { TimezoneSelector } from '@/components/TimezoneSelector';
+import { HolidaySelector } from '@/components/HolidaySelector';
 import { FullscreenButton } from '@/components/FullscreenButton';
 import { LanguageSelector } from '@/components/LanguageSelector';
 import { DonateButton } from '@/components/DonateButton';
@@ -28,6 +29,8 @@ interface CountdownProps {
   isCelebrationPeriod: boolean;
   holiday: ResolvedHoliday | null;
   secondaryHolidays?: SecondaryCelebration[];
+  selectedHolidayId: string | null;
+  onHolidayChange: (holidayId: string | null) => void;
 }
 
 const formatNumber = (num: number): string => String(num).padStart(2, '0');
@@ -128,6 +131,8 @@ export const Countdown = memo(function Countdown({
   isCelebrationPeriod,
   holiday,
   secondaryHolidays = [],
+  selectedHolidayId,
+  onHolidayChange,
 }: CountdownProps) {
   const { t, i18n } = useTranslation();
   const locale = i18n.language ?? 'en';
@@ -205,6 +210,11 @@ export const Countdown = memo(function Countdown({
 
         {/* Right controls */}
         <div className="absolute top-3 right-3 z-30 flex flex-col items-end gap-1">
+          <HolidaySelector
+            timezone={timezone}
+            selectedHolidayId={selectedHolidayId}
+            onChange={onHolidayChange}
+          />
           <TimezoneSelector value={timezone} onChange={onTimezoneChange} />
           <DonateButton />
           <GlobalCelebrationsButton />

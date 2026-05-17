@@ -138,6 +138,67 @@ export function resolveNextHoliday(
 }
 
 /**
+ * Look up a holiday definition by catalog id.
+ */
+export function getHolidayDefinitionById(id: string): HolidayDefinition | undefined {
+  return HOLIDAY_CATALOG.find((def) => def.id === id);
+}
+
+/**
+ * Resolves the next occurrence of a specific holiday for the given context.
+ * Returns null if the id is unknown or not applicable to the country.
+ */
+export function resolveHolidayById(
+  holidayId: string,
+  context: HolidayContext,
+  now: Date,
+): ResolvedHoliday | null {
+  const def = getHolidayDefinitionById(holidayId);
+  if (!def || !isApplicable(def, context.countryCode)) return null;
+
+  const parts = getDatePartsFromDate(now, context.timezone);
+  const todayNum = parts.year * 10000 + parts.month * 100 + parts.day;
+
+  let best: ResolvedHoliday | null = null;
+  let bestNum = Infinity;
+
+  for (const year of [parts.year - 1, parts.year, parts.year + 1]) {
+    const date = resolveRuleForYear(def, year);
+    if (!date) continue;
+
+    const observed = resolveObservedDate(def.id, date, context.countryCode);
+    const resolved: ResolvedHoliday = {
+      definition: def,
+      date,
+      ...(observed ? { observedDate: observed } : {}),
+    };
+
+    const dateNum = ymdToNum(date);
+    const active = isHolidayActive(resolved, context, now);
+
+    if (active || dateNum >= todayNum) {
+      if (dateNum < bestNum || (dateNum === bestNum && active)) {
+        best = resolved;
+        bestNum = dateNum;
+      }
+    }
+  }
+
+  return best;
+}
+
+/**
+ * Returns all upcoming holidays applicable to the context (for picker UI).
+ */
+export function listSelectableHolidays(
+  context: HolidayContext,
+  now: Date,
+  limit = 50,
+): ResolvedHoliday[] {
+  return resolveUpcomingHolidays(context, now, limit);
+}
+
+/**
  * Check if a specific holiday is within its celebration window right now.
  */
 export function isHolidayActive(

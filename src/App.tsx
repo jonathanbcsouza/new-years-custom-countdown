@@ -1,14 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import { Countdown } from '@/components/Countdown';
 import {
   getUserTimezone,
-  getNextCelebration,
+  getCelebration,
   getUpcomingSecondary,
   type CelebrationResult,
   type SecondaryCelebration,
 } from '@/lib/geolocation';
 import { getPrimaryCountryCodeForTimezone } from '@/lib/timezoneCountry';
+import { resolveHolidayById } from '@/lib/holidays';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 import { loadPhotos, savePhotos } from '@/lib/storage';
@@ -28,17 +30,52 @@ type AppState =
     }
   | { status: 'error'; message: string };
 
+interface LocationState {
+  holidayId?: string;
+}
+
 function App() {
   const { t } = useTranslation();
+  const location = useLocation();
   const [storedTimezone, setStoredTimezone] = useLocalStorage<string | null>(
     TIMEZONE_STORAGE_KEY,
     null
   );
+  const [selectedHolidayId, setSelectedHolidayId] = useState<string | null>(null);
   const [state, setState] = useState<AppState>({ status: 'loading' });
   const [photos, setPhotos] = useState<string[]>([]);
 
   const activeHoliday = state.status === 'ready' ? state.holiday : null;
   useDocumentMeta(activeHoliday);
+
+  const computeCelebration = useCallback(
+    (timezone: string, holidayId: string | null) => {
+      const cc = getPrimaryCountryCodeForTimezone(timezone);
+      const result = getCelebration(timezone, cc, holidayId);
+      const secondary =
+        holidayId === null ? getUpcomingSecondary(timezone, cc) : [];
+      return { result, secondary };
+    },
+    []
+  );
+
+  const applyCelebration = useCallback(
+    (
+      timezone: string,
+      result: CelebrationResult,
+      secondary: SecondaryCelebration[],
+    ) => {
+      setState({
+        status: 'ready',
+        timezone,
+        targetDate: result.targetDate,
+        isCelebrationPeriod: result.isCelebrationPeriod,
+        holiday: result.holiday,
+        secondaryHolidays: secondary,
+      });
+    },
+    []
+  );
 
   useEffect(() => {
     const savedPhotos = loadPhotos();
@@ -63,38 +100,37 @@ function App() {
           setStoredTimezone(timezone);
         }
 
-        const cc = getPrimaryCountryCodeForTimezone(timezone);
-        const result = getNextCelebration(timezone, cc);
-        const secondary = getUpcomingSecondary(timezone, cc);
+        const navState = location.state as LocationState | null;
+        let holidayId: string | null = null;
+        if (navState?.holidayId) {
+          const cc = getPrimaryCountryCodeForTimezone(timezone);
+          const pinned = resolveHolidayById(
+            navState.holidayId,
+            { timezone, countryCode: cc },
+            new Date(),
+          );
+          if (pinned) {
+            holidayId = navState.holidayId;
+            setSelectedHolidayId(holidayId);
+          }
+        }
 
-        if (isMounted) applyResult(timezone, result, secondary);
+        const { result, secondary } = computeCelebration(timezone, holidayId);
+        if (isMounted) applyCelebration(timezone, result, secondary);
       } catch (error) {
         console.error('Failed to initialize countdown:', error);
         if (isMounted) {
           try {
             const fallbackTz =
               Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-            const cc = getPrimaryCountryCodeForTimezone(fallbackTz);
-            const result = getNextCelebration(fallbackTz, cc);
-            const secondary = getUpcomingSecondary(fallbackTz, cc);
-            applyResult(fallbackTz, result, secondary);
+            const { result, secondary } = computeCelebration(fallbackTz, null);
+            applyCelebration(fallbackTz, result, secondary);
             setStoredTimezone(fallbackTz);
           } catch {
             setState({ status: 'error', message: 'Failed to initialize countdown' });
           }
         }
       }
-    }
-
-    function applyResult(tz: string, r: CelebrationResult, sec: SecondaryCelebration[]) {
-      setState({
-        status: 'ready',
-        timezone: tz,
-        targetDate: r.targetDate,
-        isCelebrationPeriod: r.isCelebrationPeriod,
-        holiday: r.holiday,
-        secondaryHolidays: sec,
-      });
     }
 
     initialize();
@@ -108,39 +144,47 @@ function App() {
     const checkInterval = setInterval(() => {
       const now = Date.now();
       if (now >= state.targetDate.getTime()) {
-        const cc = getPrimaryCountryCodeForTimezone(state.timezone);
-        const result = getNextCelebration(state.timezone, cc);
-        const secondary = getUpcomingSecondary(state.timezone, cc);
-        setState({
-          status: 'ready',
-          timezone: state.timezone,
-          targetDate: result.targetDate,
-          isCelebrationPeriod: result.isCelebrationPeriod,
-          holiday: result.holiday,
-          secondaryHolidays: secondary,
-        });
+        const { result, secondary } = computeCelebration(
+          state.timezone,
+          selectedHolidayId,
+        );
+        applyCelebration(state.timezone, result, secondary);
       }
     }, 1000);
 
     return () => clearInterval(checkInterval);
-  }, [state]);
+  }, [state, selectedHolidayId, computeCelebration, applyCelebration]);
 
   const handleTimezoneChange = useCallback(
     (newTimezone: string) => {
       setStoredTimezone(newTimezone);
-      const cc = getPrimaryCountryCodeForTimezone(newTimezone);
-      const result = getNextCelebration(newTimezone, cc);
-      const secondary = getUpcomingSecondary(newTimezone, cc);
-      setState({
-        status: 'ready',
-        timezone: newTimezone,
-        targetDate: result.targetDate,
-        isCelebrationPeriod: result.isCelebrationPeriod,
-        holiday: result.holiday,
-        secondaryHolidays: secondary,
-      });
+      let holidayId = selectedHolidayId;
+      if (holidayId) {
+        const cc = getPrimaryCountryCodeForTimezone(newTimezone);
+        const pinned = resolveHolidayById(
+          holidayId,
+          { timezone: newTimezone, countryCode: cc },
+          new Date(),
+        );
+        if (!pinned) {
+          holidayId = null;
+          setSelectedHolidayId(null);
+        }
+      }
+      const { result, secondary } = computeCelebration(newTimezone, holidayId);
+      applyCelebration(newTimezone, result, secondary);
     },
-    [setStoredTimezone]
+    [selectedHolidayId, setStoredTimezone, computeCelebration, applyCelebration],
+  );
+
+  const handleHolidayChange = useCallback(
+    (holidayId: string | null) => {
+      setSelectedHolidayId(holidayId);
+      if (state.status !== 'ready') return;
+      const { result, secondary } = computeCelebration(state.timezone, holidayId);
+      applyCelebration(state.timezone, result, secondary);
+    },
+    [state, computeCelebration, applyCelebration],
   );
 
   if (state.status === 'loading') {
@@ -173,6 +217,8 @@ function App() {
       isCelebrationPeriod={state.isCelebrationPeriod}
       holiday={state.holiday}
       secondaryHolidays={state.secondaryHolidays}
+      selectedHolidayId={selectedHolidayId}
+      onHolidayChange={handleHolidayChange}
     />
   );
 }

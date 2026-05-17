@@ -3,6 +3,9 @@ import {
   resolveNextHoliday,
   resolveUpcomingHolidays,
   resolveAllHolidaysForYear,
+  resolveHolidayById,
+  getHolidayDefinitionById,
+  listSelectableHolidays,
   isHolidayActive,
   getHolidayTargetInstant,
   getActiveHolidayForZone,
@@ -166,6 +169,48 @@ describe('holidayEngine', () => {
         const prevNum = prev.year * 10000 + prev.month * 100 + prev.day;
         const currNum = curr.year * 10000 + curr.month * 100 + curr.day;
         expect(currNum).toBeGreaterThanOrEqual(prevNum);
+      }
+    });
+  });
+
+  describe('resolveHolidayById', () => {
+    it('resolves christmas for US context in December', () => {
+      const dec20 = new Date(2026, 11, 20, 12, 0, 0);
+      const result = resolveHolidayById('christmas', usContext, dec20);
+      expect(result).not.toBeNull();
+      expect(result!.definition.id).toBe('christmas');
+      expect(result!.date).toEqual({ year: 2026, month: 12, day: 25 });
+    });
+
+    it('returns null for unknown id', () => {
+      const now = new Date(2026, 5, 1, 12, 0, 0);
+      expect(resolveHolidayById('not_a_holiday', usContext, now)).toBeNull();
+    });
+
+    it('returns null when holiday is not applicable to country', () => {
+      const apr1 = new Date(2026, 3, 1, 12, 0, 0);
+      expect(resolveHolidayById('tiradentes', usContext, apr1)).toBeNull();
+    });
+
+    it('returns active holiday during celebration window', () => {
+      const dec25 = new Date(Date.UTC(2026, 11, 25, 17, 0, 0));
+      const result = resolveHolidayById('christmas', usContext, dec25);
+      expect(result).not.toBeNull();
+      expect(isHolidayActive(result!, usContext, dec25)).toBe(true);
+    });
+
+    it('getHolidayDefinitionById finds catalog entries', () => {
+      expect(getHolidayDefinitionById('christmas')?.id).toBe('christmas');
+      expect(getHolidayDefinitionById('missing')).toBeUndefined();
+    });
+
+    it('listSelectableHolidays returns country-filtered upcoming list', () => {
+      const jan15 = new Date(2026, 0, 15, 12, 0, 0);
+      const list = listSelectableHolidays(usContext, jan15, 20);
+      expect(list.length).toBeGreaterThan(0);
+      for (const h of list) {
+        const m = h.definition.markets;
+        expect(m === 'worldwide' || (Array.isArray(m) && m.includes('US'))).toBe(true);
       }
     });
   });

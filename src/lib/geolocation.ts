@@ -6,9 +6,11 @@
 import {
   resolveNextHoliday,
   resolveUpcomingHolidays,
+  resolveHolidayById,
   getActiveHolidayForZone,
   getHolidayTargetInstant,
   getHolidayCelebrationEnd,
+  isHolidayActive,
   type HolidayContext,
   type ResolvedHoliday,
 } from './holidays';
@@ -97,6 +99,29 @@ export interface CelebrationResult {
  */
 export type NewYearResult = CelebrationResult;
 
+function celebrationFromHoliday(
+  holiday: ResolvedHoliday,
+  ctx: HolidayContext,
+  now: Date,
+): CelebrationResult {
+  if (isHolidayActive(holiday, ctx, now)) {
+    const end = getHolidayCelebrationEnd(holiday, ctx);
+    return {
+      targetDate: end,
+      isCelebrationPeriod: true,
+      celebrationEndDate: end,
+      holiday,
+    };
+  }
+  const target = getHolidayTargetInstant(holiday, ctx);
+  return {
+    targetDate: target,
+    isCelebrationPeriod: false,
+    celebrationEndDate: null,
+    holiday,
+  };
+}
+
 /**
  * Primary API: determines the next celebration date for a timezone + country.
  */
@@ -104,29 +129,35 @@ export function getNextCelebration(
   timezone: string,
   countryCode?: string,
 ): CelebrationResult {
+  return getCelebration(timezone, countryCode, null);
+}
+
+/**
+ * Resolves countdown target for auto or a user-selected holiday (session-only).
+ */
+export function getCelebration(
+  timezone: string,
+  countryCode: string | undefined,
+  selectedHolidayId: string | null,
+): CelebrationResult {
   const now = new Date();
   const ctx: HolidayContext = { timezone, countryCode };
 
+  if (selectedHolidayId) {
+    const pinned = resolveHolidayById(selectedHolidayId, ctx, now);
+    if (pinned) {
+      return celebrationFromHoliday(pinned, ctx, now);
+    }
+  }
+
   const active = getActiveHolidayForZone(ctx, now);
   if (active) {
-    const end = getHolidayCelebrationEnd(active, ctx);
-    return {
-      targetDate: end,
-      isCelebrationPeriod: true,
-      celebrationEndDate: end,
-      holiday: active,
-    };
+    return celebrationFromHoliday(active, ctx, now);
   }
 
   const next = resolveNextHoliday(ctx, now);
   if (next) {
-    const target = getHolidayTargetInstant(next, ctx);
-    return {
-      targetDate: target,
-      isCelebrationPeriod: false,
-      celebrationEndDate: null,
-      holiday: next,
-    };
+    return celebrationFromHoliday(next, ctx, now);
   }
 
   const parts = getDatePartsInTimezone(now, timezone);
