@@ -1,7 +1,8 @@
 import { memo, useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Sparkles, Calendar } from 'lucide-react';
+import { Sparkles, Calendar, X } from 'lucide-react';
+import { useShowSecondaryCountdown } from '@/hooks/useShowSecondaryCountdown';
 import { useCountdown } from '@/hooks/useCountdown';
 import { useCelebrationAudio } from '@/hooks/useCelebrationAudio';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
@@ -138,6 +139,7 @@ export const Countdown = memo(function Countdown({
   const locale = i18n.language ?? 'en';
   const [showPhotoUpload, setShowPhotoUpload] = useState(false);
   const [showFireworkHint, setShowFireworkHint] = useState(true);
+  const { showSecondary, setShowSecondary } = useShowSecondaryCountdown();
   const { days, hours, minutes, seconds, isComplete } = useCountdown(targetDate);
 
   const showCelebration = isCelebrationPeriod || isComplete;
@@ -281,12 +283,38 @@ export const Countdown = memo(function Countdown({
                 </div>
               )}
 
+              {secondaryHolidays.length > 0 && !showSecondary && (
+                <button
+                  type="button"
+                  onClick={() => setShowSecondary(true)}
+                  className="block mx-auto text-xs text-white/40 hover:text-white/70 transition-colors underline-offset-2 hover:underline"
+                >
+                  {t('countdown.showSecondary', {
+                    defaultValue: 'Show upcoming holidays',
+                  })}
+                </button>
+              )}
+
               {/* Secondary countdowns — holidays within 7 days */}
-              {secondaryHolidays.length > 0 && (
+              {secondaryHolidays.length > 0 && showSecondary && (
                 <div className="space-y-3 pt-2">
-                  <p className="text-center text-xs text-white/40 uppercase tracking-widest">
-                    {t('countdown.alsoComingUp', { defaultValue: 'Also coming up' })}
-                  </p>
+                  <div className="flex items-center justify-center gap-2">
+                    <p className="text-xs text-white/40 uppercase tracking-widest">
+                      {t('countdown.alsoComingUp', { defaultValue: 'Also coming up' })}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setShowSecondary(false)}
+                      className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors"
+                      aria-label={t('countdown.hideSecondary', { defaultValue: 'Hide' })}
+                      title={t('countdown.hideSecondary', { defaultValue: 'Hide' })}
+                    >
+                      <span className="hidden sm:inline">
+                        {t('countdown.hideSecondary', { defaultValue: 'Hide' })}
+                      </span>
+                      <X className="h-3 w-3" aria-hidden />
+                    </button>
+                  </div>
                   <div className={`grid gap-3 ${
                     secondaryHolidays.length === 1
                       ? 'grid-cols-1 max-w-md mx-auto'
