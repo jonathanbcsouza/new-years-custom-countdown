@@ -6,6 +6,8 @@ export type {
   DateParts,
 } from './types';
 
+export type { HolidayListOptions } from './engine';
+
 export {
   resolveNextHoliday,
   resolveUpcomingHolidays,
@@ -13,6 +15,7 @@ export {
   resolveHolidayById,
   getHolidayDefinitionById,
   listSelectableHolidays,
+  isPublicHolidayDefinition,
   isHolidayActive,
   getHolidayTargetInstant,
   getHolidayCelebrationEnd,

@@ -16,6 +16,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 100,
     theme: 'new_year',
+    publicHoliday: true,
   },
   {
     id: 'blue_monday',
@@ -36,6 +37,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'republic_day_india',
@@ -46,6 +48,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'burns_night',
@@ -68,6 +71,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 95,
     theme: 'lunar_new_year',
+    publicHoliday: true,
   },
   {
     id: 'valentines_day',
@@ -88,6 +92,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 120,
     priority: 65,
     theme: 'carnival',
+    publicHoliday: true,
   },
   {
     id: 'waitangi_day',
@@ -98,6 +103,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'day_after_new_years_day',
@@ -108,6 +114,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 52,
     theme: 'new_year',
+    publicHoliday: true,
   },
   {
     id: 'family_day_ca',
@@ -118,6 +125,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 30,
     theme: 'cultural',
+    publicHoliday: true,
   },
 
   // ── March ────────────────────────────────────────────────────────
@@ -130,6 +138,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 75,
     theme: 'spring',
+    publicHoliday: true,
   },
   {
     id: 'intl_womens_day',
@@ -160,6 +169,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'spring',
+    publicHoliday: true,
   },
   {
     id: 'nowruz',
@@ -170,6 +180,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 90,
     theme: 'spring',
+    publicHoliday: true,
   },
   {
     id: 'eid_al_fitr',
@@ -180,6 +191,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 72,
     priority: 85,
     theme: 'ramadan',
+    publicHoliday: true,
   },
   {
     id: 'first_day_spring',
@@ -212,6 +224,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 80,
     theme: 'easter',
+    publicHoliday: true,
   },
   {
     id: 'good_friday',
@@ -222,6 +235,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 50,
     theme: 'easter',
+    publicHoliday: true,
   },
   {
     id: 'songkran',
@@ -232,6 +246,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 72,
     priority: 80,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'earth_day',
@@ -252,6 +267,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 58,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'anzac_day',
@@ -262,6 +278,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'kings_day',
@@ -272,6 +289,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'passover',
@@ -282,6 +300,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 70,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'golden_week_jp',
@@ -292,6 +311,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 168,
     priority: 60,
     theme: 'spring',
+    publicHoliday: true,
   },
 
   // ── May ──────────────────────────────────────────────────────────
@@ -304,6 +324,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 35,
     theme: 'spring',
+    publicHoliday: true,
   },
   {
     id: 'vesak',
@@ -314,6 +335,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 50,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'cinco_de_mayo',
@@ -354,6 +376,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 35,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'memorial_day',
@@ -364,6 +387,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 50,
     theme: 'independence',
+    publicHoliday: true,
   },
 
   // ── June ─────────────────────────────────────────────────────────
@@ -386,6 +410,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'fathers_day',
@@ -416,6 +441,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'summer_solstice',
@@ -436,6 +462,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 60,
     theme: 'summer',
+    publicHoliday: true,
   },
 
   // ── July ─────────────────────────────────────────────────────────
@@ -448,6 +475,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 70,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'independence_day_us',
@@ -458,6 +486,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 80,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'tanabata',
@@ -478,6 +507,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 70,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'bastille_day',
@@ -488,6 +518,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 65,
     theme: 'independence',
+    publicHoliday: true,
   },
 
   // ── August ───────────────────────────────────────────────────────
@@ -500,6 +531,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'civic_holiday_ca',
@@ -510,6 +542,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 25,
     theme: 'summer',
+    publicHoliday: true,
   },
   {
     id: 'national_day_sg',
@@ -520,6 +553,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'fathers_day_brazil',
@@ -550,6 +584,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 70,
     theme: 'independence',
+    publicHoliday: true,
   },
 
   // ── September ────────────────────────────────────────────────────
@@ -562,6 +597,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 45,
     theme: 'fall',
+    publicHoliday: true,
   },
   {
     id: 'brazilian_independence',
@@ -572,6 +608,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'mexican_independence',
@@ -582,6 +619,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 65,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'chuseok',
@@ -592,6 +630,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 72,
     priority: 70,
     theme: 'fall',
+    publicHoliday: true,
   },
   {
     id: 'oktoberfest',
@@ -622,6 +661,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 62,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'teachers_day_brazil',
@@ -642,6 +682,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 35,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'kings_birthday_nz',
@@ -652,6 +693,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'labour_day_nz',
@@ -662,6 +704,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'fall',
+    publicHoliday: true,
   },
   {
     id: 'rosh_hashanah',
@@ -672,6 +715,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 75,
     theme: 'cultural',
+    publicHoliday: true,
   },
 
   // ── October ──────────────────────────────────────────────────────
@@ -684,6 +728,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 168,
     priority: 60,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'mid_autumn',
@@ -694,6 +739,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'fall',
+    publicHoliday: true,
   },
   {
     id: 'canadian_thanksgiving',
@@ -704,6 +750,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 60,
     theme: 'thanksgiving',
+    publicHoliday: true,
   },
   {
     id: 'diwali',
@@ -714,6 +761,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 120,
     priority: 85,
     theme: 'diwali',
+    publicHoliday: true,
   },
   {
     id: 'halloween',
@@ -746,6 +794,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 45,
     theme: 'fall',
+    publicHoliday: true,
   },
   {
     id: 'singles_day',
@@ -766,6 +815,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 80,
     theme: 'thanksgiving',
+    publicHoliday: true,
   },
   {
     id: 'black_friday',
@@ -786,6 +836,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 55,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'republic_proclamation_brazil',
@@ -796,6 +847,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 58,
     theme: 'independence',
+    publicHoliday: true,
   },
   {
     id: 'zumbi_day_brazil',
@@ -806,6 +858,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 52,
     theme: 'cultural',
+    publicHoliday: true,
   },
 
   // ── December ─────────────────────────────────────────────────────
@@ -848,6 +901,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 95,
     theme: 'christmas',
+    publicHoliday: true,
   },
   {
     id: 'boxing_day',
@@ -858,6 +912,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 45,
     theme: 'christmas',
+    publicHoliday: true,
   },
   {
     id: 'kwanzaa',
@@ -890,6 +945,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 48,
     priority: 90,
     theme: 'cultural',
+    publicHoliday: true,
   },
   {
     id: 'islamic_new_year',
@@ -900,6 +956,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 70,
     theme: 'ramadan',
+    publicHoliday: true,
   },
   {
     id: 'ramadan',
@@ -910,6 +967,7 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 75,
     theme: 'ramadan',
+    publicHoliday: true,
   },
   {
     id: 'bengali_new_year',
@@ -920,5 +978,6 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     windowHours: 24,
     priority: 65,
     theme: 'cultural',
+    publicHoliday: true,
   },
 ];

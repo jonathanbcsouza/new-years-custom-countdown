@@ -33,6 +33,11 @@
     "alsoComingUp": "Also coming up",
     "publicHolidayOn": "Public holiday on {{date}}"
   },
+  "holidayFilter": {
+    "label": "Show",
+    "all": "All holidays",
+    "publicOnly": "Public holidays only"
+  },
   "holidaySelector": {
     "auto": "Auto (next holiday)",
     "autoWithName": "Auto: {{name}}",

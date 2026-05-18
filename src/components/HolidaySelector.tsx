@@ -7,6 +7,8 @@ import {
   resolveHolidayById,
 } from '@/lib/holidays';
 import { getPrimaryCountryCodeForTimezone } from '@/lib/timezoneCountry';
+import { usePublicHolidayFilter } from '@/hooks/usePublicHolidayFilter';
+import { HolidayFilterToggle } from '@/components/HolidayFilterToggle';
 import { cn } from '@/lib/utils';
 import type { ResolvedHoliday } from '@/lib/holidays';
 
@@ -39,6 +41,11 @@ export function HolidaySelector({
   const locale = i18n.language ?? 'en';
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { publicOnly, setPublicOnly } = usePublicHolidayFilter();
+  const listOptions = useMemo(
+    () => (publicOnly ? { publicOnly: true } : undefined),
+    [publicOnly],
+  );
 
   const countryCode = useMemo(
     () => getPrimaryCountryCodeForTimezone(timezone),
@@ -51,13 +58,13 @@ export function HolidaySelector({
   );
 
   const holidays = useMemo(
-    () => listSelectableHolidays(context, new Date(), 50),
-    [context],
+    () => listSelectableHolidays(context, new Date(), 50, listOptions),
+    [context, listOptions],
   );
 
   const autoHoliday = useMemo(
-    () => resolveNextHoliday(context, new Date()),
-    [context],
+    () => resolveNextHoliday(context, new Date(), listOptions),
+    [context, listOptions],
   );
 
   const selectedHoliday = useMemo(() => {
@@ -174,6 +181,13 @@ export function HolidaySelector({
                     <X className="h-3 w-3 text-muted-foreground" />
                   </button>
                 )}
+              </div>
+              <div className="mt-2">
+                <HolidayFilterToggle
+                  publicOnly={publicOnly}
+                  onChange={setPublicOnly}
+                  compact
+                />
               </div>
             </div>
 

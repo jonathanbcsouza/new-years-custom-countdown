@@ -60,6 +60,19 @@ function isApplicable(def: HolidayDefinition, countryCode: string | undefined): 
   return false;
 }
 
+export interface HolidayListOptions {
+  publicOnly?: boolean;
+}
+
+export function isPublicHolidayDefinition(def: HolidayDefinition): boolean {
+  return def.publicHoliday === true;
+}
+
+function passesPublicFilter(def: HolidayDefinition, options?: HolidayListOptions): boolean {
+  if (!options?.publicOnly) return true;
+  return isPublicHolidayDefinition(def);
+}
+
 // ---------------------------------------------------------------------------
 // YMD comparison helpers
 // ---------------------------------------------------------------------------
@@ -83,6 +96,7 @@ export function resolveUpcomingHolidays(
   context: HolidayContext,
   now: Date,
   limit = 5,
+  options?: HolidayListOptions,
 ): ResolvedHoliday[] {
   const parts = getDatePartsFromDate(now, context.timezone);
   const todayNum = parts.year * 10000 + parts.month * 100 + parts.day;
@@ -91,6 +105,7 @@ export function resolveUpcomingHolidays(
 
   for (const def of HOLIDAY_CATALOG) {
     if (!isApplicable(def, context.countryCode)) continue;
+    if (!passesPublicFilter(def, options)) continue;
 
     for (const year of [parts.year, parts.year + 1]) {
       const date = resolveRuleForYear(def, year);
@@ -132,8 +147,9 @@ export function resolveUpcomingHolidays(
 export function resolveNextHoliday(
   context: HolidayContext,
   now: Date,
+  options?: HolidayListOptions,
 ): ResolvedHoliday | null {
-  const upcoming = resolveUpcomingHolidays(context, now, 1);
+  const upcoming = resolveUpcomingHolidays(context, now, 1, options);
   return upcoming[0] ?? null;
 }
 
@@ -194,8 +210,9 @@ export function listSelectableHolidays(
   context: HolidayContext,
   now: Date,
   limit = 50,
+  options?: HolidayListOptions,
 ): ResolvedHoliday[] {
-  return resolveUpcomingHolidays(context, now, limit);
+  return resolveUpcomingHolidays(context, now, limit, options);
 }
 
 /**
@@ -251,6 +268,7 @@ export function getHolidayCelebrationEnd(
 export function getActiveHolidayForZone(
   context: HolidayContext,
   now: Date,
+  options?: HolidayListOptions,
 ): ResolvedHoliday | null {
   const parts = getDatePartsFromDate(now, context.timezone);
   const todayNum = parts.year * 10000 + parts.month * 100 + parts.day;
@@ -259,6 +277,7 @@ export function getActiveHolidayForZone(
 
   for (const def of HOLIDAY_CATALOG) {
     if (!isApplicable(def, context.countryCode)) continue;
+    if (!passesPublicFilter(def, options)) continue;
 
     for (const year of [parts.year - 1, parts.year, parts.year + 1]) {
       const date = resolveRuleForYear(def, year);

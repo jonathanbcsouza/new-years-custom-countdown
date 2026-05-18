@@ -17,9 +17,12 @@ import {
   resolveAllHolidaysForYear,
   resolveUpcomingHolidays,
   getTheme,
+  isPublicHolidayDefinition,
   type ResolvedHoliday,
   type ThemeVariant,
 } from '@/lib/holidays';
+import { usePublicHolidayFilter } from '@/hooks/usePublicHolidayFilter';
+import { HolidayFilterToggle } from '@/components/HolidayFilterToggle';
 
 const MONTH_KEYS = [
   'months.jan', 'months.feb', 'months.mar', 'months.apr',
@@ -169,11 +172,16 @@ export function HolidaysPage() {
   const [search, setSearch] = useState('');
   const [themeFilter, setThemeFilter] = useState<ThemeVariant | 'all'>('all');
   const [showFilters, setShowFilters] = useState(false);
+  const { publicOnly, setPublicOnly } = usePublicHolidayFilter();
+  const listOptions = useMemo(
+    () => (publicOnly ? { publicOnly: true } : undefined),
+    [publicOnly],
+  );
 
   const upcoming = useMemo(() => {
     const ctx = { timezone: 'UTC', countryCode: undefined };
-    return resolveUpcomingHolidays(ctx, new Date(), 12);
-  }, []);
+    return resolveUpcomingHolidays(ctx, new Date(), 12, listOptions);
+  }, [listOptions]);
 
   const allHolidays = useMemo(
     () => resolveAllHolidaysForYear(currentYear),
@@ -182,6 +190,9 @@ export function HolidaysPage() {
 
   const filtered = useMemo(() => {
     let list = allHolidays;
+    if (publicOnly) {
+      list = list.filter((h) => isPublicHolidayDefinition(h.definition));
+    }
     if (themeFilter !== 'all') {
       list = list.filter((h) => h.definition.theme === themeFilter);
     }
@@ -195,7 +206,7 @@ export function HolidaysPage() {
       });
     }
     return list;
-  }, [allHolidays, themeFilter, search, t]);
+  }, [allHolidays, publicOnly, themeFilter, search, t]);
 
   const groupedByMonth = useMemo(() => {
     const groups: Record<number, ResolvedHoliday[]> = {};
@@ -271,6 +282,14 @@ export function HolidaysPage() {
             >
               <Filter className="h-4 w-4" />
             </button>
+          </div>
+
+          <div className="px-4 mt-3 max-w-3xl mx-auto">
+            <HolidayFilterToggle
+              publicOnly={publicOnly}
+              onChange={setPublicOnly}
+              className="[&_button]:text-white/80 [&_button]:border-white/10"
+            />
           </div>
 
           {/* Theme filter chips */}

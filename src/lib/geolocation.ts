@@ -135,13 +135,19 @@ export function getNextCelebration(
 /**
  * Resolves countdown target for auto or a user-selected holiday (session-only).
  */
+export interface GetCelebrationOptions {
+  publicOnly?: boolean;
+}
+
 export function getCelebration(
   timezone: string,
   countryCode: string | undefined,
   selectedHolidayId: string | null,
+  options?: GetCelebrationOptions,
 ): CelebrationResult {
   const now = new Date();
   const ctx: HolidayContext = { timezone, countryCode };
+  const listOptions = options?.publicOnly ? { publicOnly: true } : undefined;
 
   if (selectedHolidayId) {
     const pinned = resolveHolidayById(selectedHolidayId, ctx, now);
@@ -150,12 +156,12 @@ export function getCelebration(
     }
   }
 
-  const active = getActiveHolidayForZone(ctx, now);
+  const active = getActiveHolidayForZone(ctx, now, listOptions);
   if (active) {
     return celebrationFromHoliday(active, ctx, now);
   }
 
-  const next = resolveNextHoliday(ctx, now);
+  const next = resolveNextHoliday(ctx, now, listOptions);
   if (next) {
     return celebrationFromHoliday(next, ctx, now);
   }
@@ -223,10 +229,12 @@ export function getUpcomingSecondary(
   timezone: string,
   countryCode?: string,
   windowDays = 7,
+  publicOnly = false,
 ): SecondaryCelebration[] {
   const now = new Date();
   const ctx: HolidayContext = { timezone, countryCode };
-  const upcoming = resolveUpcomingHolidays(ctx, now, 8);
+  const listOptions = publicOnly ? { publicOnly: true } : undefined;
+  const upcoming = resolveUpcomingHolidays(ctx, now, 8, listOptions);
   if (upcoming.length < 2) return [];
 
   const primary = upcoming[0]!;

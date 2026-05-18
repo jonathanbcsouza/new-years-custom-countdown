@@ -6,6 +6,7 @@ import {
   resolveHolidayById,
   getHolidayDefinitionById,
   listSelectableHolidays,
+  isPublicHolidayDefinition,
   isHolidayActive,
   getHolidayTargetInstant,
   getActiveHolidayForZone,
@@ -212,6 +213,33 @@ describe('holidayEngine', () => {
         const m = h.definition.markets;
         expect(m === 'worldwide' || (Array.isArray(m) && m.includes('US'))).toBe(true);
       }
+    });
+  });
+
+  describe('public holiday filter', () => {
+    it('isPublicHolidayDefinition returns true only when flagged', () => {
+      const christmas = resolveHolidayById('christmas', usContext, new Date(2026, 11, 1))!;
+      const valentines = resolveHolidayById('valentines_day', usContext, new Date(2026, 1, 1))!;
+      expect(isPublicHolidayDefinition(christmas.definition)).toBe(true);
+      expect(isPublicHolidayDefinition(valentines.definition)).toBe(false);
+    });
+
+    it('listSelectableHolidays with publicOnly excludes valentines_day', () => {
+      const feb10 = new Date(2026, 1, 10, 12, 0, 0);
+      const all = listSelectableHolidays(usContext, feb10, 30);
+      const publicOnly = listSelectableHolidays(usContext, feb10, 30, { publicOnly: true });
+      const allIds = all.map((h) => h.definition.id);
+      const publicIds = publicOnly.map((h) => h.definition.id);
+      expect(allIds).toContain('valentines_day');
+      expect(publicIds).not.toContain('valentines_day');
+      expect(publicIds.length).toBeLessThan(allIds.length);
+    });
+
+    it('resolveNextHoliday with publicOnly does not return valentines_day in February', () => {
+      const feb10 = new Date(2026, 1, 10, 12, 0, 0);
+      const next = resolveNextHoliday(usContext, feb10, { publicOnly: true });
+      expect(next).not.toBeNull();
+      expect(next!.definition.id).not.toBe('valentines_day');
     });
   });
 

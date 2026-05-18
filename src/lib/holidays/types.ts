@@ -87,6 +87,8 @@ export interface HolidayDefinition {
   /** Higher = more important when multiple holidays compete for the same day. */
   priority: number;
   theme: ThemeVariant;
+  /** Statutory/national public holiday (not a cultural-only or commercial event). */
+  publicHoliday?: boolean;
 }
 
 export interface ResolvedHoliday {

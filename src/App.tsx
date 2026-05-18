@@ -12,6 +12,7 @@ import {
 import { getPrimaryCountryCodeForTimezone } from '@/lib/timezoneCountry';
 import { resolveHolidayById } from '@/lib/holidays';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { usePublicHolidayFilter } from '@/hooks/usePublicHolidayFilter';
 import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 import { loadPhotos, savePhotos } from '@/lib/storage';
 import type { ResolvedHoliday } from '@/lib/holidays';
@@ -42,6 +43,7 @@ function App() {
     null
   );
   const [selectedHolidayId, setSelectedHolidayId] = useState<string | null>(null);
+  const { publicOnly } = usePublicHolidayFilter();
   const [state, setState] = useState<AppState>({ status: 'loading' });
   const [photos, setPhotos] = useState<string[]>([]);
 
@@ -49,14 +51,16 @@ function App() {
   useDocumentMeta(activeHoliday);
 
   const computeCelebration = useCallback(
-    (timezone: string, holidayId: string | null) => {
+    (timezone: string, holidayId: string | null, publicOnlyFilter: boolean) => {
       const cc = getPrimaryCountryCodeForTimezone(timezone);
-      const result = getCelebration(timezone, cc, holidayId);
+      const result = getCelebration(timezone, cc, holidayId, { publicOnly: publicOnlyFilter });
       const secondary =
-        holidayId === null ? getUpcomingSecondary(timezone, cc) : [];
+        holidayId === null
+          ? getUpcomingSecondary(timezone, cc, 7, publicOnlyFilter)
+          : [];
       return { result, secondary };
     },
-    []
+    [],
   );
 
   const applyCelebration = useCallback(
@@ -115,7 +119,7 @@ function App() {
           }
         }
 
-        const { result, secondary } = computeCelebration(timezone, holidayId);
+        const { result, secondary } = computeCelebration(timezone, holidayId, publicOnly);
         if (isMounted) applyCelebration(timezone, result, secondary);
       } catch (error) {
         console.error('Failed to initialize countdown:', error);
@@ -123,7 +127,7 @@ function App() {
           try {
             const fallbackTz =
               Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-            const { result, secondary } = computeCelebration(fallbackTz, null);
+            const { result, secondary } = computeCelebration(fallbackTz, null, publicOnly);
             applyCelebration(fallbackTz, result, secondary);
             setStoredTimezone(fallbackTz);
           } catch {
@@ -147,13 +151,24 @@ function App() {
         const { result, secondary } = computeCelebration(
           state.timezone,
           selectedHolidayId,
+          publicOnly,
         );
         applyCelebration(state.timezone, result, secondary);
       }
     }, 1000);
 
     return () => clearInterval(checkInterval);
-  }, [state, selectedHolidayId, computeCelebration, applyCelebration]);
+  }, [state, selectedHolidayId, publicOnly, computeCelebration, applyCelebration]);
+
+  useEffect(() => {
+    if (state.status !== 'ready') return;
+    const { result, secondary } = computeCelebration(
+      state.timezone,
+      selectedHolidayId,
+      publicOnly,
+    );
+    applyCelebration(state.timezone, result, secondary);
+  }, [publicOnly]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleTimezoneChange = useCallback(
     (newTimezone: string) => {
@@ -171,20 +186,24 @@ function App() {
           setSelectedHolidayId(null);
         }
       }
-      const { result, secondary } = computeCelebration(newTimezone, holidayId);
+      const { result, secondary } = computeCelebration(newTimezone, holidayId, publicOnly);
       applyCelebration(newTimezone, result, secondary);
     },
-    [selectedHolidayId, setStoredTimezone, computeCelebration, applyCelebration],
+    [selectedHolidayId, publicOnly, setStoredTimezone, computeCelebration, applyCelebration],
   );
 
   const handleHolidayChange = useCallback(
     (holidayId: string | null) => {
       setSelectedHolidayId(holidayId);
       if (state.status !== 'ready') return;
-      const { result, secondary } = computeCelebration(state.timezone, holidayId);
+      const { result, secondary } = computeCelebration(
+        state.timezone,
+        holidayId,
+        publicOnly,
+      );
       applyCelebration(state.timezone, result, secondary);
     },
-    [state, computeCelebration, applyCelebration],
+    [state, publicOnly, computeCelebration, applyCelebration],
   );
 
   if (state.status === 'loading') {
