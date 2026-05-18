@@ -1,4 +1,4 @@
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState, useEffect } from 'react';
 import type { ThemeVariant } from '@/lib/holidays/types';
 
 /**
@@ -73,12 +73,24 @@ interface HolidayDecorationsProps {
 export const HolidayDecorations = memo(function HolidayDecorations({
   variant,
 }: HolidayDecorationsProps) {
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceMotion(mq.matches);
+    const handler = () => setReduceMotion(mq.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
   const config = VARIANT_CONFIG[variant] ?? VARIANT_CONFIG.default;
 
   const decorations = useMemo(
     () => generateDecorations(config.emojis, config.count, variant.length * 7919),
     [config, variant],
   );
+
+  if (reduceMotion) return null;
 
   return (
     <div

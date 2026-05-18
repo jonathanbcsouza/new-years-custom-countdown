@@ -1,11 +1,11 @@
 {
-  "name": "New Year's Eve Countdown",
-  "short_name": "NYE Countdown",
-  "description": "Celebrate the New Year with a personalized countdown, fireworks animation, and your own photos. Cast to TV and share with family!",
+  "name": "Chilly Cheers — Celebration Countdown",
+  "short_name": "Chilly Cheers",
+  "description": "Count down to holidays worldwide with fireworks, your timezone, and personal photos. Cast to TV and share with family.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0f23",
-  "theme_color": "#ffd700",
+  "theme_color": "#0a0f23",
   "icons": [
     {
       "src": "/favicon.svg",
@@ -14,4 +14,3 @@
     }
   ]
 }
-

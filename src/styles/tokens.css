@@ -1,0 +1,35 @@
+/**
+ * Semantic design tokens — used across all routes.
+ * --brand / --accent are overridden at runtime by ThemeProvider.
+ */
+:root {
+  --navy-deep: #0a0f23;
+  --navy-mid: #0f1932;
+  --navy-low: #0a1228;
+
+  --brand: 45 80% 70%;
+  --brand-foreground: 220 60% 8%;
+  --brand-muted: 45 70% 62%;
+
+  --surface-glass: 0 0% 100% / 0.1;
+  --surface-glass-border: 0 0% 100% / 0.2;
+  --surface-elevated: 220 50% 12%;
+
+  --text-secondary: 45 25% 78%;
+  --text-muted: 220 18% 68%;
+
+  --success: 150 55% 42%;
+  --success-foreground: 150 20% 12%;
+  --inactive: 220 25% 28%;
+
+  --header-safe-top: 3.5rem;
+  --header-offset: 5.5rem;
+  --sticky-month-top: 11.5rem;
+
+  --body-gradient: linear-gradient(
+    180deg,
+    var(--navy-deep) 0%,
+    var(--navy-mid) 50%,
+    var(--navy-low) 100%
+  );
+}

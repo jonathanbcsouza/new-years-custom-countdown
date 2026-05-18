@@ -100,6 +100,23 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const brandRaw = getComputedStyle(document.documentElement)
+      .getPropertyValue('--brand')
+      .trim();
+    const brandParts = brandRaw.split(/\s+/);
+    const bh = Number(brandParts[0]) || 45;
+    const bs = Number(brandParts[1]?.replace('%', '')) || 80;
+    const bl = Number(brandParts[2]?.replace('%', '')) || 70;
+
+    const buildTintedColors = () => [
+      `hsla(${bh}, ${bs}%, ${Math.min(bl + 12, 88)}%, `,
+      `hsla(${bh}, ${Math.max(bs - 8, 30)}%, ${bl}%, `,
+      `hsla(${bh}, ${bs}%, ${Math.max(bl - 10, 40)}%, `,
+      `hsla(${bh}, ${Math.min(bs + 5, 95)}%, ${Math.min(bl + 5, 85)}%, `,
+    ];
+
     // Set canvas size
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -134,14 +151,7 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
       'rgba(255, 255, 255, ',   // White
     ];
 
-    // Gold/champagne colors for normal fireworks
-    const normalColors = [
-      'rgba(255, 215, 140, ',
-      'rgba(255, 200, 100, ',
-      'rgba(255, 230, 170, ',
-      'rgba(255, 190, 80, ',
-      'rgba(255, 240, 200, ',
-    ];
+    const normalColors = buildTintedColors();
 
     // Create firework explosion - stored in ref for click handler access
     const createFirework = (x: number, y: number, intense = false) => {
@@ -246,7 +256,7 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
     };
 
     // Animation loop
-    let animationId: number;
+    let animationId = 0;
     let lastFirework = 0;
     let lastSpark = 0;
 
@@ -356,25 +366,42 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
 
     resize();
     window.addEventListener('resize', resize);
-    animationId = requestAnimationFrame(animate);
+
+    if (reducedMotion) {
+      ctx.fillStyle = 'rgba(10, 15, 35, 1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      gradient.addColorStop(0, 'rgba(8, 12, 30, 0.98)');
+      gradient.addColorStop(0.5, 'rgba(15, 25, 50, 0.95)');
+      gradient.addColorStop(1, 'rgba(10, 18, 40, 0.98)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      starsRef.current.forEach((star) => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        ctx.fill();
+      });
+    } else {
+      animationId = requestAnimationFrame(animate);
+    }
 
     // Store createFirework reference for click handler
     createFireworkRef.current = createFirework;
 
-    // Create initial fireworks
-    setTimeout(() => createFirework(canvas.width * 0.3, canvas.height * 0.25), 500);
-    setTimeout(() => createFirework(canvas.width * 0.7, canvas.height * 0.2), 1200);
-    setTimeout(() => createFirework(canvas.width * 0.5, canvas.height * 0.35), 2000);
-
-    // Add global click and touch listeners for interactive fireworks
-    document.addEventListener('click', handleGlobalClick);
-    document.addEventListener('touchend', handleGlobalTouchEnd, { passive: true });
+    if (!reducedMotion) {
+      setTimeout(() => createFirework(canvas.width * 0.3, canvas.height * 0.25), 500);
+      setTimeout(() => createFirework(canvas.width * 0.7, canvas.height * 0.2), 1200);
+      setTimeout(() => createFirework(canvas.width * 0.5, canvas.height * 0.35), 2000);
+      document.addEventListener('click', handleGlobalClick);
+      document.addEventListener('touchend', handleGlobalTouchEnd, { passive: true });
+    }
 
     return () => {
       window.removeEventListener('resize', resize);
       document.removeEventListener('click', handleGlobalClick);
       document.removeEventListener('touchend', handleGlobalTouchEnd);
-      cancelAnimationFrame(animationId);
+      if (animationId) cancelAnimationFrame(animationId);
     };
   }, [handleGlobalClick, handleGlobalTouchEnd]);
 
@@ -382,7 +409,7 @@ export const StarryFireworksBackground = memo(function StarryFireworksBackground
     <canvas
       ref={canvasRef}
       className="fixed inset-0 -z-10"
-      style={{ background: 'linear-gradient(180deg, #0a0f23 0%, #0f1932 50%, #0a1228 100%)' }}
+      style={{ background: 'var(--body-gradient)' }}
     />
   );
 });

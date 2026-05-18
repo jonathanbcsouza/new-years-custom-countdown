@@ -1,18 +1,9 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
-import {
-  ArrowLeft,
-  Calendar,
-  Search,
-  Filter,
-  Globe,
-  X,
-  Timer,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import { Calendar, Search, Filter, Globe, X, Timer } from 'lucide-react';
 import { StarryFireworksBackground } from '@/components/StarryFireworksBackground';
-import { LanguageSelector } from '@/components/LanguageSelector';
+import { AppShell } from '@/components/AppShell';
 import {
   resolveAllHolidaysForYear,
   resolveUpcomingHolidays,
@@ -97,11 +88,11 @@ function HolidayCard({
         isPast
           ? 'border-white/5 opacity-50'
           : isToday
-            ? 'border-amber-400/40 shadow-amber-400/10 shadow-md'
+            ? 'border-brand/40 shadow-brand/10 shadow-md'
             : 'border-white/10'
       } ${compact ? 'px-3 py-2.5' : 'px-4 py-3.5'}`}
       style={{
-        background: `linear-gradient(135deg, ${theme.accentHsl.split(' ').length === 3 ? `hsla(${theme.accentHsl}, 0.08)` : 'rgba(255,255,255,0.03)'} 0%, rgba(0,0,0,0.2) 100%)`,
+        background: `linear-gradient(135deg, hsl(${theme.accentHsl} / 0.08) 0%, rgba(0,0,0,0.2) 100%)`,
       }}
     >
       <div className="flex items-start gap-3">
@@ -114,10 +105,10 @@ function HolidayCard({
             {!isPast && (
               <span className={`shrink-0 text-xs font-mono px-2 py-0.5 rounded-full ${
                 isToday
-                  ? 'bg-amber-400/20 text-amber-300'
+                  ? 'bg-brand/20 text-brand'
                   : days <= 7
-                    ? 'bg-emerald-400/20 text-emerald-300'
-                    : 'bg-white/10 text-white/50'
+                    ? 'bg-[hsl(var(--success))]/20 text-[hsl(var(--success))]'
+                    : 'bg-white/10 text-app-muted'
               }`}>
                 {isToday
                   ? t('holidaysPage.today')
@@ -127,10 +118,10 @@ function HolidayCard({
               </span>
             )}
           </div>
-          <p className="text-xs text-white/50 mt-0.5">
+          <p className="text-xs text-app-muted mt-0.5">
             {formatDate(holiday.date, locale)}
             {holiday.observedDate && (
-              <span className="ml-1.5 text-amber-300/60 italic">
+              <span className="ml-1.5 text-brand/70 italic">
                 ({t('countdown.publicHolidayOn', {
                   date: formatDate(holiday.observedDate, locale),
                 })})
@@ -150,8 +141,8 @@ function HolidayCard({
                 e.stopPropagation();
                 onCountDown(holiday.definition.id);
               }}
-              className="mt-2 flex items-center gap-1.5 text-xs font-medium text-amber-400/90
-                         hover:text-amber-300 transition-colors"
+              className="mt-2 flex items-center gap-1.5 text-xs font-medium text-brand/90
+                         hover:text-brand transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
             >
               <Timer className="h-3.5 w-3.5" />
               {t('holidaySelector.countDown', { defaultValue: 'Count down' })}
@@ -181,7 +172,7 @@ function MonthSubsection({
     <div className="space-y-2">
       <div className="flex items-center gap-1.5 px-1">
         {showGlobe && <Globe className="h-3.5 w-3.5 text-white/40 shrink-0" />}
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-white/40">
+        <span className="section-label">
           {label}
         </span>
       </div>
@@ -285,105 +276,73 @@ export function HolidaysPage() {
     <>
       <StarryFireworksBackground celebrationMode={false} />
 
-      <main className="min-h-screen flex flex-col relative z-10">
-        {/* Header */}
-        <div className="sticky top-0 z-40 bg-gradient-to-b from-[#0a0f23] via-[#0a0f23ee] to-transparent pb-4">
-          <div className="flex items-center justify-between px-4 pt-4">
-            <div className="flex items-center gap-2">
-              <Link to="/">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-white/70 hover:text-white hover:bg-white/10 gap-2"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  <span className="text-xs hidden sm:inline">{t('common.back')}</span>
-                </Button>
-              </Link>
-              <LanguageSelector />
+      <AppShell
+        stickyHeader={
+          <>
+            <div className="text-center mt-2 mb-4 px-4">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <Calendar className="h-6 w-6 md:h-8 md:w-8 text-brand" />
+                <h1 className="page-title">{t('holidaysPage.title')}</h1>
+              </div>
+              <p className="text-sm text-app-muted">{pageSubtitle}</p>
             </div>
-          </div>
 
-          <div className="text-center mt-4 mb-4 px-4">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <Calendar className="h-6 w-6 md:h-8 md:w-8 text-amber-400" />
-              <h1 className="text-2xl md:text-3xl font-bold text-white tracking-wide">
-                {t('holidaysPage.title')}
-              </h1>
+            <div className="flex items-center gap-2 px-4 max-w-3xl mx-auto w-full">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-app-muted" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder={t('holidaysPage.searchPlaceholder')}
+                  className="w-full pl-9 pr-8 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white placeholder:text-app-muted focus:outline-none focus:border-brand/40 focus-visible:ring-2 focus-visible:ring-ring transition-colors"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-app-muted hover:text-app-secondary min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowFilters(!showFilters)}
+                className={`shrink-0 p-2 rounded-lg border transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${showFilters || themeFilter !== 'all' ? 'border-brand/40 bg-brand/10 text-brand' : 'border-white/10 bg-white/5 text-app-muted hover:text-app-secondary'}`}
+              >
+                <Filter className="h-4 w-4" />
+              </button>
             </div>
-            <p className="text-sm text-white/50">{pageSubtitle}</p>
-          </div>
 
-          {/* Search + filter toggle */}
-          <div className="flex items-center gap-2 px-4 max-w-3xl mx-auto w-full">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/30" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder={t('holidaysPage.searchPlaceholder')}
-                className="w-full pl-9 pr-8 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-amber-400/40 transition-colors"
-              />
-              {search && (
-                <button
-                  onClick={() => setSearch('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
+            <div className="px-4 mt-3 max-w-3xl mx-auto space-y-3 pb-3">
+              <HolidayScopeToggle allCountries={allCountries} onChange={setAllCountries} variant="glass" />
+              <HolidayFilterToggle publicOnly={publicOnly} onChange={setPublicOnly} variant="glass" />
             </div>
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className={`shrink-0 p-2 rounded-lg border transition-colors ${
-                showFilters || themeFilter !== 'all'
-                  ? 'border-amber-400/40 bg-amber-400/10 text-amber-300'
-                  : 'border-white/10 bg-white/5 text-white/40 hover:text-white/60'
-              }`}
-            >
-              <Filter className="h-4 w-4" />
-            </button>
-          </div>
 
-          <div className="px-4 mt-3 max-w-3xl mx-auto space-y-3">
-            <HolidayScopeToggle
-              allCountries={allCountries}
-              onChange={setAllCountries}
-              className="[&_button]:text-white/80 [&_button]:border-white/10 [&_span]:text-white/50"
-            />
-            <HolidayFilterToggle
-              publicOnly={publicOnly}
-              onChange={setPublicOnly}
-              className="[&_button]:text-white/80 [&_button]:border-white/10"
-            />
-          </div>
-
-          {/* Theme filter chips */}
-          {showFilters && (
-            <div className="flex flex-wrap gap-1.5 px-4 mt-3 max-w-3xl mx-auto animate-in">
-              {THEME_OPTIONS.map((opt) => (
-                <button
-                  key={opt.value}
-                  onClick={() => setThemeFilter(opt.value)}
-                  className={`text-xs px-3 py-1 rounded-full border transition-colors ${
-                    themeFilter === opt.value
-                      ? 'border-amber-400/50 bg-amber-400/15 text-amber-200'
-                      : 'border-white/10 bg-white/5 text-white/40 hover:text-white/60 hover:border-white/20'
-                  }`}
-                >
-                  {t(opt.labelKey, { defaultValue: opt.labelKey.split('.').pop() })}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className="flex-1 px-4 pb-12 max-w-4xl mx-auto w-full space-y-10">
+            {showFilters && (
+              <div className="flex flex-wrap gap-1.5 px-4 pb-3 max-w-3xl mx-auto animate-in">
+                {THEME_OPTIONS.map((opt) => (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => setThemeFilter(opt.value)}
+                    className={`text-xs px-3 py-1 rounded-full border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${themeFilter === opt.value ? 'border-brand/50 bg-brand/15 text-brand' : 'border-white/10 bg-white/5 text-app-muted hover:text-app-secondary hover:border-white/20'}`}
+                  >
+                    {t(opt.labelKey, { defaultValue: opt.labelKey.split('.').pop() })}
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
+        }
+        contentClassName="px-4 pb-12 max-w-4xl mx-auto w-full space-y-10"
+      >
           {/* Upcoming section */}
           <section>
-            <h2 className="text-lg font-semibold text-amber-400 mb-4 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <h2 className="text-lg font-semibold text-brand mb-4 flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-brand animate-pulse" />
               {t('holidaysPage.upcomingTitle')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -403,16 +362,16 @@ export function HolidaysPage() {
 
           {/* All holidays by month */}
           <section>
-            <h2 className="text-lg font-semibold text-white/80 mb-4 flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-white/40" />
+            <h2 className="text-lg font-semibold text-app-secondary mb-4 flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-app-muted" />
               {t('holidaysPage.allTitle', { year: currentYear })}
-              <span className="text-sm font-normal text-white/30 ml-1">
+              <span className="text-sm font-normal text-app-muted ml-1">
                 ({filtered.length})
               </span>
             </h2>
 
             {filtered.length === 0 ? (
-              <div className="text-center py-12 text-white/30">
+              <div className="text-center py-12 text-app-muted">
                 <Search className="h-10 w-10 mx-auto mb-3 opacity-40" />
                 <p className="text-sm">{t('holidaysPage.noResults')}</p>
               </div>
@@ -426,8 +385,8 @@ export function HolidaysPage() {
                     const { worldwide, regional } = partitionHolidaysByWorldwide(holidays);
                     return (
                       <div key={month} className="space-y-4">
-                        <div className="sticky top-[180px] z-20">
-                          <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-white/5 border border-white/10 text-white/60 backdrop-blur-sm">
+                        <div className="sticky top-[var(--sticky-month-top)] z-20">
+                          <span className="inline-block px-3 py-1 section-label rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                             {t(MONTH_KEYS[month - 1]!, { defaultValue: `Month ${month}` })}
                           </span>
                         </div>
@@ -454,8 +413,8 @@ export function HolidaysPage() {
 
                   return (
                     <div key={month}>
-                      <div className="sticky top-[180px] z-20 mb-3">
-                        <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-white/5 border border-white/10 text-white/60 backdrop-blur-sm">
+                      <div className="sticky top-[var(--sticky-month-top)] z-20 mb-3">
+                        <span className="inline-block px-3 py-1 section-label rounded-full bg-white/5 border border-white/10 backdrop-blur-sm">
                           {t(MONTH_KEYS[month - 1]!, { defaultValue: `Month ${month}` })}
                         </span>
                       </div>
@@ -476,8 +435,7 @@ export function HolidaysPage() {
               </div>
             )}
           </section>
-        </div>
-      </main>
+      </AppShell>
     </>
   );
 }

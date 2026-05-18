@@ -222,7 +222,7 @@ export const GlobalCelebrationsButton = memo(function GlobalCelebrationsButton()
       <Button
         variant="ghost"
         size="sm"
-        className="text-amber-400/80 hover:text-amber-300 hover:bg-amber-500/10 transition-all gap-1.5 group"
+        className="text-brand/90 hover:text-brand hover:bg-brand/10 transition-all gap-1.5 group focus-visible:ring-2 focus-visible:ring-ring"
         title={t('world.buttonTooltip')}
       >
         <Globe className="h-4 w-4 group-hover:animate-pulse" />

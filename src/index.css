@@ -1,3 +1,5 @@
+@import './styles/tokens.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,24 +35,40 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    background: linear-gradient(180deg, #0a0f23 0%, #0f1932 50%, #0a1228 100%);
+    background: var(--body-gradient);
     min-height: 100vh;
     overflow-x: hidden;
   }
 }
 
 @layer components {
-  /* Lighter champagne gold gradient for timer */
-  .champagne-gradient {
-    background: linear-gradient(
-      135deg,
-      hsl(45, 60%, 75%) 0%,
-      hsl(42, 65%, 68%) 20%,
-      hsl(40, 70%, 62%) 40%,
-      hsl(38, 65%, 58%) 60%,
-      hsl(40, 70%, 65%) 80%,
-      hsl(45, 60%, 72%) 100%
-    );
+  .glass-control {
+    @apply bg-white/10 backdrop-blur-sm border border-white/20 text-white
+           hover:bg-white/20 transition-colors;
+  }
+
+  .glass-control:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-transparent;
+  }
+
+  .text-app-secondary {
+    color: hsl(var(--text-secondary));
+  }
+
+  .text-app-muted {
+    color: hsl(var(--text-muted));
+  }
+
+  .text-brand {
+    color: hsl(var(--brand));
+  }
+
+  .section-label {
+    @apply text-xs uppercase tracking-widest text-app-muted font-medium;
+  }
+
+  .page-title {
+    @apply text-2xl md:text-3xl font-bold text-white tracking-wide text-center;
   }
 
   /* Photo carousel styling */
@@ -108,6 +126,28 @@
 
   .animate-in {
     animation: fade-in 0.3s ease-out;
+  }
+
+  .fade-in-0 {
+    animation: fade-in 0.2s ease-out forwards;
+    opacity: 0;
+  }
+
+  .zoom-in-95 {
+    animation: zoom-in 0.2s ease-out forwards;
+    transform: scale(0.95);
+    opacity: 0;
+  }
+
+  @keyframes zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .animate-glow {
@@ -211,5 +251,22 @@
 
   .animate-slide-up {
     animation: slide-up-fade 0.5s ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow,
+  .animate-float,
+  .animate-slide-up,
+  .holiday-fall,
+  .holiday-float,
+  .holiday-drift {
+    animation: none !important;
+  }
+
+  .holiday-fall,
+  .holiday-float,
+  .holiday-drift {
+    display: none !important;
   }
 }

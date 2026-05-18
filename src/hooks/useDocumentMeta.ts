@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getTheme } from '@/lib/holidays/themes';
+import { absoluteUrl, DEFAULT_META } from '@/lib/siteMeta';
 import type { ResolvedHoliday } from '@/lib/holidays';
 
 /**
@@ -66,21 +67,34 @@ export function useDocumentMeta(holiday?: ResolvedHoliday | null) {
     }
 
     const description = t('meta.description');
-    if (description && description !== 'meta.description') {
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) metaDescription.setAttribute('content', description);
-      const ogDescription = document.querySelector('meta[property="og:description"]');
-      if (ogDescription) ogDescription.setAttribute('content', description);
-      const twitterDescription = document.querySelector('meta[name="twitter:description"]');
-      if (twitterDescription) twitterDescription.setAttribute('content', description);
-    }
+    const resolvedDescription =
+      description && description !== 'meta.description'
+        ? description
+        : DEFAULT_META.description;
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.setAttribute('content', resolvedDescription);
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute('content', resolvedDescription);
+    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+    if (twitterDescription) twitterDescription.setAttribute('content', resolvedDescription);
 
     document.documentElement.lang = i18n.language;
 
     const currentTitle = document.title;
+    const metaTitle = document.querySelector('meta[name="title"]');
+    if (metaTitle) metaTitle.setAttribute('content', currentTitle);
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute('content', currentTitle);
     const twitterTitle = document.querySelector('meta[name="twitter:title"]');
     if (twitterTitle) twitterTitle.setAttribute('content', currentTitle);
+
+    const ogImage = absoluteUrl(DEFAULT_META.ogImagePath);
+    const ogImageEl = document.querySelector('meta[property="og:image"]');
+    if (ogImageEl) ogImageEl.setAttribute('content', ogImage);
+    const ogImageSecure = document.querySelector('meta[property="og:image:secure_url"]');
+    if (ogImageSecure) ogImageSecure.setAttribute('content', ogImage);
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+    if (twitterImage) twitterImage.setAttribute('content', ogImage);
   }, [t, i18n.language, holiday]);
 }

@@ -7,6 +7,7 @@ interface HolidayScopeToggleProps {
   onChange: (allCountries: boolean) => void;
   className?: string;
   compact?: boolean;
+  variant?: 'default' | 'glass';
 }
 
 export function HolidayScopeToggle({
@@ -14,19 +15,31 @@ export function HolidayScopeToggle({
   onChange,
   className,
   compact = false,
+  variant = 'default',
 }: HolidayScopeToggleProps) {
   const { t } = useTranslation();
+  const isGlass = variant === 'glass';
+
+  const activeClass = isGlass
+    ? 'bg-brand/20 text-brand'
+    : 'bg-primary text-primary-foreground';
+  const inactiveClass = isGlass
+    ? 'bg-white/5 text-app-muted hover:text-app-secondary'
+    : 'bg-background text-muted-foreground hover:bg-muted';
+  const borderClass = isGlass ? 'border-white/15' : 'border-input';
+  const labelClass = isGlass ? 'text-app-muted' : 'text-muted-foreground';
 
   return (
     <ScopeRoot className={className} compact={compact}>
       {!compact && (
-        <span className="text-xs text-muted-foreground shrink-0">
+        <span className={cn('text-xs shrink-0', labelClass)}>
           {t('holidayScope.label', { defaultValue: 'Browse' })}
         </span>
       )}
       <div
         className={cn(
-          'flex rounded-lg border border-input overflow-hidden',
+          'flex rounded-lg border overflow-hidden',
+          borderClass,
           compact && 'w-full',
         )}
         role="group"
@@ -36,10 +49,8 @@ export function HolidayScopeToggle({
           type="button"
           onClick={() => onChange(false)}
           className={cn(
-            'flex-1 px-2.5 py-1.5 text-xs font-medium transition-colors',
-            !allCountries
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-background text-muted-foreground hover:bg-muted',
+            'flex-1 px-2.5 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            !allCountries ? activeClass : inactiveClass,
           )}
         >
           {t('holidayScope.myRegion', { defaultValue: 'My region' })}
@@ -48,10 +59,9 @@ export function HolidayScopeToggle({
           type="button"
           onClick={() => onChange(true)}
           className={cn(
-            'flex-1 px-2.5 py-1.5 text-xs font-medium transition-colors border-l border-input',
-            allCountries
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-background text-muted-foreground hover:bg-muted',
+            'flex-1 px-2.5 py-1.5 text-xs font-medium transition-colors border-l focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+            borderClass,
+            allCountries ? activeClass : inactiveClass,
           )}
         >
           {t('holidayScope.allCountries', { defaultValue: 'All countries' })}

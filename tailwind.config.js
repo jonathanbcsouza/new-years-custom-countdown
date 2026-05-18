@@ -9,7 +9,16 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      fontSize: {
+        display: ['2.25rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        title: ['1.5rem', { lineHeight: '1.25', letterSpacing: '0.02em' }],
+      },
       colors: {
+        brand: {
+          DEFAULT: 'hsl(var(--brand))',
+          foreground: 'hsl(var(--brand-foreground))',
+          muted: 'hsl(var(--brand-muted))',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {
