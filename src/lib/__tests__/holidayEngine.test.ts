@@ -7,6 +7,8 @@ import {
   getHolidayDefinitionById,
   listSelectableHolidays,
   isPublicHolidayDefinition,
+  isWorldwideHolidayDefinition,
+  partitionHolidaysByWorldwide,
   isHolidayActive,
   getHolidayTargetInstant,
   getActiveHolidayForZone,
@@ -216,6 +218,40 @@ describe('holidayEngine', () => {
     });
   });
 
+  describe('world_clap_day', () => {
+    it('targets 10:00 America/New_York on August 16', () => {
+      const aug1 = new Date(2026, 7, 1, 12, 0, 0);
+      const resolved = resolveHolidayById('world_clap_day', usContext, aug1);
+      expect(resolved).not.toBeNull();
+      expect(resolved!.date).toEqual({ year: 2026, month: 8, day: 16 });
+
+      const instant = getHolidayTargetInstant(resolved!, usContext);
+      const nyParts = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).formatToParts(instant);
+      const get = (t: string) => nyParts.find((p) => p.type === t)?.value;
+      expect(get('month')).toBe('08');
+      expect(get('day')).toBe('16');
+      expect(get('hour')).toBe('10');
+      expect(get('minute')).toBe('00');
+    });
+  });
+
+  describe('isWorldwideHolidayDefinition', () => {
+    it('returns true for worldwide markets only', () => {
+      const christmas = getHolidayDefinitionById('christmas')!;
+      const thanksgiving = getHolidayDefinitionById('thanksgiving_us')!;
+      expect(isWorldwideHolidayDefinition(christmas)).toBe(true);
+      expect(isWorldwideHolidayDefinition(thanksgiving)).toBe(false);
+    });
+  });
+
   describe('public holiday filter', () => {
     it('isPublicHolidayDefinition returns true only when flagged', () => {
       const christmas = resolveHolidayById('christmas', usContext, new Date(2026, 11, 1))!;
@@ -404,6 +440,20 @@ describe('holidayEngine', () => {
       const ids = all.map((h) => h.definition.id);
       expect(ids).toContain('christmas');
       expect(ids).toContain('new_years_day');
+    });
+  });
+
+  describe('partitionHolidaysByWorldwide', () => {
+    it('splits worldwide vs regional entries', () => {
+      const usYear = resolveAllHolidaysForYear(2026, 'US');
+      const { worldwide, regional } = partitionHolidaysByWorldwide(usYear);
+      expect(worldwide.length + regional.length).toBe(usYear.length);
+      for (const h of worldwide) {
+        expect(isWorldwideHolidayDefinition(h.definition)).toBe(true);
+      }
+      for (const h of regional) {
+        expect(isWorldwideHolidayDefinition(h.definition)).toBe(false);
+      }
     });
   });
 

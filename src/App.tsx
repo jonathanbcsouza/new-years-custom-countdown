@@ -12,12 +12,11 @@ import {
 import { getPrimaryCountryCodeForTimezone } from '@/lib/timezoneCountry';
 import { resolveHolidayById } from '@/lib/holidays';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { TIMEZONE_STORAGE_KEY } from '@/hooks/useHolidayContext';
 import { usePublicHolidayFilter } from '@/hooks/usePublicHolidayFilter';
 import { useDocumentMeta } from '@/hooks/useDocumentMeta';
 import { loadPhotos, savePhotos } from '@/lib/storage';
 import type { ResolvedHoliday } from '@/lib/holidays';
-
-const TIMEZONE_STORAGE_KEY = 'countdown-timezone';
 
 type AppState =
   | { status: 'loading' }

@@ -18,11 +18,15 @@ import {
   resolveUpcomingHolidays,
   getTheme,
   isPublicHolidayDefinition,
+  partitionHolidaysByWorldwide,
   type ResolvedHoliday,
   type ThemeVariant,
 } from '@/lib/holidays';
 import { usePublicHolidayFilter } from '@/hooks/usePublicHolidayFilter';
+import { useHolidayContext } from '@/hooks/useHolidayContext';
+import { useHolidayScopeFilter } from '@/hooks/useHolidayScopeFilter';
 import { HolidayFilterToggle } from '@/components/HolidayFilterToggle';
+import { HolidayScopeToggle } from '@/components/HolidayScopeToggle';
 
 const MONTH_KEYS = [
   'months.jan', 'months.feb', 'months.mar', 'months.apr',
@@ -159,6 +163,43 @@ function HolidayCard({
   );
 }
 
+function MonthSubsection({
+  label,
+  showGlobe,
+  holidays,
+  locale,
+  onCountDown,
+}: {
+  label: string;
+  showGlobe?: boolean;
+  holidays: ResolvedHoliday[];
+  locale: string;
+  onCountDown: (holidayId: string) => void;
+}) {
+  if (holidays.length === 0) return null;
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center gap-1.5 px-1">
+        {showGlobe && <Globe className="h-3.5 w-3.5 text-white/40 shrink-0" />}
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-white/40">
+          {label}
+        </span>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+        {holidays.map((h) => (
+          <HolidayCard
+            key={h.definition.id}
+            holiday={h}
+            locale={locale}
+            compact
+            onCountDown={onCountDown}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function HolidaysPage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -173,20 +214,43 @@ export function HolidaysPage() {
   const [themeFilter, setThemeFilter] = useState<ThemeVariant | 'all'>('all');
   const [showFilters, setShowFilters] = useState(false);
   const { publicOnly, setPublicOnly } = usePublicHolidayFilter();
+  const { allCountries, setAllCountries } = useHolidayScopeFilter();
+  const { context, countryLabel } = useHolidayContext(locale);
   const listOptions = useMemo(
     () => (publicOnly ? { publicOnly: true } : undefined),
     [publicOnly],
   );
 
-  const upcoming = useMemo(() => {
-    const ctx = { timezone: 'UTC', countryCode: undefined };
-    return resolveUpcomingHolidays(ctx, new Date(), 12, listOptions);
-  }, [listOptions]);
+  const scopedToRegion = !allCountries && context.countryCode;
 
-  const allHolidays = useMemo(
-    () => resolveAllHolidaysForYear(currentYear),
-    [currentYear],
-  );
+  const upcoming = useMemo(() => {
+    const ctx = scopedToRegion
+      ? context
+      : { timezone: 'UTC' as const, countryCode: undefined };
+    return resolveUpcomingHolidays(ctx, new Date(), 12, listOptions);
+  }, [scopedToRegion, context, listOptions]);
+
+  const allHolidays = useMemo(() => {
+    if (scopedToRegion) {
+      return resolveAllHolidaysForYear(currentYear, context.countryCode);
+    }
+    return resolveAllHolidaysForYear(currentYear);
+  }, [currentYear, scopedToRegion, context.countryCode]);
+
+  const pageSubtitle = useMemo(() => {
+    if (allCountries) {
+      return t('holidaysPage.subtitleGlobal', { year: currentYear });
+    }
+    if (countryLabel) {
+      return t('holidaysPage.subtitleYourRegion', {
+        country: countryLabel,
+        year: currentYear,
+      });
+    }
+    return t('holidaysPage.subtitle', { year: currentYear });
+  }, [allCountries, countryLabel, currentYear, t]);
+
+  const showWorldwideGrouping = scopedToRegion && !search.trim();
 
   const filtered = useMemo(() => {
     let list = allHolidays;
@@ -247,9 +311,7 @@ export function HolidaysPage() {
                 {t('holidaysPage.title')}
               </h1>
             </div>
-            <p className="text-sm text-white/50">
-              {t('holidaysPage.subtitle', { year: currentYear })}
-            </p>
+            <p className="text-sm text-white/50">{pageSubtitle}</p>
           </div>
 
           {/* Search + filter toggle */}
@@ -284,7 +346,12 @@ export function HolidaysPage() {
             </button>
           </div>
 
-          <div className="px-4 mt-3 max-w-3xl mx-auto">
+          <div className="px-4 mt-3 max-w-3xl mx-auto space-y-3">
+            <HolidayScopeToggle
+              allCountries={allCountries}
+              onChange={setAllCountries}
+              className="[&_button]:text-white/80 [&_button]:border-white/10 [&_span]:text-white/50"
+            />
             <HolidayFilterToggle
               publicOnly={publicOnly}
               onChange={setPublicOnly}
@@ -354,6 +421,37 @@ export function HolidaysPage() {
                 {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => {
                   const holidays = groupedByMonth[month];
                   if (!holidays?.length) return null;
+
+                  if (showWorldwideGrouping) {
+                    const { worldwide, regional } = partitionHolidaysByWorldwide(holidays);
+                    return (
+                      <div key={month} className="space-y-4">
+                        <div className="sticky top-[180px] z-20">
+                          <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-white/5 border border-white/10 text-white/60 backdrop-blur-sm">
+                            {t(MONTH_KEYS[month - 1]!, { defaultValue: `Month ${month}` })}
+                          </span>
+                        </div>
+                        <MonthSubsection
+                          label={t('holidaySelector.groupWorldwide', {
+                            defaultValue: 'Worldwide celebrations',
+                          })}
+                          showGlobe
+                          holidays={worldwide}
+                          locale={locale}
+                          onCountDown={handleCountDown}
+                        />
+                        <MonthSubsection
+                          label={t('holidaySelector.groupNearYou', {
+                            defaultValue: 'Near you',
+                          })}
+                          holidays={regional}
+                          locale={locale}
+                          onCountDown={handleCountDown}
+                        />
+                      </div>
+                    );
+                  }
+
                   return (
                     <div key={month}>
                       <div className="sticky top-[180px] z-20 mb-3">

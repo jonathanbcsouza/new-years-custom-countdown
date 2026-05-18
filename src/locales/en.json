@@ -44,6 +44,8 @@
     "select": "Choose holiday",
     "search": "Search holidays...",
     "noResults": "No holidays found",
+    "groupWorldwide": "Worldwide celebrations",
+    "groupNearYou": "Near you",
     "countDown": "Count down"
   },
   "timezone": {
@@ -153,9 +155,16 @@
     "nov": "November",
     "dec": "December"
   },
+  "holidayScope": {
+    "label": "Browse",
+    "myRegion": "My region",
+    "allCountries": "All countries"
+  },
   "holidaysPage": {
-    "title": "Global Holidays",
+    "title": "Holidays",
     "subtitle": "All celebrations around the world in {{year}}",
+    "subtitleYourRegion": "Celebrations in {{country}} in {{year}}",
+    "subtitleGlobal": "Full worldwide catalog in {{year}}",
     "button": "Holidays",
     "buttonTooltip": "View all holidays and celebrations",
     "upcomingTitle": "Coming Up Next",
@@ -233,6 +242,7 @@
     "swissNationalDay": "Swiss National Day",
     "civicHoliday": "Civic Holiday",
     "nationalDaySG": "National Day",
+    "worldClapDay": "World Clap Day",
     "obon": "Obon",
     "independenceDayIndia": "Independence Day",
     "laborDay": "Labor Day",

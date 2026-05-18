@@ -16,6 +16,7 @@ export {
   getHolidayDefinitionById,
   listSelectableHolidays,
   isPublicHolidayDefinition,
+  isWorldwideHolidayDefinition,
   isHolidayActive,
   getHolidayTargetInstant,
   getHolidayCelebrationEnd,
@@ -25,3 +26,4 @@ export {
 export { HOLIDAY_CATALOG } from './catalog';
 export { getTheme, HOLIDAY_THEMES, type HolidayTheme } from './themes';
 export { resolveObservedDate } from './observedDates';
+export { partitionHolidaysByWorldwide } from './grouping';

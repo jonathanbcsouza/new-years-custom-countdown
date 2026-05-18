@@ -1,10 +1,11 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Search, ChevronDown, X, Sparkles } from 'lucide-react';
+import { Calendar, Search, ChevronDown, X, Sparkles, Globe } from 'lucide-react';
 import {
   listSelectableHolidays,
   resolveNextHoliday,
   resolveHolidayById,
+  isWorldwideHolidayDefinition,
 } from '@/lib/holidays';
 import { getPrimaryCountryCodeForTimezone } from '@/lib/timezoneCountry';
 import { usePublicHolidayFilter } from '@/hooks/usePublicHolidayFilter';
@@ -29,6 +30,63 @@ function formatHolidayDate(
     day: 'numeric',
     year: 'numeric',
   }).format(d);
+}
+
+function HolidayRow({
+  holiday,
+  name,
+  locale,
+  isSelected,
+  onSelect,
+}: {
+  holiday: ResolvedHoliday;
+  name: string;
+  locale: string;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onSelect(holiday.definition.id)}
+      className={cn(
+        'w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm transition-colors',
+        isSelected
+          ? 'bg-primary text-primary-foreground'
+          : 'text-foreground/80 hover:bg-muted',
+      )}
+    >
+      <span className="flex items-center gap-2 truncate">
+        <span>{holiday.definition.emoji}</span>
+        <span className="truncate">{name}</span>
+      </span>
+      <span
+        className={cn(
+          'text-xs shrink-0',
+          isSelected ? 'text-primary-foreground/80' : 'text-muted-foreground',
+        )}
+      >
+        {formatHolidayDate(holiday.date, locale)}
+      </span>
+    </button>
+  );
+}
+
+function SectionHeader({
+  label,
+  showGlobe = false,
+}: {
+  label: string;
+  showGlobe?: boolean;
+}) {
+  return (
+    <div className="flex items-center gap-1.5 px-3 pt-3 pb-1">
+      {showGlobe && <Globe className="h-3.5 w-3.5 text-muted-foreground shrink-0" />}
+      <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {label}
+      </span>
+    </div>
+  );
 }
 
 export function HolidaySelector({
@@ -91,6 +149,21 @@ export function HolidaySelector({
     });
   }, [holidays, searchQuery, getName]);
 
+  const isSearching = searchQuery.trim().length > 0;
+
+  const { worldwideHolidays, regionalHolidays } = useMemo(() => {
+    const worldwide: ResolvedHoliday[] = [];
+    const regional: ResolvedHoliday[] = [];
+    for (const h of filteredHolidays) {
+      if (isWorldwideHolidayDefinition(h.definition)) {
+        worldwide.push(h);
+      } else {
+        regional.push(h);
+      }
+    }
+    return { worldwideHolidays: worldwide, regionalHolidays: regional };
+  }, [filteredHolidays]);
+
   const handleSelect = useCallback(
     (holidayId: string | null) => {
       onChange(holidayId);
@@ -118,6 +191,62 @@ export function HolidaySelector({
     }
     return t('holidaySelector.auto', { defaultValue: 'Auto (next holiday)' });
   }, [selectedHoliday, autoHoliday, getName, t]);
+
+  const renderHolidayRows = (list: ResolvedHoliday[]) =>
+    list.map((h) => (
+      <HolidayRow
+        key={h.definition.id}
+        holiday={h}
+        name={getName(h)}
+        locale={locale}
+        isSelected={selectedHolidayId === h.definition.id}
+        onSelect={(id) => handleSelect(id)}
+      />
+    ));
+
+  const renderHolidayList = () => {
+    if (filteredHolidays.length === 0) {
+      return (
+        <div className="px-4 py-6 text-center text-muted-foreground">
+          <p className="text-sm">
+            {t('holidaySelector.noResults', {
+              defaultValue: 'No holidays found',
+            })}
+          </p>
+        </div>
+      );
+    }
+
+    if (isSearching) {
+      return renderHolidayRows(filteredHolidays);
+    }
+
+    return (
+      <>
+        {worldwideHolidays.length > 0 && (
+          <>
+            <SectionHeader
+              label={t('holidaySelector.groupWorldwide', {
+                defaultValue: 'Worldwide celebrations',
+              })}
+              showGlobe
+            />
+            {renderHolidayRows(worldwideHolidays)}
+          </>
+        )}
+        {regionalHolidays.length > 0 && (
+          <>
+            <SectionHeader
+              label={t('holidaySelector.groupNearYou', {
+                defaultValue: 'Near you',
+              })}
+            />
+            {renderHolidayRows(regionalHolidays)}
+          </>
+        )}
+      </>
+    );
+  };
 
   return (
     <div className={cn('relative', className)}>
@@ -208,48 +337,7 @@ export function HolidaySelector({
                 </span>
               </button>
 
-              {filteredHolidays.length > 0 ? (
-                filteredHolidays.map((h) => {
-                  const name = getName(h);
-                  const isSelected = selectedHolidayId === h.definition.id;
-                  return (
-                    <button
-                      key={h.definition.id}
-                      type="button"
-                      onClick={() => handleSelect(h.definition.id)}
-                      className={cn(
-                        'w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm transition-colors',
-                        isSelected
-                          ? 'bg-primary text-primary-foreground'
-                          : 'text-foreground/80 hover:bg-muted',
-                      )}
-                    >
-                      <span className="flex items-center gap-2 truncate">
-                        <span>{h.definition.emoji}</span>
-                        <span className="truncate">{name}</span>
-                      </span>
-                      <span
-                        className={cn(
-                          'text-xs shrink-0',
-                          isSelected
-                            ? 'text-primary-foreground/80'
-                            : 'text-muted-foreground',
-                        )}
-                      >
-                        {formatHolidayDate(h.date, locale)}
-                      </span>
-                    </button>
-                  );
-                })
-              ) : (
-                <div className="px-4 py-6 text-center text-muted-foreground">
-                  <p className="text-sm">
-                    {t('holidaySelector.noResults', {
-                      defaultValue: 'No holidays found',
-                    })}
-                  </p>
-                </div>
-              )}
+              {renderHolidayList()}
             </div>
           </div>
         </>

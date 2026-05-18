@@ -68,6 +68,10 @@ export function isPublicHolidayDefinition(def: HolidayDefinition): boolean {
   return def.publicHoliday === true;
 }
 
+export function isWorldwideHolidayDefinition(def: HolidayDefinition): boolean {
+  return def.markets === 'worldwide';
+}
+
 function passesPublicFilter(def: HolidayDefinition, options?: HolidayListOptions): boolean {
   if (!options?.publicOnly) return true;
   return isPublicHolidayDefinition(def);
@@ -223,6 +227,13 @@ export function isHolidayActive(
   context: HolidayContext,
   now: Date,
 ): boolean {
+  if (holiday.definition.syncInstant) {
+    const target = getHolidayTargetInstant(holiday, context);
+    const diffMs = now.getTime() - target.getTime();
+    if (diffMs < 0) return false;
+    return diffMs < holiday.definition.windowHours * 3600_000;
+  }
+
   const parts = getDatePartsFromDate(now, context.timezone);
   const eventDate = ymdToDate(holiday.date);
   const nowDate = new Date(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute, parts.second);
@@ -235,11 +246,49 @@ export function isHolidayActive(
 /**
  * Get the UTC instant for the target date at local midnight in the given timezone.
  */
+function findLocalTimeUtc(
+  y: number,
+  m: number,
+  d: number,
+  hour: number,
+  minute: number,
+  timezone: string,
+): Date | null {
+  const base = Date.UTC(y, m - 1, d, 12, 0, 0);
+  for (let offsetH = -20; offsetH <= 20; offsetH++) {
+    const cand = new Date(base + offsetH * 3600 * 1000);
+    const p = getDatePartsFromDate(cand, timezone);
+    if (
+      p.year === y &&
+      p.month === m &&
+      p.day === d &&
+      p.hour === hour &&
+      p.minute === minute
+    ) {
+      return cand;
+    }
+  }
+  return null;
+}
+
 export function getHolidayTargetInstant(
   holiday: ResolvedHoliday,
   context: HolidayContext,
 ): Date {
   const { year, month, day } = holiday.date;
+  const sync = holiday.definition.syncInstant;
+  if (sync) {
+    const synced = findLocalTimeUtc(
+      year,
+      month,
+      day,
+      sync.hour,
+      sync.minute,
+      sync.timezone,
+    );
+    if (synced) return synced;
+  }
+
   const base = Date.UTC(year, month - 1, day, 12, 0, 0);
   for (let h = -20; h <= 20; h++) {
     const cand = new Date(base + h * 3600 * 1000);

@@ -89,6 +89,15 @@ export interface HolidayDefinition {
   theme: ThemeVariant;
   /** Statutory/national public holiday (not a cultural-only or commercial event). */
   publicHoliday?: boolean;
+  /**
+   * When set, countdown targets this clock time in the anchor timezone
+   * (for globally synchronized moments) instead of local midnight.
+   */
+  syncInstant?: {
+    hour: number;
+    minute: number;
+    timezone: string;
+  };
 }
 
 export interface ResolvedHoliday {

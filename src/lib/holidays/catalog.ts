@@ -556,6 +556,17 @@ export const HOLIDAY_CATALOG: HolidayDefinition[] = [
     publicHoliday: true,
   },
   {
+    id: 'world_clap_day',
+    nameKey: 'holidays.worldClapDay',
+    emoji: '👏',
+    markets: 'worldwide',
+    rule: { kind: 'fixed', month: 8, day: 16 },
+    windowHours: 3,
+    priority: 78,
+    theme: 'cultural',
+    syncInstant: { hour: 10, minute: 0, timezone: 'America/New_York' },
+  },
+  {
     id: 'fathers_day_brazil',
     nameKey: 'holidays.fathersDayBrazil',
     emoji: '👨',
